@@ -2,6 +2,34 @@ body {
     background-color: #d0e4fe; /* sets the background color to some weird baby blue */
 }
 
+.button {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: #4CAF50;
+    border: 1px solid green;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    float: left;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+/*.button:hover {               Make work with different button styles
+    background-color: red;
+}*/
+
+.button:hover {
+    background-color: #0200ff;
+}
+
+#toolBar {
+    padding-bottom: 45px;
+}
+
 #intro {
     text-align: left;
 }
