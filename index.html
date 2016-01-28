@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="freeFormPen.js"></script>                      <!-- imports the javascript file that I wrote separately -->
+    <script src="freeFormPen.js"></script>                      <!-- imports the javascript file -->
     <link rel="stylesheet" type="text/css" href="style.css">    <!-- imports CSS file called style -->
     <title>Whiteboard</title>
 </head>
@@ -11,8 +11,8 @@
     <p id="intro">Click the canvas below to begin drawing</p>
 
     <div id="toolBar">
-        <button class="button" onclick="clearCanvas();">Clear Board</button>
-        <button class="button" onclick="changeColor();">Random Color</button>
+        <button class="button clear" onclick="clearCanvas();">Clear Board</button> <!-- you can set a button to be a part of multiple classes -->
+        <button class="button tool" onclick="changeColor();">Random Color</button>
     </div>
 
     <canvas class="board" id="myCanvas"
