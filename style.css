@@ -3,11 +3,14 @@ body {
 }
 
 #intro {
-    color: #150aff;
     text-align: left;
 }
 
 canvas.board {
-    border-style: outset;
+    border: 1px solid black;
+
+    outline-style: outset;
+    outline-color: #0200ff;
+
     cursor: crosshair;
 }
