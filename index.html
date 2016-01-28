@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="FreeFormPen.js"></script> <!-- imports the javascript file that I wrote separately -->
+    <style>
+        body {
+            background-color: #d0e4fe; /* sets the background color to some weird baby blue */
+        }
+    </style>
+    <title>Whiteboard</title>
+</head>
+<body>
+    <h1>Online Whiteboard</h1>
+    <p>click the canvas below to begin drawing</p>
+    <canvas id="myCanvas"
+            onmousedown="setDrawingTrue();" onmouseup="setDrawingFalse();" onmouseout="setDrawingFalse();"
+            ondragstart="return false;" ondrop="return false;"
+            width="800" height="600" style="background-color: #ffffff"></canvas>
+    <!--creates canvas element and adds mouse listeners. I disable the dragging listeners to keep the element from being dragged as you draw on it.-->
+
+    <br><hr>
+    <button onclick="clearCanvas();">clear</button>
+</body>
+</html>
