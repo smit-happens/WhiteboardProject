@@ -26,6 +26,9 @@ body {
 .tool:hover {
     background-color: #0200ff;
 }
+.button:hover {
+    background-color: #2d632e;
+}
 
 #toolBar {
     padding-top: 5px;
