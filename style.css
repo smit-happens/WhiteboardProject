@@ -1,0 +1,13 @@
+body {
+    background-color: #d0e4fe; /* sets the background color to some weird baby blue */
+}
+
+#intro {
+    color: #150aff;
+    text-align: left;
+}
+
+canvas.board {
+    border-style: outset;
+    cursor: crosshair;
+}
