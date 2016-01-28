@@ -44,7 +44,7 @@ function recordCircles(event) { //records all mouse locations from the mouse lis
 
 function drawCircles() {
     var canvas = document.getElementById("myCanvas");
-    var radius = 2; //radius is 2px
+    var radius = 0.5; //radius is .5px
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
         ctx.lineWidth = radius*2; //sets line connectors to 2px

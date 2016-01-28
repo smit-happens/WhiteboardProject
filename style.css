@@ -1,14 +1,15 @@
 body {
-    background-color: #d0e4fe; /* sets the background color to some weird baby blue */
+    background-color: #eaeaea; /* sets the background color to some */
+    font-family: helvetica;
 }
 
 .button {
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-    background-color: #4CAF50;
+    -webkit-transition-duration: 0.6s; /* Safari */
+    transition-duration: 0.6s;
+    background-color: #38803c;
     border: 1px solid green;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 25px;
     text-align: center;
     text-decoration: none;
     display: block;
@@ -25,8 +26,12 @@ body {
 .tool:hover {
     background-color: #0200ff;
 }
+.button:hover {
+    background-color: #2d632e;
+}
 
 #toolBar {
+    padding-top: 5px;
     padding-bottom: 45px;
 }
 
@@ -37,8 +42,10 @@ body {
 canvas.board {
     border: 1px solid black;
 
+
     outline-style: outset;
     outline-color: #0200ff;
 
     cursor: crosshair;
+    background-color: #ffffff
 }
