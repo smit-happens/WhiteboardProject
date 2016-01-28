@@ -5,8 +5,6 @@ var pixelArray = []; //stores location of pixels drawn over
 
 var isDrawing = false; //are we currently drawing?
 
-var color = "red"; //default color is red
-
 function setDrawingTrue() {
     isDrawing= true;
     document.getElementById("myCanvas").setAttribute("onmousemove", "recordCircles(event)"); //sets mouse listener for canvas. Tracks all mouse moves
@@ -30,12 +28,8 @@ function clearCanvas() {
     }
 }
 
-function changeColor() {
-    color = "#" + Math.random().toString(16).slice(2, 8);   //creates a random number, converts it into a string with base 16, and 'cuts' it to the correct length
-}
-
 function recordCircles(event) { //records all mouse locations from the mouse listener
-    var canvas = document.getElementById("myCanvas");
+    var canvas = document.getElementById("myCanvas")
     var xy = getCursorPosition(canvas , event);
     pixelArray.push(xy);
     drawCircles();
@@ -48,7 +42,7 @@ function drawCircles() {
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
         ctx.lineWidth = radius*2; //sets line connectors to 2px
-        ctx.strokeStyle = color;  //hardcoded for now
+        ctx.strokeStyle = "red"; //hardcoded for now
 
         for(var i=1; i<pixelArray.length; i++) {
 
@@ -57,7 +51,7 @@ function drawCircles() {
             ctx.lineTo( pixelArray[i].x, pixelArray[i].y);
             ctx.stroke();
             ctx.closePath();
-            drawCircle(ctx, pixelArray[i].x, pixelArray[i].y, radius, color); //draws circle where mouse event location was
+            drawCircle(ctx, pixelArray[i].x, pixelArray[i].y, radius, "red"); //draws circle where mouse event location was
         }
     }
 
