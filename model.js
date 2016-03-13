@@ -67,20 +67,23 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
 
             context.lineWidth = this.thickness; //sets up drawing context
             context.strokeStyle = this.color;
+            context.lineCap = 'round';
+            context.lineJoin = 'round';
 
-            for(var i=1; i<this.points.length; i++) { //loop over points
-
-                context.beginPath();
-                context.moveTo(this.points[i-1].x, this.points[i-1].y); //draws line in between circles where the mouse listener isn't fast enough
-                context.lineTo( this.points[i].x, this.points[i].y);
-                context.stroke();
-                context.closePath();
-                this.drawCircle(context, this.points[i].x, this.points[i].y, (this.thickness/2), this.color); //draws circle where mouse event location was
+            context.moveTo(this.points[0].x, this.points[0].y); //draws line in between circles where the mouse listener isn't fast enough
+            context.beginPath();
+            for(var i = 1; i<this.points.length - 2; i++) { //loop over points
+                var mx = (this.points[i].getX() + this.points[i+1].getX()) / 2.0;
+                var my = (this.points[i].getY() + this.points[i+1].getY()) / 2.0;
+                context.quadraticCurveTo(this.points[i].getX(), this.points[i].getY(), mx, my);
+               //this.drawCircle(context, this.points[i].x, this.points[i].y, (this.thickness/2), this.color); //draws circle where mouse event location was
             }
-            
+            context.quadraticCurveTo(this.points[i].getX(), this.points[i].getY(), this.points[i+1].getX(),this.points[i+1].getY());
+            context.stroke();
+            context.closePath();
         }
     }
-} );
+} );  //free form smooth drawing interpreted from http://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas/7058606#7058606
 
 function Tool(color, thick, shape) { //currently this is a SINGLETON. this will be changed later.
     //this.color = color;
