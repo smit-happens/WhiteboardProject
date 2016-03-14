@@ -11,25 +11,22 @@
     <div id="toolBar">
         <button  class="button" onclick="clearCanvas();">Clear Board</button>
         <button  class="button" onclick="changeColor();">Random Color</button>
-        <button  class="button" onclick="">Erase</button>
-        <button  id="rightbutton" class="button">Login</button>
-    </div>
-    <div id="content">
-        <!-- <h1>Online Whiteboard</h1>
-        <p id="intro">Click the canvas below to begin drawing</p> -->
-
-        <canvas class="board" id="myCanvas"
-                onmousedown="setDrawingTrue();" onmouseup="setDrawingFalse();" onmouseout="setDrawingFalse();"
-                ondragstart="return false;" ondrop="return false;"
-               width="1500" height="700" ></canvas>
-        <!--creates canvas element and adds mouse listeners. I disable the dragging listeners to keep the element from being dragged as you draw on it.-->
-
-
 
         <div id="slider">
             <input type="range" id="thickness" onchange="getThickness();" min="0.35" max="25" step="0.5" value="1" > <!--input slider. Used webkit in css to stylize-->
-            <p id="thickDisplay"><strong>0.5</strong></p>
+            <div id="sliderLabel">
+                <p id="thickDisplay"></p>
+            </div>
         </div>
+    </div>
+
+    <div id="content">
+        <!--creates canvas element and adds mouse listeners-->
+        <canvas class="board" id="myCanvas"
+                onmousedown="setDrawingTrue();" onmouseup="setDrawingFalse();" onmouseout="setDrawingFalse();"
+                ondragstart="return false;" ondrop="return false;"
+                width="1000" height="600">
+        </canvas>
     </div>
 </body>
 </html>

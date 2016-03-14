@@ -1,13 +1,10 @@
 body {
-    background-color: #eaeaea; /* sets the background color to some */
+    background-color: #eaeaea; /* sets the background color */
     font-family: helvetica;
 }
 
 button.button {
-    -webkit-transition-duration: 0.6s; /* Safari */
-    transition-duration: 0.6s;
     background-color: #38803c;
-   /* border: 1px solid green; */
     border: none;
     color: white;
     padding: 10px 25px;
@@ -15,32 +12,24 @@ button.button {
     text-decoration: none;
     display: block;
     font-size: 14px;
-    float: left;
     margin-bottom: 1px;
     cursor: pointer;
-    outline:none
 }
-#rightbutton {
-    float:right;
-}
-
-/*.button:hover {               Make work with different button styles
-    background-color: red;
-}*/
 
 #slider {
     padding-top:20px;
-    /*text-align: center;*/
+}
+
+#sliderLabel {
+    text-align: center;
 }
 
 input[type=range] {
-    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-    /*width: 100%; /* Specific width is required for Firefox. */
-    width:265px;
+    width:150px;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-    width: 250px;
+    width: 100px;
     height: 5px;
     background:  #808080;
     border: none;
@@ -48,7 +37,6 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
     border: none;
     height: 16px;
     width: 16px;
@@ -59,44 +47,27 @@ input[type=range]::-webkit-slider-thumb {
 
 input[type=range]:focus {
     outline: none;
-    box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.3);
+    box-shadow: 0 0 18px 0 rgba(0,0,0,0.3);
 }
 
 /* above code adapted from http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html */
 
 .button:hover {
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.45);
     background-color: #2d632e;
 }
 
 #toolBar {
-    width:100%;
-    position: fixed;
-    /*padding-top: 5px;
-    padding-bottom: 45px; */
-    background-color:  #38803c;
-    width:100%;
+    background-color: #38803c;
+    float: left;
+    border: 20px;
 }
 
 #content {
-    padding-top:45px;
-}
-
-#intro {
-    text-align: left;
+    float: left;
 }
 
 canvas.board {
-    /* border: 1px solid black;
-
-
-    outline-style: outset;
-    outline-color: #0200ff;
-    */
-    /*display:block;
-    width:1000px;
-    height:800px;*/
-    box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.3);
+    box-shadow: 0 0 18px 0 rgba(40, 40, 40, 0.3);
     cursor: crosshair;
-    background-color: #ffffff
+    background-color: #ffffff;
 }
