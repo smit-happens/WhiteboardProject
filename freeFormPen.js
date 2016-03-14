@@ -6,11 +6,10 @@ var cShape = new Shape(); //should this be a blank shape?
 
 var isDrawing = false; //are we currently drawing?
 
-var tool = {};
-
 var color = "red"; //default color is red
 var thickness = 1;
 
+var tool = new Tool(color, thickness);
 
 function setDrawingTrue() {
     isDrawing= true;
@@ -20,8 +19,7 @@ function setDrawingTrue() {
 
     if (canvas.getContext) { //if HTML5 is supported
         var pixel = getCursorPosition(canvas , event); //gets starting pos
-        tool = new Tool(color, thickness, new FreeFormShape()); //sets to default tool for now, TODO: REPLACE WITH SPECIFIC TOOL
-        cShape = tool.onStartDraw(pixel, canvas.getContext('2d')); //sets up drawing in Tool object
+        cShape = tool.onStartDraw(new FreeFormShape(), pixel, canvas.getContext('2d')); //sets up drawing in Tool object
     }
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
@@ -57,11 +55,13 @@ function clearCanvas() {
 
 function changeColor() {
     color = "#" + Math.random().toString(16).slice(2, 8);   //creates a random number, converts it into a string with base 16, and 'cuts' it to the correct length
+    tool.setColor(color);
 }
 
 function getThickness() {
     thickness = document.getElementById("thickness").value
     document.getElementById("thickDisplay").innerHTML = "<strong>" + thickness + "</strong>";
+    tool.setThickness(thickness);
 }
 
 function recordEvent(event) { //calls tool to update shape

@@ -89,17 +89,21 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
     }
 } );  //free form smooth drawing interpreted from http://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas/7058606#7058606
 
-function Tool(color, thick, shape) { //currently this is a SINGLETON. this will be changed later.
+function Tool(color, thick) { //currently this is a SINGLETON. this will be changed later.
     //this.color = color;
-    this.shape = shape;
-    this.shape.setThickness(thick); //sets up shape
-    this.shape.setColor(color); //sets up shape
+    this.shape = new Shape();
+    this.thickness = thick;
+    this.color = color;
 }
 
 Tool.prototype = {
     constructor : Tool,
 
-    onStartDraw : function(point, context) {
+    onStartDraw : function(shape, point, context) {
+        this.shape = shape;
+        this.shape.setColor(this.color);
+        this.shape.setThickness(this.thickness);
+
         this.shape.add(point);
         this.shape.draw(context); //redraw
         return this.shape; //sends shape back to whiteboard
@@ -112,16 +116,18 @@ Tool.prototype = {
     },
 
     onRecordDraw : function(point, context) {
-        this.shape.add(point); //this may not be needed for other shapes like triangle and rectangle, but it works for freeform shapes
+        this.shape.add(point);
         this.shape.draw(context); //redraw
         return this.shape;
     },
 
     setColor : function(color) { //THESE WILL GET REMOVED LATER, when not singleton
+        this.color = color;
         this.shape.setColor(color);
     },
 
     setThickness : function(thick) {
+        this.thickness = thick;
         this.shape.setThickness(thick);
     }
 
