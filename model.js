@@ -45,7 +45,7 @@ Shape.prototype = {
 
     drawCircle : function drawCircle(ctx, xPos, yPos, radius, fillStyle) {
         ctx.beginPath(); //begins drawing path
-        ctx.arc(xPos, yPos, radius, 0, 2 * Math.PI, false); //draws circle arc
+        ctx.arc(xPos, yPos, radius, 0, (2.0 * Math.PI), false); //draws circle arc
         ctx.fillStyle = fillStyle; //sets fill style
         ctx.fill(); //fills drawn arc path with fill style
         ctx.closePath();
@@ -72,13 +72,17 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
 
             context.moveTo(this.points[0].x, this.points[0].y); //draws line in between circles where the mouse listener isn't fast enough
             context.beginPath();
-            for(var i = 1; i<this.points.length - 2; i++) { //loop over points
+            if(this.points.length < 2) {
+                this.drawCircle(context, this.points[0].getX(), this.points[0].getY(), (this.thickness/2.0), this.color );
+                return;
+            }
+
+            var i;
+            for(i=0; i<this.points.length - 2; i++) { //loop over points
                 var mx = (this.points[i].getX() + this.points[i+1].getX()) / 2.0;
                 var my = (this.points[i].getY() + this.points[i+1].getY()) / 2.0;
                 context.quadraticCurveTo(this.points[i].getX(), this.points[i].getY(), mx, my);
-               //this.drawCircle(context, this.points[i].x, this.points[i].y, (this.thickness/2), this.color); //draws circle where mouse event location was
             }
-            context.quadraticCurveTo(this.points[i].getX(), this.points[i].getY(), this.points[i+1].getX(),this.points[i+1].getY());
             context.stroke();
             context.closePath();
         }
