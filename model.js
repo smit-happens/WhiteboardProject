@@ -23,7 +23,7 @@ Point.prototype = {
 function Shape() {
     this.points = []; //list of drawable points
     this.color = "red"; //default color is red
-    this.fillColor = ""; //nofill by default
+    this.fillColor = color; //nofill by default
     this.thickness = 1.25; //thickness as defined by subclasses
 }
 
@@ -61,8 +61,6 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
     constructor: FreeFormShape,
     draw : {
         value : function (context) { //overrides the shape draw
-            //console.log("DRAWN");
-
             Shape.prototype.draw(context); //calls super function. Not important in this case but really important later
 
             context.lineWidth = this.thickness; //sets up drawing context
@@ -88,6 +86,44 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
         }
     }
 } );  //free form smooth drawing interpreted from http://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas/7058606#7058606
+
+
+function TriangleShape() {
+    Shape.call(this);
+}
+
+TriangleShape.prototype = Object.create(Shape.prototype, {
+    constructor: TriangleShape,
+
+    draw : {
+        value : function (context) { //overrides the shape draw
+            Shape.prototype.draw(context); //calls super function. Not important in this case but really important later
+
+            context.lineWidth = this.thickness; //sets up drawing context
+            context.strokeStyle = this.color;
+            context.lineCap = 'round';
+            context.lineJoin = 'round';
+
+            var x = this.points[0].getX();
+            var y = this.points[0].getY();
+            var x1 = this.points[this.points.length-1].getX();
+            var y1 = this.points[this.points.length-1].getY();
+            context.clearRect(x,y, x1,y1);
+            context.beginPath();
+                context.moveTo(x,y );
+                context.lineTo(x1,y1);
+                context.moveTo(x1,y1);
+                context.lineTo(x, y1);
+                context.moveTo(x, y1);
+                context.lineTo(x,y);
+            context.stroke();
+            context.closePath();
+
+        }
+    }
+
+} );
+
 
 function Tool(color, thick) { //currently this is a SINGLETON. this will be changed later.
     //this.color = color;
