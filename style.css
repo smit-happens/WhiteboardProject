@@ -64,10 +64,19 @@ input[type=range]:focus {
 
 #content {
     float: left;
+    position: relative;
 }
 
 canvas.board {
     box-shadow: 0 0 18px 0 rgba(40, 40, 40, 0.3);
     cursor: crosshair;
     background-color: #ffffff;
+    z-index: 0;
+    position: absolute;
+}
+
+canvas.overlay {
+    z-index: 1;
+    background-color: transparent;
+    position: absolute;
 }

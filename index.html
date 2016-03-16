@@ -23,7 +23,11 @@
 
     <div id="content">
         <!--creates canvas element and adds mouse listeners-->
-        <canvas class="board" id="myCanvas"
+        <canvas class="board" id="underlay"
+                ondragstart="return false;" ondrop="return false;"
+                width="1000" height="600">
+        </canvas>
+        <canvas class="overlay" id="myCanvas"
                 onmousedown="setDrawingTrue(event);" onmouseup="setDrawingFalse(event);" onmouseout="setDrawingFalse(event);"
                 ondragstart="return false;" ondrop="return false;"
                 width="1000" height="600">

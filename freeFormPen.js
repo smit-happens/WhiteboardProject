@@ -39,6 +39,16 @@ function setDrawingFalse(event) {
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
     }
+
+    anchorToBase();
+}
+
+function anchorToBase() {
+    var base = document.getElementById("underlay");
+    var top = document.getElementById("myCanvas");
+    base.getContext('2d').drawImage(top, 0, 0);
+    top.getContext('2d').clearRect(0, 0, top.width, top.height);
+
 }
 
 function clearCanvas() {
