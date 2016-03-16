@@ -53,7 +53,7 @@ function anchorToBase() {
 
 function clearCanvas() {
     shapes = []; //clears all shapes from mem
-    var canvas = document.getElementById("myCanvas"); //grabs canvas element
+    var canvas = document.getElementById("underlay"); //grabs canvas element
     if (canvas.getContext) { //if HTML5 is supported
         var ctx = canvas.getContext('2d'); //gets drawing context
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
