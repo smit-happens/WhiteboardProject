@@ -12,6 +12,9 @@ var thickness = 1;
 var tool = new Tool(color, thickness);
 
 function setDrawingTrue(event) {
+
+    anchorToBase();
+
     isDrawing= true;
     var canvas = document.getElementById("myCanvas");
     canvas.setAttribute("onmousemove", "recordEvent(event)"); //sets mouse listener for canvas. Tracks all mouse moves
@@ -39,8 +42,6 @@ function setDrawingFalse(event) {
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
     }
-
-    anchorToBase();
 }
 
 function anchorToBase() {
@@ -49,6 +50,11 @@ function anchorToBase() {
     base.getContext('2d').drawImage(top, 0, 0);
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
 
+}
+
+function undo() { //rudimentary undo button
+    var top = document.getElementById("myCanvas");
+    top.getContext('2d').clearRect(0, 0, top.width, top.height);
 }
 
 function clearCanvas() {
@@ -68,6 +74,11 @@ function changeColor() {
     tool.setColor(color);
 }
 
+function colorButton(button_color) {
+    color = button_color;
+    tool.setColor(button_color);
+}
+
 function getThickness() {
     thickness = document.getElementById("thickness").value
     document.getElementById("thickDisplay").innerHTML = "<strong>" + thickness + "</strong>";
@@ -83,38 +94,8 @@ function recordEvent(event) { //calls tool to update shape
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
     }
-    //DEPRECIATED
-    // pixelArray.push(xy);
-    // drawCircles();
-    //console.log("PUSHED DATA");
 }
 
-/*
-function drawCircles() { //DEPRECIATED
-    var canvas = document.getElementById("myCanvas");
-    var radius = thickness;
-    if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-        ctx.lineWidth = radius*2; //sets line connectors to 2*radius
-        ctx.strokeStyle = color;
-
-        for(var i=1; i<pixelArray.length; i++) {
-
-            ctx.beginPath();
-            ctx.moveTo(pixelArray[i-1].x, pixelArray[i-1].y); //draws line in between circles where the mouse listener isn't fast enough
-            ctx.lineTo( pixelArray[i].x, pixelArray[i].y);
-            ctx.stroke();
-            ctx.closePath();
-            drawCircle(ctx, pixelArray[i].x, pixelArray[i].y, radius, color); //draws circle where mouse event location was
-        }
-    }
-
-    else {
-        window.alert("HTML 5 is not supported");
-    }
-
-}
-*/
 
 function getCursorPosition(canvas, event) { //grabs canvas mouse event location based on a bounding area around the canvas element
     var rect = canvas.getBoundingClientRect();

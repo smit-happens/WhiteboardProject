@@ -103,6 +103,12 @@ input[type=range]:focus {
     background: orangered;
     border-color: orange;
 }
+
+#green.color {
+    background: green;
+    border-color: limegreen;
+}
+
 #purple.color {
     background:purple;
     border-color: mediumpurple;
