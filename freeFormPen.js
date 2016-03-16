@@ -7,7 +7,7 @@ var cShape = new Shape(); //should this be a blank shape?
 var isDrawing = false; //are we currently drawing?
 
 var color = "red"; //default color is red
-var thickness = 1;
+var thickness = 2;
 
 var tool = new Tool(color, thickness);
 
@@ -22,7 +22,8 @@ function setDrawingTrue(event) {
 
     if (canvas.getContext) { //if HTML5 is supported
         var pixel = getCursorPosition(canvas , event); //gets starting pos
-        cShape = tool.onStartDraw(new TriangleShape(), pixel, canvas.getContext('2d')); //sets up drawing in Tool object
+        cShape = tool.onStartDraw(new FreeFormShape(), pixel, canvas.getContext('2d')); //sets up drawing in Tool object
+        tool.setThickness(thickness); //setup initial thickness
     }
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
@@ -36,8 +37,8 @@ function setDrawingFalse(event) {
     document.getElementById("myCanvas").removeAttribute("onmousemove"); //removes mouse listener
 
     if (canvas.getContext) { //if HTML5 is supported
-        var pixel = getCursorPosition(canvas , event); //gets starting pos. Does the default event work?
-       tool.onEndDraw(pixel, canvas.getContext('2d') );
+        var pixel = getCursorPosition(canvas , event); //gets ending pos
+        tool.onEndDraw(pixel, canvas.getContext('2d') );
     }
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
@@ -63,6 +64,7 @@ function clearCanvas() {
     if (canvas.getContext) { //if HTML5 is supported
         var ctx = canvas.getContext('2d'); //gets drawing context
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
+        undo();
     }
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
