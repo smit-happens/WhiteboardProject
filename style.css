@@ -7,7 +7,7 @@ body {
     background-color: #38803c;
     border: none;
     color: white;
-    padding: 10px 25px;
+    padding: 8px;
     text-align: center;
     text-decoration: none;
     display: block;
@@ -54,28 +54,58 @@ input[type=range]:focus {
 
 .color {
     display:block;
-    width:100px;
-    height:100px;
-    border-radius:50px;
-    font-size:20px;
+    width:50px;
+    height:50px;
+    border-radius:25px;
+    font-size:14px;
     line-height:100px;
     text-shadow:0 1px 0 #666;
     text-align:center;
     text-decoration:none;
-    box-shadow:1px 1px 2px #000;
-    opacity:0.95
+    /*box-shadow:1px 1px 2px #000; */
+    opacity:0.95;
+    border: 2px solid;
+    margin: 10px;
+}
+
+.colors {
+    margin:auto; /*centers object */
 }
 
 .color:hover{
     text-shadow:0 0 1px #666;
     text-decoration:none;
-    box-shadow:0 0 4px #222 inset;
+    box-shadow:1px 1px 4px #000;
     opacity:1
 }
 
-.button[id=black] {
-    color: Black;
-    background: #000000;
+#black.color {
+    /*color: Black; */
+    background: black;
+    border-color: #434343;
+}
+
+#red.color{
+    background: red;
+    border-color: #8d0000;
+}
+
+#blue.color {
+    background:blue;
+    border-color: #0083ff
+}
+
+#yellow.color {
+    background:yellow;
+    border-color: #ffb31c
+}
+#orange.color {
+    background: orangered;
+    border-color: orange;
+}
+#purple.color {
+    background:purple;
+    border-color: mediumpurple;
 }
 
 .tool:hover {
