@@ -11,7 +11,7 @@ var thickness = 1;
 
 var tool = new Tool(color, thickness);
 
-function setDrawingTrue() {
+function setDrawingTrue(event) {
     isDrawing= true;
     var canvas = document.getElementById("myCanvas");
     canvas.setAttribute("onmousemove", "recordEvent(event)"); //sets mouse listener for canvas. Tracks all mouse moves
@@ -26,14 +26,14 @@ function setDrawingTrue() {
     }
 }
 
-function setDrawingFalse() {
+function setDrawingFalse(event) {
     isDrawing= false;
     console.log("drawing ended");
     var canvas = document.getElementById("myCanvas");
     document.getElementById("myCanvas").removeAttribute("onmousemove"); //removes mouse listener
 
     if (canvas.getContext) { //if HTML5 is supported
-        var pixel = getCursorPosition(canvas , this.event); //gets starting pos. Does the default event work?
+        var pixel = getCursorPosition(canvas , event); //gets starting pos. Does the default event work?
        tool.onEndDraw(pixel, canvas.getContext('2d') );
     }
     else {

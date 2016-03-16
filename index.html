@@ -24,7 +24,7 @@
     <div id="content">
         <!--creates canvas element and adds mouse listeners-->
         <canvas class="board" id="myCanvas"
-                onmousedown="setDrawingTrue();" onmouseup="setDrawingFalse();" onmouseout="setDrawingFalse();"
+                onmousedown="setDrawingTrue(event);" onmouseup="setDrawingFalse(event);" onmouseout="setDrawingFalse(event);"
                 ondragstart="return false;" ondrop="return false;"
                 width="1000" height="600">
         </canvas>
