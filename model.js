@@ -74,6 +74,7 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
                 this.drawCircle(context, this.points[0].getX(), this.points[0].getY(), (this.thickness/2.0), this.color );
                 return;
             }
+            context.clearRect(0, 0, 1600, 700); //clears the screen using the built in clearRect() function
 
             var i;
             for(i=0; i<this.points.length - 2; i++) { //loop over points
@@ -108,7 +109,7 @@ TriangleShape.prototype = Object.create(Shape.prototype, {
             var y = this.points[0].getY();
             var x1 = this.points[this.points.length-1].getX();
             var y1 = this.points[this.points.length-1].getY();
-            context.clearRect(x,y, x1,y1);
+            context.clearRect(0,0, 1500,700);
             context.beginPath();
                 context.moveTo(x,y );
                 context.lineTo(x1,y1);

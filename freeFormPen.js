@@ -19,7 +19,7 @@ function setDrawingTrue() {
 
     if (canvas.getContext) { //if HTML5 is supported
         var pixel = getCursorPosition(canvas , event); //gets starting pos
-        cShape = tool.onStartDraw(new FreeFormShape(), pixel, canvas.getContext('2d')); //sets up drawing in Tool object
+        cShape = tool.onStartDraw(new TriangleShape(), pixel, canvas.getContext('2d')); //sets up drawing in Tool object
     }
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
