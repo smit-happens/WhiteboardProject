@@ -3,7 +3,7 @@ body {
     font-family: helvetica;
 }
 
-.button {
+.tool {
     background-color: #38803c;
     border: none;
     color: white;
@@ -78,7 +78,7 @@ input[type=range]:focus {
     background: #000000;
 }
 
-.button:hover {
+.tool:hover {
     background-color: #2d632e;
 }
 
