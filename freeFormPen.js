@@ -16,59 +16,47 @@ function setDrawingTrue(event) {
     anchorToBase();
 
     isDrawing= true;
-    var canvas = document.getElementById("myCanvas");
-    canvas.setAttribute("onmousemove", "recordEvent(event)"); //sets mouse listener for canvas. Tracks all mouse moves
-    document.getElementById("myCanvas").removeAttribute("onmouseout");
+    var canvas = getTopCanvas();
 
-    if (canvas.getContext) { //if HTML5 is supported
-        var pixel = getCursorPosition(canvas , event); //gets starting pos
-        cShape = tool.onStartDraw(new FreeFormShape(), pixel, canvas.getContext('2d')); //sets up drawing in Tool object
-        tool.setThickness(thickness); //setup initial thickness
-    }
-    else {
-        window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
-    }
+    canvas.setAttribute("onmousemove", "recordEvent(event)"); //sets mouse listener for canvas. Tracks all mouse moves
+    canvas.removeAttribute("onmouseout");
+
+    var pixel = getCursorPosition(canvas , event); //gets starting pos
+    cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
+    tool.setThickness(thickness); //setup initial thickness
+
 }
 
 function setDrawingFalse(event) {
     isDrawing= false;
     console.log("drawing ended");
-    var canvas = document.getElementById("myCanvas");
-    document.getElementById("myCanvas").removeAttribute("onmousemove"); //removes mouse listener
+    var canvas = getTopCanvas();
+    canvas.removeAttribute("onmousemove"); //removes mouse listener
 
-    if (canvas.getContext) { //if HTML5 is supported
-        var pixel = getCursorPosition(canvas , event); //gets ending pos
-        tool.onEndDraw(pixel, canvas.getContext('2d') );
-    }
-    else {
-        window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
-    }
+    var pixel = getCursorPosition(canvas , event); //gets ending pos
+    tool.onEndDraw(pixel, getContext(canvas) );
+
 }
 
 function anchorToBase() {
     var base = document.getElementById("underlay");
-    var top = document.getElementById("myCanvas");
+    var top = getTopCanvas();
     base.getContext('2d').drawImage(top, 0, 0);
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
 
 }
 
 function undo() { //rudimentary undo button
-    var top = document.getElementById("myCanvas");
+    var top = getTopCanvas();
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
 }
 
 function clearCanvas() {
     shapes = []; //clears all shapes from mem
-    var canvas = document.getElementById("underlay"); //grabs canvas element
-    if (canvas.getContext) { //if HTML5 is supported
-        var ctx = canvas.getContext('2d'); //gets drawing context
-        ctx.clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
-        undo();
-    }
-    else {
-        window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
-    }
+    var canvas = getCanvas();
+
+    getContext(canvas).clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
+    undo();
 }
 
 function changeColor() {
@@ -88,16 +76,28 @@ function getThickness() {
 }
 
 function recordEvent(event) { //calls tool to update shape
-    var canvas = document.getElementById("myCanvas");
+    var canvas = getTopCanvas();
     var pixel = getCursorPosition(canvas , event);
-    if (canvas.getContext) { //if HTML5 is supported
-       cShape = tool.onRecordDraw(pixel, canvas.getContext('2d'));
+
+    cShape = tool.onRecordDraw(pixel, getContext(canvas));
+}
+
+function getCanvas() {
+    return document.getElementById("underlay")
+}
+
+function getTopCanvas() {
+    return document.getElementById("myCanvas");
+}
+
+function getContext(canvas) {
+    if(canvas.getContext) {
+        return canvas.getContext('2d');
     }
     else {
         window.alert("HTML 5 is not supported"); //pops window in older versions of browsers that don't support html5
     }
 }
-
 
 function getCursorPosition(canvas, event) { //grabs canvas mouse event location based on a bounding area around the canvas element
     var rect = canvas.getBoundingClientRect();
