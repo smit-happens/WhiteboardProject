@@ -4,6 +4,7 @@ body {
 }
 
 .tool {
+    width:100%;
     background-color: #38803c;
     border: none;
     color: white;
