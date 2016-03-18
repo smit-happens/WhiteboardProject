@@ -28,14 +28,15 @@ body {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
-
+    vertical-align: middle;
 }
 
 .brushSize {
-    display:inline-block;
+    display:table-cell;
     opacity:0.95;
     background-color: #282828;
     border: 2px solid;
+    vertical-align: middle;
 }
 
 .brushSize:hover{
