@@ -69,6 +69,12 @@ function colorButton(button_color) {
     tool.setColor(button_color);
 }
 
+function DisplayNumUsers(users) {
+    getContext(getCanvas()).font = "15px Arial";
+    getContext(getCanvas()).fillText(users + "connected", 10 ,10 );
+    console.log("num users" + users);
+}
+
 function getThickness() {
     thickness = document.getElementById("thickness").value
     document.getElementById("thickDisplay").innerHTML = "<strong>" + thickness + "</strong>";
