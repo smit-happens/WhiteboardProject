@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>testing web sockets</title>
-</head>
-<body>
-	<div>
-		<input type="text" id="userinput" /> <br> <input type="submit"
-			value="Send Message to Server" onclick="start()" />
-	</div>
-	<div id="messages"></div>
-
-	<script type="text/javascript" src="freeFormPen.js"></script>
-	<script>
-	
-		var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
+var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
 		
 		webSocket.onerror = function(event) {
 			onError(event)
@@ -40,7 +25,6 @@
 			webSocket.send(text);
 			return false;
 		}
-		/*
 		  function broadcastWhiteboardClear(){
 			   message = "Clear|"; 
 			   webSocket.send(message);
@@ -81,15 +65,15 @@
 			      girth.toString() + "|" +
 			         color.toString();
 			   webSocket.send(message);
-			  }*/
+			  }
 			  
 			  
 			 
 			  function onMessage(event) {
 
 			   // THIS line below is what WAS in onMessage()
-			   document.getElementById('messages').innerHTML += '<br />' + event.data;
-	/*
+			   //document.getElementById('messages').innerHTML += '<br />' + event.data;
+			   
 			   MessageTokenArr = event.data.split("|")
 			   if (MessageTokenArr[0] = "NumUsers"){
 			    DisplayNumUsers(parseFloat(MessageTokenArr[1]));
@@ -135,10 +119,6 @@
 			       )
 			    }
 			    
-			   }
-	*/		   
+			   }	   
 			  }
 		
-	</script>
-</body>
-</html>

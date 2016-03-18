@@ -31,11 +31,21 @@ public class WebSocketTest {
 		String command = StringUtils.substringBefore(message, "|");
 		String commandData = StringUtils.substringAfter(message, "|");
 		
-		//session.getBasicRemote().sendText(message);
-		whiteboard.broadcastMessage(MessageCommand.Update, commandData);
-		
 		switch (command) {
+		case "Clear":
+			whiteboard.broadcastMessage(MessageCommand.Clear, "");
+			break;
+			
+		case "Redo" :
+			whiteboard.broadcastMessage(MessageCommand.Redo, "");
+			break;
+			
+		case "Undo" :
+			whiteboard.broadcastMessage(MessageCommand.Undo, "");
+			break;
+			
 		case "Update" :
+			whiteboard.broadcastMessage(MessageCommand.Update, commandData);
 			String shape = StringUtils.substringBefore(commandData, "|"); // circle
 			String shapeData = StringUtils.substringAfter(commandData, "|"); // radius | center | girth | color
 			
