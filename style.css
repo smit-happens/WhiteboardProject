@@ -75,6 +75,10 @@ body {
     border-radius:25px;
 }
 
+#thickDisplay {
+    font-weight: bold;
+}
+
 input[type=range] {
     width:150px;
 }

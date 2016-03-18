@@ -70,8 +70,14 @@ function colorButton(button_color) {
 }
 
 function getThickness() {
-    thickness = document.getElementById("thickness").value
-    document.getElementById("thickDisplay").innerHTML = "<strong>" + thickness + "</strong>";
+    thickness = document.getElementById("thickness").value;
+    document.getElementById("thickDisplay").innerHTML = "" +thickness;
+    tool.setThickness(thickness);
+}
+
+function setSize(size) {
+    thickness = size;
+    document.getElementById("thickDisplay").innerHTML = "" + size;
     tool.setThickness(thickness);
 }
 
