@@ -9,7 +9,7 @@
 			value="Send Message to Server" onclick="start()" />
 	</div>
 	<div id="messages"></div>
-
+	
 	<script type="text/javascript" src="freeFormPen.js"></script>
 	<script>
 	
@@ -27,6 +27,11 @@
 			onMessage(event)
 		};
 
+		function onMessage(event) {
+			document.getElementById('messages').innerHTML += '<br />' + event.data;
+			//drawShape(event.data);
+		}
+
 		function onOpen(event) {
 			document.getElementById('messages').innerHTML = 'Now Connection established';
 		}
@@ -40,19 +45,11 @@
 			webSocket.send(text);
 			return false;
 		}
-		/*
 		  function broadcastWhiteboardClear(){
-			   message = "Clear|"; 
+			   message = "update|Clear"; 
 			   webSocket.send(message);
 		}
-		  function broadcastWhiteboardUndo(){
-			   message = "Undo|"; 
-			   webSocket.send(message);
-		}
-		  function broadcastWhiteboardRedo(){
-			   message = "Redo|"; 
-			   webSocket.send(message);
-		}
+
 			  function broadcastCircle(radius, centerX, centerY, girth, color){
 			   message = "update|Circle|" +
 			       radius.toString() + "|" +
@@ -81,27 +78,21 @@
 			      girth.toString() + "|" +
 			         color.toString();
 			   webSocket.send(message);
-			  }*/
+			  }
 			  
 			  
-			 
+			  
 			  function onMessage(event) {
 
 			   // THIS line below is what WAS in onMessage()
-			   document.getElementById('messages').innerHTML += '<br />' + event.data;
-	/*
+			   //document.getElementById('messages').innerHTML += '<br />' + event.data;
+
 			   MessageTokenArr = event.data.split("|")
 			   if (MessageTokenArr[0] = "NumUsers"){
 			    DisplayNumUsers(parseFloat(MessageTokenArr[1]));
 			   }
-			   if (MessageTokenArr[0] = "Clear"){
-			    ClearWhiteboard();
-			   }
-			   if (MessageTokenArr[0] = "Redo"){
-			    RedoWhiteboard();
-			   }
-			   if (MessageTokenArr[0] = "Undo"){
-			    UndoWhiteboard();
+			   if (MessageTokenArr[0] = "Update"){
+			    ClearWhiteboard(parseFloat(MessageTokenArr[1]));
 			   }
 			 
 			   if (MessageTokenArr[0] = "Update"){
@@ -134,9 +125,7 @@
 			       parseFloat(MessageTokenArr[7]) //color
 			       )
 			    }
-			    
 			   }
-	*/		   
 			  }
 		
 	</script>

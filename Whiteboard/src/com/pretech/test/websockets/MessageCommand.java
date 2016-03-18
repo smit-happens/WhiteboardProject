@@ -8,8 +8,5 @@ public enum MessageCommand {
 	Mode, // Manual or Live or Offline
 	NewUser, 
 	DeleteUser,
-	NumberUsers,
-	Redo,
-	Undo, 
-	Clear
+	NumberUsers
 }
