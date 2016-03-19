@@ -1,4 +1,4 @@
-package src.com.pretech.test.websockets;
+package com.pretech.test.websockets;
 
 public class Freeform {
 	
