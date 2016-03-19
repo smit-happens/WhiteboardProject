@@ -4,10 +4,11 @@ body {
 }
 
 .tool {
+   width:100%;
     background-color: #38803c;
     border: none;
     color: white;
-    padding: 8px;
+    padding: 4px;
     text-align: center;
     text-decoration: none;
     display: block;
@@ -22,6 +23,61 @@ body {
 
 #sliderLabel {
     text-align: center;
+}
+
+.brushSizeOptions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.brushSize {
+    display:table-cell;
+    opacity:0.95;
+    background-color: #282828;
+    border: 2px solid;
+    vertical-align: middle;
+}
+
+.brushSize:hover{
+    text-shadow:0 0 1px #666;
+    box-shadow:1px 1px 4px #000;
+    opacity:1
+}
+
+#size1.brushSize {
+    width:15px;
+    height:15px;
+    border-radius:9px;
+}
+
+#size2.brushSize {
+    width:20px;
+    height:20px;
+    border-radius:10px;
+}
+
+#size3.brushSize {
+    width:30px;
+    height:30px;
+    border-radius:15px;
+}
+
+#size4.brushSize {
+    width:40px;
+    height:40px;
+    border-radius:20px;
+}
+
+#size5.brushSize {
+    width:50px;
+    height:50px;
+    border-radius:25px;
+}
+
+#thickDisplay {
+    font-weight: bold;
 }
 
 input[type=range] {
@@ -56,16 +112,14 @@ input[type=range]:focus {
     display:block;
     width:50px;
     height:50px;
-    border-radius:25px;
+    border-radius:10px;
     font-size:14px;
     line-height:100px;
     text-shadow:0 1px 0 #666;
     text-align:center;
     text-decoration:none;
-    /*box-shadow:1px 1px 2px #000; */
     opacity:0.95;
     border: 2px solid;
-    margin: 10px;
 }
 
 .colors {
@@ -80,7 +134,6 @@ input[type=range]:focus {
 }
 
 #black.color {
-    /*color: Black; */
     background: black;
     border-color: #434343;
 }
@@ -122,6 +175,7 @@ input[type=range]:focus {
     background-color: #38803c;
     float: left;
     border: 20px;
+    width:200px;
 }
 
 #content {

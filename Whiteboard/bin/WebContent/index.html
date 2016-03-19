@@ -17,6 +17,13 @@
                     <td><button  class="tool" onclick="clearCanvas();">Clear Board</button></td>
                     <td><button  class="tool" onclick="changeColor();">Random Color</button></td>
                 </tr>
+                <tr>
+                    <td><button  class="tool" onclick="undo();">Undo</button></td>
+                    <td><button  class="tool" onclick="">Redo</button></td></tr>
+                <tr>
+                    <td><button  class="tool" onclick="changeTool(0);">Pen</button></td>
+                    <td><button  class="tool" onclick="changeTool(1);">Triangle</button></td>
+                </tr>
             </table>
         </div>
 
@@ -33,6 +40,17 @@
             </tr>
         </table>
 
+        <div class="brushSizeOptions">
+            <table>
+                <td>
+                    <td><button class="brushSize" id="size1" onclick="setSize(4)"></button></td>
+                    <td><button class="brushSize" id="size2" onclick="setSize(8)"></button></td>
+                    <td><button class="brushSize" id="size3" onclick="setSize(12)"></button></td>
+                    <td><button class="brushSize" id="size4" onclick="setSize(26)"></button></td>
+                    <td><button class="brushSize" id="size5" onclick="setSize(50)"></button></td>
+                </tr>
+            </table>
+        </div>
         <div id="slider">
             <input type="range" id="thickness" onchange="getThickness();" min="1" max="25" step="0.5" value="2" > <!--input slider. Used webkit in css to stylize-->
             <div id="sliderLabel">
