@@ -20,7 +20,5 @@ hs_err_pid*
 *.project
 /.metadata
 /Whiteboard/.settings
-/Servers/
-/Servers/.settings/org.eclipse.wst.server.core.prefs
-
+/Servers/*
 *.prefs
