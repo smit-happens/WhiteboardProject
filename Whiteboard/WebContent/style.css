@@ -1,0 +1,208 @@
+body {
+    background-color: #eaeaea; /* sets the background color */
+    font-family: helvetica;
+}
+
+.tool {
+   width:100%;
+    background-color: #38803c;
+    border: none;
+    color: white;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+
+#slider {
+    padding-top:20px;
+}
+
+#sliderLabel {
+    text-align: center;
+}
+
+.brushSizeOptions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+}
+
+.brushSize {
+    display:table-cell;
+    opacity:0.95;
+    background-color: #282828;
+    border: 2px solid;
+    vertical-align: middle;
+}
+
+.brushSize:hover{
+    text-shadow:0 0 1px #666;
+    box-shadow:1px 1px 4px #000;
+    opacity:1
+}
+
+#size1.brushSize {
+    width:15px;
+    height:15px;
+    border-radius:9px;
+}
+
+#size2.brushSize {
+    width:20px;
+    height:20px;
+    border-radius:10px;
+}
+
+#size3.brushSize {
+    width:30px;
+    height:30px;
+    border-radius:15px;
+}
+
+#size4.brushSize {
+    width:40px;
+    height:40px;
+    border-radius:20px;
+}
+
+#size5.brushSize {
+    width:50px;
+    height:50px;
+    border-radius:25px;
+}
+
+#thickDisplay {
+    font-weight: bold;
+}
+
+input[type=range] {
+    width:150px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100px;
+    height: 5px;
+    background:  #808080;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #6d6d6d;
+    margin-top: -4px;
+}
+
+input[type=range]:focus {
+    outline: none;
+    box-shadow: 0 0 18px 0 rgba(0,0,0,0.3);
+}
+
+/* above code adapted from http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html */
+
+.color {
+    display:block;
+    width:50px;
+    height:50px;
+    border-radius:10px;
+    font-size:14px;
+    line-height:100px;
+    text-shadow:0 1px 0 #666;
+    text-align:center;
+    text-decoration:none;
+    opacity:0.95;
+    border: 2px solid;
+}
+
+#colorRow {
+	display: flex;
+	justify-content: space-between;
+}
+
+.colors {
+    margin:auto; /*centers object */
+}
+
+.color:hover{
+    text-shadow:0 0 1px #666;
+    text-decoration:none;
+    box-shadow:1px 1px 4px #000;
+    opacity:1
+}
+
+#black.color {
+    background: black;
+    border-color: #434343;
+}
+
+#red.color{
+    background: red;
+    border-color: #8d0000;
+}
+
+#blue.color {
+    background:blue;
+    border-color: #0083ff
+}
+
+#yellow.color {
+    background:yellow;
+    border-color: #ffb31c
+}
+#orange.color {
+    background: orangered;
+    border-color: orange;
+}
+
+#green.color {
+    background: green;
+    border-color: limegreen;
+}
+
+#purple.color {
+    background:purple;
+    border-color: mediumpurple;
+}
+
+.tool:hover {
+    background-color: #2d632e;
+}
+
+#toolBar {
+    background-color: #38803c;
+    float: left;
+    border: 20px;
+    width:200px;
+}
+
+#content {
+    float: left;
+    position: relative;
+}
+
+canvas.board {
+    box-shadow: 0 0 18px 0 rgba(40, 40, 40, 0.3);
+    cursor: crosshair;
+    background-color: #ffffff;
+    z-index: 0;
+    position: absolute;
+}
+
+canvas.overlay {
+    z-index: 1;
+    background-color: transparent;
+    position: absolute;
+}
+
+#clients {
+    margin-top: 10px;
+    margin-left: 10px;
+}
