@@ -10,6 +10,7 @@ var color = "red"; //default color is red
 var thickness = 2;
 
 var tool = new Tool(color, thickness);
+var cTool = 0;
 
 function setDrawingTrue(event) {
 
@@ -22,7 +23,16 @@ function setDrawingTrue(event) {
     canvas.removeAttribute("onmouseout");
 
     var pixel = getCursorPosition(canvas , event); //gets starting pos
-    cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
+    switch(cTool) {
+        case 0:
+            cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
+            break;
+        case 1:
+            cShape = tool.onStartDraw(new TriangleShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
+            break;
+
+    }
+
     tool.setThickness(thickness); //setup initial thickness
 
 }
@@ -76,9 +86,19 @@ function DisplayNumUsers(users) {
 }
 
 function getThickness() {
-    thickness = document.getElementById("thickness").value
-    document.getElementById("thickDisplay").innerHTML = "<strong>" + thickness + "</strong>";
+    thickness = document.getElementById("thickness").value;
+    document.getElementById("thickDisplay").innerHTML = "" +thickness;
     tool.setThickness(thickness);
+}
+
+function setSize(size) {
+    thickness = size;
+    document.getElementById("thickDisplay").innerHTML = "" + size;
+    tool.setThickness(thickness);
+}
+
+function changeTool(tool) {
+    cTool = tool;
 }
 
 function recordEvent(event) { //calls tool to update shape

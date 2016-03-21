@@ -80,9 +80,8 @@ function colorButton(button_color) {
 }
 
 function DisplayNumUsers(users) {
-    getContext(getCanvas()).font = "15px Arial";
-    getContext(getCanvas()).fillText(users + "connected", 10 ,10 );
-    console.log("num users" + users);
+    document.getElementById("numClients").innerHTML = users;
+    console.log("Number of clients displayed")
 }
 
 function getThickness() {

@@ -13,10 +13,14 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/bin/
+/Whiteboard/bin/
 
- /build
-.classpath
-.project
+/Whiteboard/build/
+*.classpath
+*.project
 /.metadata
 /Whiteboard/.settings
+/Servers/
+/Servers/.settings/org.eclipse.wst.server.core.prefs
+
+*.prefs

@@ -85,7 +85,7 @@ var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
 			    RedoWhiteboard();
 			   }
 			   if (MessageTokenArr[0] = "Undo"){
-			    UndoWhiteboard();
+			    undo();
 			   }
 			 
 			   if (MessageTokenArr[0] = "Update"){

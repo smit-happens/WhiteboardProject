@@ -13,7 +13,7 @@ var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
 		};
 
 		function onOpen(event) {
-			document.getElementById('messages').innerHTML = 'Now Connection established';
+			//document.getElementById('messages').innerHTML = 'Now Connection established';
 		}
 
 		function onError(event) {

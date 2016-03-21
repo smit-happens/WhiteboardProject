@@ -122,6 +122,11 @@ input[type=range]:focus {
     border: 2px solid;
 }
 
+#colorRow {
+	display: flex;
+	justify-content: space-between;
+}
+
 .colors {
     margin:auto; /*centers object */
 }
@@ -195,4 +200,9 @@ canvas.overlay {
     z-index: 1;
     background-color: transparent;
     position: absolute;
+}
+
+#clients {
+    margin-top: 10px;
+    margin-left: 10px;
 }
