@@ -10,11 +10,14 @@ var color = "red"; //default color is red
 var thickness = 2;
 
 var tool = new Tool(color, thickness);
-var cTool = 0;
+var cTool = 0; //stores type of shape being currently drawn
+
+var messageConsole = new MessageConsole(14); //setup message console
 
 function setDrawingTrue(event) {
+    messageConsole.log("drawing started");
 
-    anchorToBase();
+    anchorToBase(); //copies last drawn image on top canvas to bottom canvas
 
     isDrawing= true;
     var canvas = getTopCanvas();
@@ -30,6 +33,12 @@ function setDrawingTrue(event) {
         case 1:
             cShape = tool.onStartDraw(new TriangleShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
             break;
+        case 2:
+            cShape = tool.onStartDraw(new CircleShape(), pixel, getContext(canvas));
+            break;
+        default :
+            cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
+            break;
 
     }
 
@@ -39,13 +48,13 @@ function setDrawingTrue(event) {
 
 function setDrawingFalse(event) {
     isDrawing= false;
-    console.log("drawing ended");
+    messageConsole.log("drawing ended");
     var canvas = getTopCanvas();
     canvas.removeAttribute("onmousemove"); //removes mouse listener
 
     var pixel = getCursorPosition(canvas , event); //gets ending pos
-    tool.onEndDraw(pixel, getContext(canvas) );
-
+    cShape = tool.onEndDraw(pixel, getContext(canvas) );
+    notify(cTool, cShape);
 }
 
 function anchorToBase() {
@@ -59,6 +68,7 @@ function anchorToBase() {
 function undo() { //rudimentary undo button
     var top = getTopCanvas();
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
+    broadcastWhiteboardUndo(); //sends request to server
 }
 
 function clearCanvas() {
@@ -66,7 +76,9 @@ function clearCanvas() {
     var canvas = getCanvas();
 
     getContext(canvas).clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
-    undo();
+    var top = getTopCanvas();
+    top.getContext('2d').clearRect(0, 0, top.width, top.height); //can't call undo- this would send the wrong message to the server
+    broadcastWhiteboardClear(); //sends request to server
 }
 
 function changeColor() {
@@ -84,15 +96,17 @@ function DisplayNumUsers(users) {
     console.log("Number of clients displayed")
 }
 
-function getThickness() {
-    thickness = document.getElementById("thickness").value;
-    document.getElementById("thickDisplay").innerHTML = "" +thickness;
-    tool.setThickness(thickness);
-}
+//depreciated
+
+//function getThickness() {
+//    thickness = document.getElementById("thickness").value;
+//    document.getElementById("thickDisplay").innerHTML = "" +thickness;
+//    tool.setThickness(thickness);
+//}
 
 function setSize(size) {
     thickness = size;
-    document.getElementById("thickDisplay").innerHTML = "" + size;
+    //document.getElementById("thickDisplay").innerHTML = "" + size; //depreciated
     tool.setThickness(thickness);
 }
 
@@ -106,6 +120,34 @@ function recordEvent(event) { //calls tool to update shape
 
     cShape = tool.onRecordDraw(pixel, getContext(canvas));
 }
+
+function createNetworkShape(type, thickness, color, startX, startY, endX, endY) {
+    var start_point = new Point(startX, startY);
+    var end_point = new Point(endX, endY);
+    var netShape;
+
+    switch (type) {
+        case 'triangle':
+            netShape = new TriangleShape();
+            break;
+        case 'circle':
+            break;
+
+    }
+    netShape.setThickness(thickness);
+    netShape.setColor(color);
+    netShape.add(start_point);
+    netShape.add(end_point);
+    anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
+}
+
+function notify(type, shape) {
+    //TODO: send shape to server
+
+}
+
+
+
 
 function getCanvas() {
     return document.getElementById("underlay")
