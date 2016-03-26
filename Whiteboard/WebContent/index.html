@@ -9,7 +9,6 @@
     <title>Whiteboard</title>
 </head>
 <body>
-
     <div id="toolBar">
         <div>
             <table id="tools">
@@ -20,10 +19,10 @@
                 <tr>
                     <td><button  class="tool" onclick="undo();">Undo</button></td>
                     <td><button  class="tool" onclick="">Redo</button></td></tr>
-            	<tr>
+                <tr>
                     <td><button  class="tool" onclick="changeTool(0);">Pen</button></td>
                     <td><button  class="tool" onclick="changeTool(1);">Triangle</button></td>
-            	</tr>
+                </tr>
             </table>
         </div>
 
@@ -40,7 +39,7 @@
             </tr>
         </table>
         <div class="brushSizeOptions">
-            <table>
+            <table class="brushSizeOptions">
                 <tr>
                     <td><button class="brushSize" id="size1" onclick="setSize(4)"></button></td>
                     <td><button class="brushSize" id="size2" onclick="setSize(8)"></button></td>
@@ -50,16 +49,16 @@
                 </tr>
             </table>
         </div>
-        
+
         <div id="serverBar">
-	    	<div id="clients">
-    		<p>Clients Connected: </p> 
-    		<p id="numClients"></p>
-	        </div>
-    	</div>
-
-
-
+            <div id="clients">
+            <p>Clients Connected: </p>
+            <p id="numClients"></p>
+            </div>
+        </div>
+        <div id="messageArea">
+            <textarea id="messageWindow" placeholder="Insert amazing code here"></textarea>
+        </div>
     </div>
 
     <div id="content">
@@ -74,5 +73,7 @@
                 width="1000" height="600">
         </canvas>
     </div>
+
+
 </body>
 </html>

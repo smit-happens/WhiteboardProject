@@ -17,14 +17,6 @@ body {
     cursor: pointer;
 }
 
-#slider {
-    padding-top:20px;
-}
-
-#sliderLabel {
-    text-align: center;
-}
-
 .brushSizeOptions {
     margin-top: 10px;
     display: flex;
@@ -167,4 +159,12 @@ canvas.overlay {
     z-index: 1;
     background-color: transparent;
     position: absolute;
+}
+
+#messageWin {
+    position: relative;
+    float: left;
+    resize: none;
+    width: 400px;
+    height: 500px;
 }
