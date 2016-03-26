@@ -80,34 +80,6 @@ body {
     font-weight: bold;
 }
 
-input[type=range] {
-    width:150px;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    width: 100px;
-    height: 5px;
-    background:  #808080;
-    border: none;
-    border-radius: 3px;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    border: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: #6d6d6d;
-    margin-top: -4px;
-}
-
-input[type=range]:focus {
-    outline: none;
-    box-shadow: 0 0 18px 0 rgba(0,0,0,0.3);
-}
-
-/* above code adapted from http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html */
-
 .color {
     display:block;
     width:50px;
