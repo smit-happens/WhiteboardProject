@@ -138,6 +138,7 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     netShape.setColor(color);
     netShape.add(start_point);
     netShape.add(end_point);
+    shapes.push(netShape);
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
 
