@@ -15,15 +15,15 @@ Point.prototype = {
         return this.y;
     },
 
-    compare: function(point) {
-        //TODO: compare two points?
-    }
+    //compare: function(point) { //unused
+    //    //compare two points?
+    //}
 };
 
 function Shape() {
     this.points = []; //list of drawable points
     this.color = "red"; //default color is red
-    this.fillColor = color; //nofill by default
+    this.fillColor = color; //nofill by default //TODO: add fill colors
     this.thickness = 1.25; //thickness as defined by subclasses
 }
 
@@ -149,7 +149,7 @@ CircleShape.prototype = Object.create(Shape.prototype, {
             var dx = (x1 - x);
             var dy = (y1- y);
 
-            var radius = Math.sqrt((dx*dx) + (dy*dy)); //calcs distance from start to end point
+            var radius = Math.sqrt((dx*dx) + (dy*dy)); //calcs distance from start to end point sqrt( (x2-x1)^2 + (y2-y1)^2 )
 
             context.clearRect(0,0, 1500,700);
 
@@ -162,6 +162,38 @@ CircleShape.prototype = Object.create(Shape.prototype, {
     }
 
 });
+
+function RectangleShape() {
+    Shape.call(this);
+}
+
+RectangleShape.prototype = Object.create(Shape.prototype, {
+    constructor: RectangleShape,
+
+    draw : {
+        value : function(context) {
+            Shape.prototype.draw(context); //calls super
+
+            context.lineWidth = this.thickness; //sets up drawing context
+            context.strokeStyle = this.color;
+
+            var x = this.points[0].getX();
+            var y = this.points[0].getY();
+            var x1 = this.points[this.points.length-1].getX();
+            var y1 = this.points[this.points.length-1].getY();
+
+            context.clearRect(0,0, 1500,700);
+
+            context.beginPath(); //begins drawing path
+            context.rect(x, y, (x1-x), (y1-y));
+            context.stroke();
+            context.closePath();
+
+        }
+    }
+});
+
+
 
 
 function Tool(color, thick) { //this is a SINGLETON

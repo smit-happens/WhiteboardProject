@@ -2,7 +2,7 @@
  * Created by Aaron on 1/27/2016.
  */
 var shapes = [];  //list of shape objects returned by the tool
-var cShape = new Shape(); //should this be a blank shape?
+var cShape = new Shape(); //stores current shape. Used to stream freeforms?
 
 var isDrawing = false; //are we currently drawing?
 
@@ -35,6 +35,9 @@ function setDrawingTrue(event) {
             break;
         case 2:
             cShape = tool.onStartDraw(new CircleShape(), pixel, getContext(canvas));
+            break;
+        case 3:
+            cShape = tool.onStartDraw(new RectangleShape(), pixel, getContext(canvas));
             break;
         default :
             cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
