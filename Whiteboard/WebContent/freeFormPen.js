@@ -23,7 +23,6 @@ function setDrawingTrue(event) {
     var canvas = getTopCanvas();
 
     canvas.setAttribute("onmousemove", "recordEvent(event)"); //sets mouse listener for canvas. Tracks all mouse moves
-    canvas.removeAttribute("onmouseout");
 
     var pixel = getCursorPosition(canvas , event); //gets starting pos
     switch(cTool) {
