@@ -15,7 +15,7 @@ var cTool = 0; //stores type of shape being currently drawn
 var messageConsole = new MessageConsole(14); //setup message console
 
 function setDrawingTrue(event) {
-    messageConsole.log("drawing started");
+
 
     anchorToBase(); //copies last drawn image on top canvas to bottom canvas
 
@@ -51,13 +51,13 @@ function setDrawingTrue(event) {
 
 function setDrawingFalse(event) {
     isDrawing= false;
-    messageConsole.log("drawing ended");
     var canvas = getTopCanvas();
     canvas.removeAttribute("onmousemove"); //removes mouse listener
 
     var pixel = getCursorPosition(canvas , event); //gets ending pos
     cShape = tool.onEndDraw(pixel, getContext(canvas) );
-    notify(cTool, cShape);
+
+    notify(cTool, cShape); //sends to server
 }
 
 function anchorToBase() {
@@ -72,6 +72,7 @@ function undo() { //rudimentary undo button
     var top = getTopCanvas();
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
     broadcastWhiteboardUndo(); //sends request to server
+    messageConsole.log("action undone");
 }
 
 function clearCanvas() {
@@ -82,6 +83,7 @@ function clearCanvas() {
     var top = getTopCanvas();
     top.getContext('2d').clearRect(0, 0, top.width, top.height); //can't call undo- this would send the wrong message to the server
     broadcastWhiteboardClear(); //sends request to server
+    messageConsole.log("canvas cleared")
 }
 
 function changeColor() {
@@ -92,11 +94,12 @@ function changeColor() {
 function colorButton(button_color) {
     color = button_color;
     tool.setColor(button_color);
+    messageConsole.log("color changed to " + color );
 }
 
 function DisplayNumUsers(users) {
     document.getElementById("numClients").innerHTML = users;
-    console.log("Number of clients displayed")
+    messageConsole.log("Number of clients is" + users);
 }
 
 //depreciated
@@ -111,6 +114,7 @@ function setSize(size) {
     thickness = size;
     //document.getElementById("thickDisplay").innerHTML = "" + size; //depreciated
     tool.setThickness(thickness);
+    messageConsole.log('thickness changed to ' + size);
 }
 
 function changeTool(tool) {
@@ -147,6 +151,26 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
 
 function notify(type, shape) {
     //TODO: send shape to server
+    var strtype;
+
+    switch(type) {
+        case 0:
+            strtype = 'freeform';
+            break;
+        case 1:
+            strtype = 'triangle';
+            break;
+        case 2:
+            strtype = 'circle';
+            break;
+        case 3:
+            strtype = 'rectangle';
+            break;
+        default:
+            strtype = 'shape';
+            break;
+    }
+    messageConsole.log("User drew " + strtype + " shape");
 
 }
 
