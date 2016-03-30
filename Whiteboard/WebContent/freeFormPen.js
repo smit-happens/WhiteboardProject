@@ -131,12 +131,18 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     var start_point = new Point(startX, startY);
     var end_point = new Point(endX, endY);
     var netShape;
-
+    messageConsole.log("x " + startX +  "y " + startY);
+    messageConsole.log("x1 "  + endX + "y1 " + endY);
     switch (type) {
-        case 'triangle':
+        case 'Triangle':
             netShape = new TriangleShape();
+            messageConsole.log("triangle created");
             break;
-        case 'circle':
+        case 'Circle':
+        	netShape = new CircleShape();
+            break;
+        case 'Rectangle':
+        	netShape = new RectangleShape();
             break;
 
     }
@@ -144,8 +150,9 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     netShape.setColor(color);
     netShape.add(start_point);
     netShape.add(end_point);
+    netShape.draw(getContext(getTopCanvas()));
     shapes.push(netShape);
-    messageConsole.log("shape came through");
+   
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
 
@@ -175,7 +182,7 @@ function notify(type, shape) {
             break;
     }
     broadcastShape(strtype, shape.thickness, shape.color, shape.points[0].getX(),
-       shape.points[shape.points.length-1].getX(), shape.points[0].getY(), shape.points[shape.points.length-1].getY());
+    		shape.points[0].getY(), shape.points[shape.points.length-1].getX(), shape.points[shape.points.length-1].getY());
     messageConsole.log("User drew " + strtype + " shape");
 
 }

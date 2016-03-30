@@ -50,8 +50,9 @@ public class Whiteboard {
 	}
 
 	public void broadcastMessage(MessageCommand command, String content) throws IOException {
-		for (Account acct : accounts) {
-			acct.sendSingleAccountMessage(command, content);
+		//for (Account acct : accounts) {
+		for(int i=0; i< accounts.size(); i++){
+			accounts.get(i).sendSingleAccountMessage(command, content);
 		}
 	}
 

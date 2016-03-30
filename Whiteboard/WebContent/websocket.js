@@ -14,6 +14,7 @@ webSocket.onmessage = function(event) {
 
 function onOpen(event) {
 	//document.getElementById('messages').innerHTML = 'Now Connection established';
+	
 }
 
 function onError(event) {
@@ -78,7 +79,7 @@ function broadcastShape(type, girth, color, x1, y1, x2, y2){
 	y1.toString() + "|" +
 	x2.toString()  + "|" +
 	y2.toString() + "|" ;
-	messageConsole.log(message);
+	//messageConsole.log(message);
 	webSocket.send(message);
 	
 }
@@ -88,7 +89,7 @@ function broadcastFreeform(girth, color, arr){ // how to pass an array of x,y,x,
 	color + "|";
 	
 	for(var i=0; i< arr.length(); i+=2){
-		if(i= length-1){
+		if(i== length-1){
 			message = message + arr[i].toString + "|";
 		}
 		else{
@@ -104,26 +105,26 @@ function onMessage(event) {
 
 	// THIS line below is what WAS in onMessage()
 	//document.getElementById('messages').innerHTML += '<br />' + event.data;
-
+	messageConsole.log(event.data);
 	var MessageTokenArr = event.data.split("|");
-	if (MessageTokenArr[0] = "NumUsers"){
-		messageConsole.log(MessageTokenArr[0]);
-		DisplayNumUsers(parseInt(MessageTokenArr[1]));
+	messageConsole.log(MessageTokenArr[0]);
+	
+	if (MessageTokenArr[0] == "NumberUsers"){
+		DisplayNumUsers(MessageTokenArr[1]);
 	}
-	if (MessageTokenArr[0] = "Clear"){
+	/*else if (MessageTokenArr[0] = "Clear"){
 		clearCanvas();
-	}
-	if (MessageTokenArr[0] = "Redo"){
+	}*/
+	else if (MessageTokenArr[0] === "Redo"){
 		redo();
 	}
-	if (MessageTokenArr[0] = "Undo"){
+	else if (MessageTokenArr[0] === "Undo"){
 		undo();
 	}
-	//createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
 	
-	if (MessageTokenArr[0] = "Update"){
+	else if (MessageTokenArr[0] === "Update"){
 		
-		if (MessageTokenArr[1] = "Circle"){
+		if (MessageTokenArr[1] === "Circle"){
 			createNetworkShape(
 					"Circle",
 					parseFloat(MessageTokenArr[2]), //girth
@@ -134,7 +135,7 @@ function onMessage(event) {
 					parseFloat(MessageTokenArr[7]) // y2
 			);
 		}
-		if (MessageTokenArr[1] = "Rectangle"){
+		else if (MessageTokenArr[1] === "Rectangle"){
 			createNetworkShape(
 					"Rectangle",
 					parseFloat(MessageTokenArr[2]), //girth
@@ -145,7 +146,8 @@ function onMessage(event) {
 					parseFloat(MessageTokenArr[7]) // y2
 			);
 		}
-		if (MessageTokenArr[1] = "Triangle"){
+		else if (MessageTokenArr[1] === "Triangle"){
+			messageConsole.log(MessageTokenArr[1]);
 			createNetworkShape(
 					"Triangle",
 					MessageTokenArr[2], //girth
@@ -156,9 +158,8 @@ function onMessage(event) {
 					MessageTokenArr[7] // y2
 			);
 		}
-		if (MessageTokenArr[1] = "Freeform"){
+		else if (MessageTokenArr[1] === "Freeform"){
 			var pointsList = MessageTokenArr[2];// parse in js x,y,x,y
-			
 			createNetworkShape(
 					"Freeform",
 					parseFloat(MessageTokenArr[2]), //girth

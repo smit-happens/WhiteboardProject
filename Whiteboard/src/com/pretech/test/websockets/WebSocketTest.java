@@ -100,10 +100,7 @@ public class WebSocketTest {
 				}
 			}
 			break;
-		}
-
-		
-		
+		}	
 	}
 
 	@OnOpen
