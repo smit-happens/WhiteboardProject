@@ -91,7 +91,7 @@ body {
     border: 2px solid;
 }
 
-#colorRow {
+.colorRow {
 	display: flex;
 	justify-content: space-between;
 }
