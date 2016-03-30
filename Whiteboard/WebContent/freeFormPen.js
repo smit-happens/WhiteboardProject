@@ -173,7 +173,8 @@ function notify(type, shape) {
             strtype = 'Shape';
             break;
     }
-    broadcastShape(type, girth, color, x1, x2, y1, y2);
+    broadcastShape(strtype, shape.thickness, shape.color, shape.points[0].getX(),
+        shape.points[shape.points.length-1].getX(), shape.points[0].getY(), shape.points[shape.points.length-1].getY());
     messageConsole.log("User drew " + strtype + " shape");
 
 }
