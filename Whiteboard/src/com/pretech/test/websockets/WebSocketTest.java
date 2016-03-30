@@ -32,7 +32,7 @@ public class WebSocketTest {
 		System.out.println(message);
 		String command = StringUtils.substringBefore(message, "|");
 		String commandData = StringUtils.substringAfter(message, "|");
-		
+		System.out.println(commandData);
 		
 		switch (command) {
 		
@@ -61,7 +61,7 @@ public class WebSocketTest {
 
 				String[] circleDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
 				double girth = Double.parseDouble(circleDataArrStr[0]); 
-				double color = Double.parseDouble(circleDataArrStr[1]);
+				String color = circleDataArrStr[1];
 				int X1 = Integer.parseInt(circleDataArrStr[2]);
 				int Y1 = Integer.parseInt(circleDataArrStr[3]);
 				int X2 = Integer.parseInt(circleDataArrStr[4]);
@@ -71,7 +71,7 @@ public class WebSocketTest {
 			if(shape.equals("Rectangle")){
 				String[] rectangleDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
 				double girth = Double.parseDouble(rectangleDataArrStr[0]); 
-				double color = Double.parseDouble(rectangleDataArrStr[1]);
+				String color = rectangleDataArrStr[1];
 				int X1 = Integer.parseInt(rectangleDataArrStr[2]);
 				int Y1 = Integer.parseInt(rectangleDataArrStr[3]);
 				int X2 = Integer.parseInt(rectangleDataArrStr[4]);
@@ -81,7 +81,7 @@ public class WebSocketTest {
 			if(shape.equals("Triangle")){
 				String[] triangleDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
 				double girth = Double.parseDouble(triangleDataArrStr[0]); 
-				double color = Double.parseDouble(triangleDataArrStr[1]);
+				String color = triangleDataArrStr[1];
 				int X1 = Integer.parseInt(triangleDataArrStr[2]);
 				int Y1 = Integer.parseInt(triangleDataArrStr[3]);
 				int X2 = Integer.parseInt(triangleDataArrStr[4]);
@@ -90,7 +90,7 @@ public class WebSocketTest {
 			if(shape.equals("Freeform")){
 				String[] freeformDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
 				double girth = Double.parseDouble(freeformDataArrStr[0]); 
-				double color = Double.parseDouble(freeformDataArrStr[1]);
+				String color = freeformDataArrStr[1];
 				String[] pointsList= StringUtils.splitByWholeSeparatorPreserveAllTokens(freeformDataArrStr[2], ",");
 				for(int i=0; i< pointsList.length; i=+2){
 					int x1= Integer.parseInt(pointsList[i]);

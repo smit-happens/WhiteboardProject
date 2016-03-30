@@ -98,7 +98,7 @@ function colorButton(button_color) {
 
 function DisplayNumUsers(users) {
     document.getElementById("numClients").innerHTML = users;
-    messageConsole.log("Number of clients is" + users);
+    messageConsole.log("Number of clients is " + users);
 }
 
 //depreciated
@@ -145,6 +145,7 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     netShape.add(start_point);
     netShape.add(end_point);
     shapes.push(netShape);
+    messageConsole.log("shape came through");
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
 
@@ -174,7 +175,7 @@ function notify(type, shape) {
             break;
     }
     broadcastShape(strtype, shape.thickness, shape.color, shape.points[0].getX(),
-        shape.points[shape.points.length-1].getX(), shape.points[0].getY(), shape.points[shape.points.length-1].getY());
+       shape.points[shape.points.length-1].getX(), shape.points[0].getY(), shape.points[shape.points.length-1].getY());
     messageConsole.log("User drew " + strtype + " shape");
 
 }
