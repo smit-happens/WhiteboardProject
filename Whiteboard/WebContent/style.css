@@ -3,8 +3,12 @@ body {
     font-family: helvetica;
 }
 
+#tools {
+    margin: auto;
+}
+
 .tool {
-   width:100%;
+    width:100%;
     background-color: #38803c;
     border: none;
     color: white;
@@ -18,7 +22,6 @@ body {
 }
 
 .brushSizeOptions {
-    /*margin-top: 10px;*/
     display: flex;
     justify-content: space-between;
     vertical-align: middle;
@@ -146,7 +149,7 @@ body {
     background-color: #38803c;
     float: left;
     border: 20px;
-    width:200px;
+    width:250px;
 }
 
 #content {
@@ -166,6 +169,7 @@ canvas.overlay {
     z-index: 1;
     background-color: transparent;
     position: absolute;
+    cursor: crosshair;
 }
 
 #clients {
@@ -174,14 +178,13 @@ canvas.overlay {
 }
 
 #messageArea {
-    margin: auto;
     text-align: center;
 }
 
 #messageWindow {
     resize: vertical;
-    width: auto;
-    min-height: 100px;
+    width: 90%;
+    min-height: 150px;
     outline: none;
     overflow: auto;
 }
