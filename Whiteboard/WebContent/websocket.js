@@ -26,15 +26,15 @@ function start() {
 	return false;
 }
 function broadcastWhiteboardClear(){
-	message = "Clear|"; 
+	var message = "Clear|";
 	webSocket.send(message);
 }
 function broadcastWhiteboardUndo(){
-	message = "Undo|"; 
+	var message = "Undo|";
 	webSocket.send(message);
 }
 function broadcastWhiteboardRedo(){
-	message = "Redo|"; 
+	var message = "Redo|";
 	webSocket.send(message);
 }
 /*
@@ -70,7 +70,7 @@ function broadcastTriangle(girth, color, x1, y1, x2, y2){
 }
 */
 function broadcastShape(type, girth, color, x1, y1, x2, y2){
-	message =  "Update|" +
+	var message =  "Update|" +
 	type + "|" +
 	girth.toString() + "|" +
 	color + "|" +
@@ -83,11 +83,11 @@ function broadcastShape(type, girth, color, x1, y1, x2, y2){
 	
 }
 function broadcastFreeform(girth, color, arr){ // how to pass an array of x,y,x,y on JS?
-	message =  "Update|Freeform|" + 
+	var message =  "Update|Freeform|" +
 	girth.toString() + "|" +
 	color + "|";
 	
-	for(i=0; i< arr.length(); i+=2){
+	for(var i=0; i< arr.length(); i+=2){
 		if(i= length-1){
 			message = message + arr[i].toString + "|";
 		}
@@ -105,16 +105,16 @@ function onMessage(event) {
 	// THIS line below is what WAS in onMessage()
 	//document.getElementById('messages').innerHTML += '<br />' + event.data;
 
-	MessageTokenArr = event.data.split("|");
+	var MessageTokenArr = event.data.split("|");
 	if (MessageTokenArr[0] = "NumUsers"){
 		messageConsole.log(MessageTokenArr[0]);
 		DisplayNumUsers(parseInt(MessageTokenArr[1]));
 	}
 	if (MessageTokenArr[0] = "Clear"){
-		ClearWhiteboard();
+		clearCanvas();
 	}
 	if (MessageTokenArr[0] = "Redo"){
-		RedoWhiteboard();
+		redo();
 	}
 	if (MessageTokenArr[0] = "Undo"){
 		undo();
@@ -157,7 +157,7 @@ function onMessage(event) {
 			);
 		}
 		if (MessageTokenArr[1] = "Freeform"){
-			pointsList = MessageTokenArr[2]// parse in js x,y,x,y
+			var pointsList = MessageTokenArr[2];// parse in js x,y,x,y
 			
 			createNetworkShape(
 					"Freeform",
