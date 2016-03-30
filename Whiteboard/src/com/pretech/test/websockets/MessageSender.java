@@ -15,4 +15,8 @@ public class MessageSender {
 		session.getBasicRemote().sendText(message.getString());
 		System.out.println("after message");
 	}
+	
+	public String getSessionId(){
+		return this.session.getId();
+	}
 }

@@ -155,15 +155,19 @@ function notify(type, shape) {
     switch(type) {
         case 0:
             strtype = 'freeform';
+            // broadcastFreeform(...)
             break;
         case 1:
             strtype = 'triangle';
+           // broadcastTriangle(girth, color, x1, y1, x2, y2)
             break;
         case 2:
             strtype = 'circle';
+           // broadcastCircle(girth, color, x1, y1, x2, y2);
             break;
         case 3:
             strtype = 'rectangle';
+            // broadcastRectangle(girth, color, x1, y1, x2, y2)
             break;
         default:
             strtype = 'shape';
