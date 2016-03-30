@@ -154,25 +154,26 @@ function notify(type, shape) {
 
     switch(type) {
         case 0:
-            strtype = 'freeform';
+            strtype = 'Freeform';
             // broadcastFreeform(...)
-            break;
+            return;
         case 1:
-            strtype = 'triangle';
+            strtype = 'Triangle';
            // broadcastTriangle(girth, color, x1, y1, x2, y2)
             break;
         case 2:
-            strtype = 'circle';
+            strtype = 'Circle';
            // broadcastCircle(girth, color, x1, y1, x2, y2);
             break;
         case 3:
-            strtype = 'rectangle';
+            strtype = 'Rectangle';
             // broadcastRectangle(girth, color, x1, y1, x2, y2)
             break;
         default:
-            strtype = 'shape';
+            strtype = 'Shape';
             break;
     }
+    broadcastShape(type, girth, color, x1, x2, y1, y2);
     messageConsole.log("User drew " + strtype + " shape");
 
 }
