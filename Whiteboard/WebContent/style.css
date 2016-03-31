@@ -3,6 +3,11 @@ body {
     font-family: helvetica;
 }
 
+.navBar {
+    height: 20px;
+    padding: 8px;
+}
+
 #tools {
     margin: auto;
 }
@@ -172,6 +177,11 @@ canvas.overlay {
     cursor: crosshair;
 }
 
+.colorPicker {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
 #clients {
     margin-top: 10px;
     margin-left: 10px;
@@ -187,9 +197,4 @@ canvas.overlay {
     min-height: 150px;
     outline: none;
     overflow: auto;
-}
-
-.navBar {
-    height: 20px;
-    padding: 8px;
 }
