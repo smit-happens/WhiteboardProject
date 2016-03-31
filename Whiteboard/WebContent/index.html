@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <script src="websocket.js"></script>
     <script src="model.js"></script>
-    <script src="freeFormPen.js"></script>                      <!-- imports the javascript file that I wrote separately -->
+    <script src="freeFormPen.js"></script>                      <!-- imports the javascript file-->
     <link rel="stylesheet" type="text/css" href="style.css">    <!-- imports CSS file called style -->
     <title>Whiteboard</title>
 </head>
 <body>
-    <div id="toolBar">
+    <div class="navBar">
+            <a href="login.html">Login/Sign Up</a>
+            <a href="test.html">Testing Page</a>
+    </div>
+
+    <div id="toolBar" ondragstart="return false;" ondrop="return false;">
             <table id="tools">
                 <tr>
                     <td><button  class="tool" onclick="clearCanvas();">Clear Board</button></td>
@@ -59,7 +64,7 @@
             </div>
         </div>
         <div id="messageArea">
-            <textarea id="messageWindow" placeholder="Insert amazing code here"></textarea>
+            <textarea id="messageWindow" placeholder="Insert amazing code here" disabled></textarea>
         </div>
     </div>
 
