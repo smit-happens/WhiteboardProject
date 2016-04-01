@@ -13,11 +13,11 @@ function startTest() {
     test.testLesser("example test lesser", 2, 1);
     test.closeTests( );
 
-    var test2 = new Test("Test testing the tests");
+    var test2 = new Test("A different test to test the testing code");
 
-    test2.testEqual("example test true", true, true);
-    test2.testEqual("example test false", false, true);
-    test2.createColorTest("example color test", "orangered");
+    test2.testEqual("example test equal", 45, 45);
+    test2.testEqual("example test not equal", 3.14, 2.89);
+    test2.createColorTest("example color test", "purple");
 
     test2.testGreater("example test greater", 1, 3);
     test2.testLesser("example test lesser", 2, 1);
