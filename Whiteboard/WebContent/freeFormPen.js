@@ -132,12 +132,11 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     var start_point = new Point(startX, startY);
     var end_point = new Point(endX, endY);
     var netShape;
-    messageConsole.log("x " + startX +  "y " + startY);
-    messageConsole.log("x1 "  + endX + "y1 " + endY);
+   // messageConsole.log("x " + startX +  "y " + startY);
+    //messageConsole.log("x1 "  + endX + "y1 " + endY);
     switch (type) {
         case 'Triangle':
             netShape = new TriangleShape();
-            messageConsole.log("triangle created");
             break;
         case 'Circle':
         	netShape = new CircleShape();

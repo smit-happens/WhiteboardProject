@@ -79,7 +79,6 @@ function broadcastShape(type, girth, color, x1, y1, x2, y2){
 	y1.toString() + "|" +
 	x2.toString()  + "|" +
 	y2.toString() + "|" ;
-	//messageConsole.log(message);
 	webSocket.send(message);
 	
 }
@@ -105,9 +104,9 @@ function onMessage(event) {
 
 	// THIS line below is what WAS in onMessage()
 	//document.getElementById('messages').innerHTML += '<br />' + event.data;
-	messageConsole.log(event.data);
+	//messageConsole.log(event.data);
 	var MessageTokenArr = event.data.split("|");
-	messageConsole.log(MessageTokenArr[0]);
+	//messageConsole.log(MessageTokenArr[0]);
 	
 	if (MessageTokenArr[0] == "NumberUsers"){
 		DisplayNumUsers(MessageTokenArr[1]);
@@ -147,7 +146,6 @@ function onMessage(event) {
 			);
 		}
 		else if (MessageTokenArr[1] === "Triangle"){
-			messageConsole.log(MessageTokenArr[1]);
 			createNetworkShape(
 					"Triangle",
 					MessageTokenArr[2], //girth

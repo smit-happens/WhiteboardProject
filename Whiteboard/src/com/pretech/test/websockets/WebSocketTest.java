@@ -29,10 +29,10 @@ public class WebSocketTest {
 	InterruptedException {
 		
 		// Update | Circle | radius(#) | center X (#) | center Y (#) | girth(#) | color(#)
-		System.out.println(message);
+		//System.out.println(message);
 		String command = StringUtils.substringBefore(message, "|");
 		String commandData = StringUtils.substringAfter(message, "|");
-		System.out.println(commandData);
+		//System.out.println(commandData);
 		
 		switch (command) {
 		
