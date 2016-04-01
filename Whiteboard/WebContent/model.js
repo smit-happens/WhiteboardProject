@@ -13,7 +13,7 @@ Point.prototype = {
     },
     getY : function(){
         return this.y;
-    },
+    }
 
     //compare: function(point) { //unused
     //    //compare two points?

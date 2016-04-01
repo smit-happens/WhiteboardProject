@@ -118,6 +118,7 @@ function setSize(size) {
 
 function changeTool(tool) {
     cTool = tool;
+    return tool;
 }
 
 function recordEvent(event) { //calls tool to update shape

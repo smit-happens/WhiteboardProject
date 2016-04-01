@@ -5,10 +5,15 @@
     <script src="websocket.js"></script>
     <script src="model.js"></script>
     <script src="freeFormPen.js"></script>                      <!-- imports the javascript file that I wrote separately -->
-    <link rel="stylesheet" type="text/css" href="style.css">    <!-- imports CSS file called style -->
+
+    <link rel="stylesheet" type="text/css" href="errStyle.css">    <!-- imports CSS file called errStyle -->
     <title>Whiteboard</title>
 </head>
-<body>
-    <h3>Testing page</h3>
+<body onload="startTest()">
+    <h3>WebSocket Whiteboard Test panel</h3>
+    <div id="content" >
+
+    </div>
+    <script src="testing.js"></script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+body {
+    background-color: #eaeaea; /* sets the background color */
+    font-family: helvetica;
+}
+
+.bad {
+    background-color:red;
+    width: 80px;
+}
+
+.testBank {
+    padding: 10px;
+}
+
+.noBorder {
+    border: none;
+}
+
+.test {
+    border: 3px double black;
+    font-size:20px;
+    font-weight:bold;
+    margin: 10px;
+}
+
+.good {
+    background-color:green;
+    width: 80px;
+}
+
+tr {
+    border: 1px solid black;
+}
+
+td {
+    padding: 5px;
+    border: 1px solid black;
+    text-align:center
+}
+
+table {
+    width:100%;
+    font-size:13px;
+    padding: 3px;
+}
