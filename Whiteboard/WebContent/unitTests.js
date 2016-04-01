@@ -12,19 +12,22 @@ function startTest() {
     //test.testLesser("example test lesser", 2, 1);
     //test.closeTests( );
     //
-    //var test2 = new Test("A different test to test the testing code");
-    //
-    //test2.testEqual("example test equal", 45, 45);
-    //test2.testEqual("example test not equal", 3.14, 2.89);
-    //test2.createColorTest("example color test", "purple");
-    //
-    //test2.testGreater("example test greater", 1, 3);
-    //test2.testLesser("example test lesser", 2, 1);
-    //test2.closeTests();
+
     testPoint();
     testShapes();
     testTool();
     testMessageConsole();
+
+    var test2 = new Test("Examples");
+
+    test2.testEqual("example test equal", 45, 45);
+    test2.testEqual("example test not equal", 3.14, 2.89);
+    test2.testEqualColor("example equal color test", "purple", "purple");
+    test2.testEqualColor("example not equal color test", "#F07528", "darkblue");
+
+    test2.testGreater("example test greater", 1, 3);
+    test2.testLesser("example test lesser", 2, 1);
+    test2.closeTests();
 }
 //Test model.js code
 
@@ -101,7 +104,7 @@ function testTool() {
     var shape = new FreeFormShape();
 
     tool.setColor("#68472a");
-    tool.setThickness(3)
+    tool.setThickness(3);
 
     tool.onStartDraw(shape, startPoint, canvas.getContext('2d'));
     tool.onRecordDraw(collectPoint, canvas.getContext('2d'));
