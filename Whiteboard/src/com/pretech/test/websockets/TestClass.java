@@ -49,9 +49,9 @@ public class TestClass {
 
 	public static void main(String[] args) {
 		TestClass test = new TestClass();
-		//test.testMe("Update|Circle|5.4|6|8|3.2|9.54");
-		//test.testMe("Update|Rectangle|5|6|7.6|3.4|6.5|8.1");
-		test.testMe("Update|Triangle|1|2|8.9|6.7|5.4|3.1");
+		//test.testMe("Update|Circle|5.4|6|8|3.2|9.54|");
+		//test.testMe("Update|Rectangle|5|6|7.6|3.4|6.5|8.1|");
+		test.testMe("Update|Triangle|1|2|8.9|6.7|5.4|3.1|");
 	}
 
 }

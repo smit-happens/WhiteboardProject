@@ -17,6 +17,8 @@ public class WebSocketTest {
 	// whiteboard variable is not threadsafe (e.g. no locks to prevent 
 	// simultaneous use)
 	private static Whiteboard whiteboard;
+	
+	Session session;
 		
 	public WebSocketTest() {
 		this.whiteboard = new Whiteboard();
@@ -27,13 +29,17 @@ public class WebSocketTest {
 	InterruptedException {
 		
 		// Update | Circle | radius(#) | center X (#) | center Y (#) | girth(#) | color(#)
-		System.out.println(message);
+		//System.out.println(message);
 		String command = StringUtils.substringBefore(message, "|");
 		String commandData = StringUtils.substringAfter(message, "|");
-		
+		//System.out.println(commandData);
 		
 		switch (command) {
 		
+		case "Login":
+			MessageSender messageSender = new MessageSender(session);
+			Account account = whiteboard.createAndAddAccount(messageSender);
+			break;
 		case "Clear":
 			whiteboard.broadcastMessage(MessageCommand.Clear, "");
 			break;
@@ -49,47 +55,57 @@ public class WebSocketTest {
 		case "Update" :
 			whiteboard.broadcastMessage(MessageCommand.Update, commandData);
 			String shape = StringUtils.substringBefore(commandData, "|"); // circle
-			String shapeData = StringUtils.substringAfter(commandData, "|"); // radius | center | girth | color
+			String shapeData = StringUtils.substringAfter(commandData, "|"); // girth | color | point1x | point1y | point2x |point2y |
 			
 			if(shape.equals("Circle")){
 
 				String[] circleDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
-				double radius = Double.parseDouble(circleDataArrStr[0]); 
-				int centerX = Integer.parseInt(circleDataArrStr[1]);
-				int centerY = Integer.parseInt(circleDataArrStr[2]);
-				double girth = Double.parseDouble(circleDataArrStr[3]); 
-				double color = Double.parseDouble(circleDataArrStr[4]);
-				
+				double girth = Double.parseDouble(circleDataArrStr[0]); 
+				String color = circleDataArrStr[1];
+				int X1 = Integer.parseInt(circleDataArrStr[2]);
+				int Y1 = Integer.parseInt(circleDataArrStr[3]);
+				int X2 = Integer.parseInt(circleDataArrStr[4]);
+				int Y2 = Integer.parseInt(circleDataArrStr[5]);
 			}
-			// Update | Rectangle | topLeft X | topleft Y | width | height| girth(#) | color(#)
+			// Update | Rectangle | girth | color | point1x | point1y | point2x |point2y
 			if(shape.equals("Rectangle")){
 				String[] rectangleDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
-				int topLeftX = Integer.parseInt(rectangleDataArrStr[0]); 
-				int topLeftY = Integer.parseInt(rectangleDataArrStr[1]); 
-				double width = Double.parseDouble(rectangleDataArrStr[2]); 
-				double height = Double.parseDouble(rectangleDataArrStr[3]); 
-				double girth = Double.parseDouble(rectangleDataArrStr[4]); 
-				double color = Double.parseDouble(rectangleDataArrStr[5]); 
+				double girth = Double.parseDouble(rectangleDataArrStr[0]); 
+				String color = rectangleDataArrStr[1];
+				int X1 = Integer.parseInt(rectangleDataArrStr[2]);
+				int Y1 = Integer.parseInt(rectangleDataArrStr[3]);
+				int X2 = Integer.parseInt(rectangleDataArrStr[4]);
+				int Y2 = Integer.parseInt(rectangleDataArrStr[5]);
 			}
-			// Update | Triangle | top X | top Y | base | height| girth(#) | color(#)
+			// Update | Triangle | girth | color | point1x | point1y | point2x |point2y
 			if(shape.equals("Triangle")){
 				String[] triangleDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
-				int topX = Integer.parseInt(triangleDataArrStr[0]); 
-				int topY = Integer.parseInt(triangleDataArrStr[1]);
-				double base = Double.parseDouble(triangleDataArrStr[2]); 
-				double height = Double.parseDouble(triangleDataArrStr[3]);
-				double girth = Double.parseDouble(triangleDataArrStr[4]); 
-				double color = Double.parseDouble(triangleDataArrStr[5]);
+				double girth = Double.parseDouble(triangleDataArrStr[0]); 
+				String color = triangleDataArrStr[1];
+				int X1 = Integer.parseInt(triangleDataArrStr[2]);
+				int Y1 = Integer.parseInt(triangleDataArrStr[3]);
+				int X2 = Integer.parseInt(triangleDataArrStr[4]);
+				int Y2 = Integer.parseInt(triangleDataArrStr[5]);
+			}
+			if(shape.equals("Freeform")){
+				String[] freeformDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
+				double girth = Double.parseDouble(freeformDataArrStr[0]); 
+				String color = freeformDataArrStr[1];
+				String[] pointsList= StringUtils.splitByWholeSeparatorPreserveAllTokens(freeformDataArrStr[2], ",");
+				for(int i=0; i< pointsList.length; i=+2){
+					int x1= Integer.parseInt(pointsList[i]);
+					int y1= Integer.parseInt(pointsList[i+1]);
+					Point point= new Point(x1, y1);
+					// freeform.addPoint(point);
+				}
 			}
 			break;
-		}
-
-		
-		
+		}	
 	}
 
 	@OnOpen
 	public void onOpen(Session session) throws IOException {
+		this.session = session;
 		MessageSender messageSender = new MessageSender(session);
 		
 		Account account = whiteboard.createAndAddAccount(messageSender);
@@ -97,7 +113,11 @@ public class WebSocketTest {
 	}
 
 	@OnClose
-	public void onClose() {
+	public void onClose() throws IOException {
+		
+		whiteboard.removeAccountBySessionId(this.session.getId());
 		System.out.println("Connection closed");
+
+		
 	}
 }

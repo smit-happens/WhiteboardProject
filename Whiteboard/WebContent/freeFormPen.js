@@ -2,7 +2,7 @@
  * Created by Aaron on 1/27/2016.
  */
 var shapes = [];  //list of shape objects returned by the tool
-var cShape = new Shape(); //should this be a blank shape?
+var cShape = new Shape(); //stores current shape. Used to stream freeforms?
 
 var isDrawing = false; //are we currently drawing?
 
@@ -10,17 +10,19 @@ var color = "red"; //default color is red
 var thickness = 2;
 
 var tool = new Tool(color, thickness);
-var cTool = 0;
+var cTool = 0; //stores type of shape being currently drawn
+
+var messageConsole = new MessageConsole(14); //setup message console
 
 function setDrawingTrue(event) {
 
-    anchorToBase();
+
+    anchorToBase(); //copies last drawn image on top canvas to bottom canvas
 
     isDrawing= true;
     var canvas = getTopCanvas();
 
     canvas.setAttribute("onmousemove", "recordEvent(event)"); //sets mouse listener for canvas. Tracks all mouse moves
-    canvas.removeAttribute("onmouseout");
 
     var pixel = getCursorPosition(canvas , event); //gets starting pos
     switch(cTool) {
@@ -29,6 +31,15 @@ function setDrawingTrue(event) {
             break;
         case 1:
             cShape = tool.onStartDraw(new TriangleShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
+            break;
+        case 2:
+            cShape = tool.onStartDraw(new CircleShape(), pixel, getContext(canvas));
+            break;
+        case 3:
+            cShape = tool.onStartDraw(new RectangleShape(), pixel, getContext(canvas));
+            break;
+        default :
+            cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //sets up drawing in Tool object
             break;
 
     }
@@ -39,13 +50,13 @@ function setDrawingTrue(event) {
 
 function setDrawingFalse(event) {
     isDrawing= false;
-    console.log("drawing ended");
     var canvas = getTopCanvas();
     canvas.removeAttribute("onmousemove"); //removes mouse listener
 
     var pixel = getCursorPosition(canvas , event); //gets ending pos
-    tool.onEndDraw(pixel, getContext(canvas) );
+    cShape = tool.onEndDraw(pixel, getContext(canvas) );
 
+    notify(cTool, cShape); //sends to server
 }
 
 function anchorToBase() {
@@ -59,6 +70,8 @@ function anchorToBase() {
 function undo() { //rudimentary undo button
     var top = getTopCanvas();
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
+    broadcastWhiteboardUndo(); //sends request to server
+    messageConsole.log("action undone");
 }
 
 function clearCanvas() {
@@ -66,7 +79,10 @@ function clearCanvas() {
     var canvas = getCanvas();
 
     getContext(canvas).clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
-    undo();
+    var top = getTopCanvas();
+    top.getContext('2d').clearRect(0, 0, top.width, top.height); //can't call undo- this would send the wrong message to the server
+    broadcastWhiteboardClear(); //sends request to server
+    messageConsole.log("canvas cleared")
 }
 
 function changeColor() {
@@ -77,27 +93,32 @@ function changeColor() {
 function colorButton(button_color) {
     color = button_color;
     tool.setColor(button_color);
+    messageConsole.log("color changed to " + color );
 }
 
 function DisplayNumUsers(users) {
     document.getElementById("numClients").innerHTML = users;
-    console.log("Number of clients displayed")
+    messageConsole.log("Number of clients is " + users);
 }
 
-function getThickness() {
-    thickness = document.getElementById("thickness").value;
-    document.getElementById("thickDisplay").innerHTML = "" +thickness;
-    tool.setThickness(thickness);
-}
+//depreciated
+
+//function getThickness() {
+//    thickness = document.getElementById("thickness").value;
+//    document.getElementById("thickDisplay").innerHTML = "" +thickness;
+//    tool.setThickness(thickness);
+//}
 
 function setSize(size) {
     thickness = size;
-    document.getElementById("thickDisplay").innerHTML = "" + size;
+    //document.getElementById("thickDisplay").innerHTML = "" + size; //depreciated
     tool.setThickness(thickness);
+    messageConsole.log('thickness changed to ' + size);
 }
 
 function changeTool(tool) {
     cTool = tool;
+    return tool;
 }
 
 function recordEvent(event) { //calls tool to update shape
@@ -106,6 +127,68 @@ function recordEvent(event) { //calls tool to update shape
 
     cShape = tool.onRecordDraw(pixel, getContext(canvas));
 }
+
+function createNetworkShape(type, thickness, color, startX, startY, endX, endY) {
+    var start_point = new Point(startX, startY);
+    var end_point = new Point(endX, endY);
+    var netShape;
+   // messageConsole.log("x " + startX +  "y " + startY);
+    //messageConsole.log("x1 "  + endX + "y1 " + endY);
+    switch (type) {
+        case 'Triangle':
+            netShape = new TriangleShape();
+            break;
+        case 'Circle':
+        	netShape = new CircleShape();
+            break;
+        case 'Rectangle':
+        	netShape = new RectangleShape();
+            break;
+
+    }
+    netShape.setThickness(thickness);
+    netShape.setColor(color);
+    netShape.add(start_point);
+    netShape.add(end_point);
+    netShape.draw(getContext(getTopCanvas()));
+    shapes.push(netShape);
+   
+    anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
+}
+
+function notify(type, shape) {
+    //TODO: send shape to server
+    var strtype;
+
+    switch(type) {
+        case 0:
+            strtype = 'Freeform';
+            // broadcastFreeform(...)
+            return;
+        case 1:
+            strtype = 'Triangle';
+           // broadcastTriangle(girth, color, x1, y1, x2, y2)
+            break;
+        case 2:
+            strtype = 'Circle';
+           // broadcastCircle(girth, color, x1, y1, x2, y2);
+            break;
+        case 3:
+            strtype = 'Rectangle';
+            // broadcastRectangle(girth, color, x1, y1, x2, y2)
+            break;
+        default:
+            strtype = 'Shape';
+            break;
+    }
+    broadcastShape(strtype, shape.thickness, shape.color, shape.points[0].getX(),
+    		shape.points[0].getY(), shape.points[shape.points.length-1].getX(), shape.points[shape.points.length-1].getY());
+    messageConsole.log("User drew " + strtype + " shape");
+
+}
+
+
+
 
 function getCanvas() {
     return document.getElementById("underlay")
