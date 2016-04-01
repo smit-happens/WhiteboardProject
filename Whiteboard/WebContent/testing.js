@@ -2,27 +2,6 @@
  * Created by Aaron on 3/31/2016.
  */
 
-function startTest() {
-    var test = new Test("Test testing the tests");
-
-    test.testEqual("example test true", true, true);
-    test.testEqual("example test false", false, true);
-    test.createColorTest("example color test", "orangered");
-
-    test.testGreater("example test greater", 1, 3);
-    test.testLesser("example test lesser", 2, 1);
-    test.closeTests( );
-
-    var test2 = new Test("A different test to test the testing code");
-
-    test2.testEqual("example test equal", 45, 45);
-    test2.testEqual("example test not equal", 3.14, 2.89);
-    test2.createColorTest("example color test", "purple");
-
-    test2.testGreater("example test greater", 1, 3);
-    test2.testLesser("example test lesser", 2, 1);
-    test2.closeTests();
-}
 
 
 function Test(name) {
@@ -35,6 +14,10 @@ function Test(name) {
     this.outputStream += "<tr ><td class=\"noBorder\">Test Name</td>";
     this.outputStream += "<td class=\"noBorder\">Condition</td>";
     this.outputStream += "<td class=\"noBorder\">Value</td>";
+
+
+    this.canvasContent = '';
+    this.copyName = '';
 }
 
 Test.prototype = {
@@ -77,6 +60,26 @@ Test.prototype = {
         }
     },
 
+    testEqualsPoint : function(name, condition, value) {
+        if(condition.getX() == value.getX()) {
+            if (condition.getY() == value.getY()) {
+                this.createTest(name, "(" + condition.getX() + ", " + condition.getY() + ")", "(" + value.getX() + ", " + value.getY() + ")", true);
+                return true;
+            }
+        }
+
+        this.createTest(name, "(" + condition.getX() + ", " + condition.getY() + ")", "(" + value.getX() + ", " + value.getY() + ")", false);
+
+    },
+
+    testEqualColor : function(name, condition, value) {
+        if(condition === value) {
+            this.createColorTest(name, condition, value, true);
+            return true;
+        }
+        this.createColorTest(name, condition, value, false);
+    },
+
 
     createTest : function(name, condition, value, conditionMet) {
         //TODO: add table to div
@@ -97,13 +100,31 @@ Test.prototype = {
 
     },
 
-    createColorTest : function(name, value) {
+    createCanvasTest : function(name, canvas) {
+        this.outputStream += "<tr>";
+        this.outputStream += "<td id=\"" + name + "\"></td>";
+        this.outputStream += "</tr>";
+        this.canvasContent = canvas;
+        this.copyName = name;
+    },
+
+    createColorTest : function(name, condition, value, conditionMet) {
         this.outputStream += "<tr>";
         this.outputStream += ("<td>" + name + "</td>");
-        this.outputStream += ("<td>" + value + "</td>");
-        this.outputStream += ("<td>" + value + "</td>");
 
-        this.outputStream += "<td style=\"background-color:" + value + ";\" ></td>"
+        this.outputStream += "<td style=\"background-color:" + condition + ";\" ></td>";
+        //this.outputStream += "<td style=\"background-color:31B5FF\" ></td>";
+
+        this.outputStream += "<td style=\"background-color:" + value + ";\" ></td>";
+
+        if(conditionMet == true) {
+            this.outputStream += "<td class=\"good\">";
+        }
+        else {
+            this.outputStream += "<td class=\"bad\">";
+        }
+
+        this.outputStream += "</td>";
     },
 
     closeTests : function() {
@@ -113,6 +134,18 @@ Test.prototype = {
         this.outputStream += "</div>";
 
        document.getElementById("content").innerHTML += this.outputStream;
+
+        if(document.getElementById(this.copyName) != null) {
+            var newCanvas = document.createElement('canvas');
+            newCanvas.id = this.copyName + "canvas";
+            newCanvas.height = 100;
+            newCanvas.width = 100;
+            newCanvas.getContext('2d').drawImage(document.getElementById("canvas"), 0,0);//this doesn't work for some reason
+
+
+            document.getElementById(this.copyName).appendChild(newCanvas);
+
+        }
     }
 
 };

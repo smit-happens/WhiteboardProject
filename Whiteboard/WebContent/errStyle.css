@@ -16,6 +16,10 @@ body {
     border: none;
 }
 
+.noShow {
+    display: none;
+}
+
 .test {
     border: 3px double black;
     font-size:20px;
@@ -36,12 +40,14 @@ tr {
 
 td {
     padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
     border: 1px solid black;
     text-align:center
 }
 
 table {
-    width:40%;
+   /* width:40%;*/
     font-size:13px;
     padding: 3px;
     margin-left:auto;
