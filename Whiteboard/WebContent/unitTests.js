@@ -60,7 +60,7 @@ function testShapes() {
     shape.setColor("#31B5FF");
     shape.setThickness(21);
 
-    var shapeTest = new Test("Generic Shape Object tests")
+    var shapeTest = new Test("Generic Shape Object tests");
     shapeTest.testEqualsPoint("start point", startPoint, shape.points[0]);
     shapeTest.testEqualsPoint("end point", endPoint, shape.points[shape.points.length-1]);
     shapeTest.testEqualColor("shape color", "#31B5FF", shape.color);
@@ -129,10 +129,14 @@ function testTool() {
 function testMessageConsole() {
 
     var messageTest = new Test("Message Console test");
+
+    var textArea = document.getElementById("messageWindow");
+    textArea.innerHTML = ""; //clear the text area
+
     messageConsole.log("logging test");
     messageConsole.log("log test");
 
-    var textArea = document.getElementById("messageWindow");
+
     var arrayOfLines = textArea.value.split("\n"); // arrayOfLines is array where every element
 
     messageTest.testEqualString("text sent to message console", "logging test", arrayOfLines[0]);

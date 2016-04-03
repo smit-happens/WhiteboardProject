@@ -90,6 +90,13 @@ function changeColor() {
     tool.setColor(color);
 }
 
+
+function colorPicker() {
+    color = document.getElementById("Picker").value;
+    tool.setColor(color);
+     messageConsole.log("color changed to " + color);
+}
+
 function colorButton(button_color) {
     color = button_color;
     tool.setColor(button_color);
