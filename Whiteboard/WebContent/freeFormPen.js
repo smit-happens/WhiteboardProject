@@ -57,6 +57,7 @@ function setDrawingFalse(event) {
     cShape = tool.onEndDraw(pixel, getContext(canvas) );
 
     notify(cTool, cShape); //sends to server
+    console.log("num points collected " + cShape.points.length);
 }
 
 function anchorToBase() {
@@ -64,7 +65,7 @@ function anchorToBase() {
     var top = getTopCanvas();
     base.getContext('2d').drawImage(top, 0, 0);
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
-
+    shapes.push(cShape);
 }
 
 function undo() { //rudimentary undo button
@@ -133,6 +134,26 @@ function recordEvent(event) { //calls tool to update shape
     var pixel = getCursorPosition(canvas , event);
 
     cShape = tool.onRecordDraw(pixel, getContext(canvas));
+    if(cTool == 0) {
+        if(cShape.points.length >= 15) {
+            terminateFreeform(cShape);
+        }
+    }
+}
+
+function terminateFreeform() {
+    var canvas = getTopCanvas();
+    //var pixel = getCursorPosition(canvas , event); //gets ending pos
+    var pixel = cShape.points[cShape.points.length-1];
+    console.log("last point was (" +  pixel.getX() +  "," + pixel.getY() + ")");
+    cShape = tool.onEndDraw(pixel, getContext(canvas) );
+
+    notify(cTool, cShape); //sends to server
+
+    anchorToBase(); //dump to underlay
+    cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //start new Freeform with cTool
+    //cShape.add(getCursorPosition(canvas , event)); //adds current point to it to make sure it does not have any breaks
+
 }
 
 function createNetworkShape(type, thickness, color, startX, startY, endX, endY) {
@@ -170,19 +191,16 @@ function notify(type, shape) {
     switch(type) {
         case 0:
             strtype = 'Freeform';
-            // broadcastFreeform(...)
+            broadcastFreeform(shape.thickness, shape.color, shape.points);
             return;
         case 1:
             strtype = 'Triangle';
-           // broadcastTriangle(girth, color, x1, y1, x2, y2)
             break;
         case 2:
             strtype = 'Circle';
-           // broadcastCircle(girth, color, x1, y1, x2, y2);
             break;
         case 3:
             strtype = 'Rectangle';
-            // broadcastRectangle(girth, color, x1, y1, x2, y2)
             break;
         default:
             strtype = 'Shape';
@@ -193,8 +211,6 @@ function notify(type, shape) {
     messageConsole.log("User drew " + strtype + " shape");
 
 }
-
-
 
 
 function getCanvas() {

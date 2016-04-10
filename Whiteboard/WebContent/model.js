@@ -32,6 +32,7 @@ Shape.prototype = {
     draw : function(context) { //arg is context of canvas.
         //will be defined below
         //console.log("SUPER_DRAWN");
+
     },
     add : function(point) {
       this.points.push(point);  //adds new point object to list
@@ -49,6 +50,19 @@ Shape.prototype = {
         ctx.fillStyle = fillStyle; //sets fill style
         ctx.fill(); //fills drawn arc path with fill style
         ctx.closePath();
+    },
+
+    drawX : function(ctx, xPos, yPos, n) { //draws X over point for debug purposes
+        ctx.lineWidth = 1; //sets up drawing context
+        ctx.strokeStyle = 'black';
+
+        ctx.beginPath(); //begins drawing path
+        ctx.moveTo(xPos+n, yPos-n);
+        ctx.lineTo(xPos-n, yPos+n);
+        ctx.moveTo(xPos-n, yPos-n);
+        ctx.lineTo(xPos+n, yPos+n);
+        ctx.stroke();
+        ctx.closePath();
     }
 };
 
@@ -62,6 +76,7 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
     draw : {
         value : function (context) { //overrides the shape draw
             Shape.prototype.draw(context); //calls super function. Not important in this case but really important later
+
 
             context.lineWidth = this.thickness; //sets up drawing context
             context.strokeStyle = this.color;
@@ -79,13 +94,15 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
 
 
             var i;
-            for(i=0; i<this.points.length - 2; i++) { //loop over points
+            for(i=0; i<this.points.length - 1; i++) { //loop over points
                 var mx = (this.points[i].getX() + this.points[i+1].getX()) / 2.0;
                 var my = (this.points[i].getY() + this.points[i+1].getY()) / 2.0;
                 context.quadraticCurveTo(this.points[i].getX(), this.points[i].getY(), mx, my);
             }
             context.stroke();
             context.closePath();
+            //this.drawX(context, this.points[0].getX(), this.points[0].getY(), 3);
+            //this.drawX(context, this.points[this.points.length-1].getX(), this.points[this.points.length-1].getY(), 3); //debug
         }
     }
 } );  //free form smooth drawing interpreted from http://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas/7058606#7058606
