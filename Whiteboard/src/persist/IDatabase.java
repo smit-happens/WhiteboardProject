@@ -1,18 +1,17 @@
 package persist;
 
 import java.util.List;
-import model.Account;
-import model.Whiteboard;
+import model.AccountDO;
+import model.WhiteboardNameDO;
 
 public interface IDatabase {
-	public Account insertAccount(final String email,final String password, final String username );
-	public Account removeAccount(final Account account);
+	public Integer insertAccount(final String email,final String password, final String username );
+	public AccountDO removeAccount(final AccountDO account);
 	public void login(final String email,final String password, final String username );
-	public Account insertAccount(final String email,final String password);
-	public List<Whiteboard> ListWhiteboards(final Account account);	
-	public void shareWhiteboard(final Account account1, final Account account2, final String whiteboardName );
-	public boolean isVaildAccount(final Account account);	
-	public Whiteboard getWhiteboard(Whiteboard Whiteboard, String whiteboardName);
-	public Whiteboard insertWhiteboard(final String whiteboardName, final Account account);
-	public String insertShape(final String shape, final String whiteboardName);
+	public List<WhiteboardNameDO> ListWhiteboards(final AccountDO account);	
+	public void shareWhiteboard(final AccountDO account1, final AccountDO account2, final String whiteboardName );
+	public boolean isVaildAccount(final AccountDO account);	
+	public WhiteboardNameDO getWhiteboard(String whiteboardName);
+	public Integer insertWhiteboard(final String whiteboardName, final AccountDO account);
+	public Integer insertShape(final String shape, final String whiteboardName);
 }
