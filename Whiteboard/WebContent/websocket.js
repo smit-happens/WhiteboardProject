@@ -1,4 +1,4 @@
-var webSocket = new WebSocket('ws://192.168.167.128:8080/Whiteboard/websocket');
+var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
 
 webSocket.onerror = function(event) {
 	onError(event)
