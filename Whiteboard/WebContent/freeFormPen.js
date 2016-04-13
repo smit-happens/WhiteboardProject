@@ -55,7 +55,6 @@ function setDrawingFalse(event) {
 
     var pixel = getCursorPosition(canvas , event); //gets ending pos
     cShape = tool.onEndDraw(pixel, getContext(canvas) );
-
     notify(cTool, cShape); //sends to server
     console.log("num points collected " + cShape.points.length);
 }
@@ -145,7 +144,7 @@ function terminateFreeform() {
     var canvas = getTopCanvas();
     //var pixel = getCursorPosition(canvas , event); //gets ending pos
     var pixel = cShape.points[cShape.points.length-1];
-    console.log("last point was (" +  pixel.getX() +  "," + pixel.getY() + ")");
+    //console.log("last point was (" +  pixel.getX() +  "," + pixel.getY() + ")");
     cShape = tool.onEndDraw(pixel, getContext(canvas) );
 
     notify(cTool, cShape); //sends to server
@@ -180,7 +179,7 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     netShape.add(end_point);
     netShape.draw(getContext(getTopCanvas()));
     shapes.push(netShape);
-   
+    messageConsole.log("User drew" + type +" shape");
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
 
@@ -188,10 +187,18 @@ function createFreeformShape(thickness, color, pointsList) {
     var netShape = new FreeFormShape();
     netShape.setThickness(thickness);
     netShape.setColor(color);
+    //console.log("Point list length " + pointsList.length);
     netShape.points = pointsList;
+
+    //var debugStr = "";
+    //for(var i=0; i<netShape.points.length-1; i++) {
+    //    debugStr += "(" + netShape.points[i].getX() + "," + netShape.points[i].getY() + ") | ";
+    //}
+    //console.log(debugStr);
+
     netShape.draw(getContext(getTopCanvas()));
     shapes.push(netShape);
-
+    messageConsole.log("User drew freeform shape");
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
 
@@ -220,7 +227,7 @@ function notify(type, shape) {
     }
     broadcastShape(strtype, shape.thickness, shape.color, shape.points[0].getX(),
     		shape.points[0].getY(), shape.points[shape.points.length-1].getX(), shape.points[shape.points.length-1].getY());
-    messageConsole.log("User drew " + strtype + " shape");
+    //messageConsole.log("User drew " + strtype + " shape");
 
 }
 

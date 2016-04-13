@@ -1,4 +1,4 @@
-var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
+var webSocket = new WebSocket('ws://192.168.167.128:8080/Whiteboard/websocket');
 
 webSocket.onerror = function(event) {
 	onError(event)
@@ -96,12 +96,12 @@ function broadcastFreeform(girth, color, points){ // how to pass an array of x,y
 	//	}
 	//}
 
-	for(var i=0; i<points.length-2; i++) {
+	for(var i=0; i<points.length-1; i++) {
         //loop over points
         message += points[i].getX() + "," + points[i].getY() +"|";
     }
 
-    message += points[points.length-1].getX() + "|" + points[points.length-1].getY();
+   // message += points[points.length-1].getX() + "," + points[points.length-1].getY();
     //messageConsole.log(message);
 
 	webSocket.send(message);
@@ -115,7 +115,7 @@ function onMessage(msg) {
 	//document.getElementById('messages').innerHTML += '<br />' + event.data;
 	//messageConsole.log(event.data);
 	var MessageTokenArr = msg.split("|");
-	//messageConsole.log(MessageTokenArr[0]);
+	console.log(msg);
 	
 	if (MessageTokenArr[0] == "NumberUsers"){
 		DisplayNumUsers(MessageTokenArr[1]);
@@ -167,14 +167,18 @@ function onMessage(msg) {
 		}
 		else if (MessageTokenArr[1] === "Freeform"){
             var pointsList = MessageTokenArr.slice(4);
-            console.log(pointsList);
-            var outputList = {};
+            //console.log(pointsList);
+            var outputList = [];
+            //var debugStr = "WEBSOCKET : ";
 
             for(var i=0; i<pointsList.length-1; i++) {
                 var xy = pointsList[i].split(",");
-                console.log(pointsList[i]);
-                outputList[i] = new Point(xy[0], xy[1]);
+                var p = new Point(parseInt(xy[0]), parseInt(xy[1]));
+                outputList[i] = p;
+               // debugStr += "(" + p.getX() + "," + p.getY() + ") | ";
             }
+            //console.log("Point list length " + outputList.length);
+            //console.log(debugStr);
             createFreeformShape(MessageTokenArr[2],
                 MessageTokenArr[3], outputList);
             return outputList;
