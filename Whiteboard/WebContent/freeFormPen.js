@@ -184,6 +184,18 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
 
+function createFreeformShape(thickness, color, pointsList) {
+    var netShape = new FreeFormShape();
+    netShape.setThickness(thickness);
+    netShape.setColor(color);
+    netShape.points = pointsList;
+    netShape.draw(getContext(getTopCanvas()));
+    shapes.push(netShape);
+
+    anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
+}
+
+
 function notify(type, shape) {
     //TODO: send shape to server
     var strtype;

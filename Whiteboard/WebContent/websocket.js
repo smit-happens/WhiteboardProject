@@ -9,7 +9,7 @@ webSocket.onopen = function(event) {
 };
 
 webSocket.onmessage = function(event) {
-	onMessage(event)
+	onMessage(event.data)
 };
 
 function onOpen(event) {
@@ -98,7 +98,7 @@ function broadcastFreeform(girth, color, points){ // how to pass an array of x,y
 
 	for(var i=0; i<points.length-2; i++) {
         //loop over points
-        message += points[i].getX() + "|" + points[i].getY() +"|";
+        message += points[i].getX() + "," + points[i].getY() +"|";
     }
 
     message += points[points.length-1].getX() + "|" + points[points.length-1].getY();
@@ -109,12 +109,12 @@ function broadcastFreeform(girth, color, points){ // how to pass an array of x,y
 
 
 
-function onMessage(event) {
+function onMessage(msg) {
 
 	// THIS line below is what WAS in onMessage()
 	//document.getElementById('messages').innerHTML += '<br />' + event.data;
 	//messageConsole.log(event.data);
-	var MessageTokenArr = event.data.split("|");
+	var MessageTokenArr = msg.split("|");
 	//messageConsole.log(MessageTokenArr[0]);
 	
 	if (MessageTokenArr[0] == "NumberUsers"){
@@ -166,13 +166,18 @@ function onMessage(event) {
 			);
 		}
 		else if (MessageTokenArr[1] === "Freeform"){
-			var pointsList = MessageTokenArr[2];// parse in js x,y,x,y
-			createNetworkShape(
-					"Freeform",
-					parseFloat(MessageTokenArr[2]), //girth
-					parseInt(MessageTokenArr[3]), //color
-					pointsList // array of x,y,x,y,x,y
-			);
+            var pointsList = MessageTokenArr.slice(4);
+            console.log(pointsList);
+            var outputList = {};
+
+            for(var i=0; i<pointsList.length-1; i++) {
+                var xy = pointsList[i].split(",");
+                console.log(pointsList[i]);
+                outputList[i] = new Point(xy[0], xy[1]);
+            }
+            createFreeformShape(MessageTokenArr[2],
+                MessageTokenArr[3], outputList);
+            return outputList;
 		}
 
 	}	   
