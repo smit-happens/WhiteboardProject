@@ -135,23 +135,23 @@ function onMessage(msg) {
 		if (MessageTokenArr[1] === "Circle"){
 			createNetworkShape(
 					"Circle",
-					parseFloat(MessageTokenArr[2]), //girth
+					MessageTokenArr[2], //girth
 					MessageTokenArr[3], //color
-					parseInt(MessageTokenArr[4]), //x1
-					parseFloat(MessageTokenArr[5]), //y1
-					parseFloat(MessageTokenArr[6]), // x2
-					parseFloat(MessageTokenArr[7]) // y2
+					MessageTokenArr[4], //x1
+					MessageTokenArr[5], //y1
+					MessageTokenArr[6], // x2
+					MessageTokenArr[7] // y2
 			);
 		}
 		else if (MessageTokenArr[1] === "Rectangle"){
 			createNetworkShape(
 					"Rectangle",
-					parseFloat(MessageTokenArr[2]), //girth
+					MessageTokenArr[2], //girth
 					MessageTokenArr[3], //color
-					parseInt(MessageTokenArr[4]), //x1
-					parseFloat(MessageTokenArr[5]), //y1
-					parseFloat(MessageTokenArr[6]), // x2
-					parseFloat(MessageTokenArr[7]) // y2
+					MessageTokenArr[4], //x1
+					MessageTokenArr[5], //y1
+					MessageTokenArr[6], // x2
+					MessageTokenArr[7] // y2
 			);
 		}
 		else if (MessageTokenArr[1] === "Triangle"){
@@ -166,6 +166,7 @@ function onMessage(msg) {
 			);
 		}
 		else if (MessageTokenArr[1] === "Freeform"){
+<<<<<<< Updated upstream
             var pointsList = MessageTokenArr.slice(4);
             //console.log(pointsList);
             var outputList = [];
@@ -182,6 +183,15 @@ function onMessage(msg) {
             createFreeformShape(MessageTokenArr[2],
                 MessageTokenArr[3], outputList);
             return outputList;
+=======
+			var pointsList = MessageTokenArr[2];// parse in js x,y,x,y
+			createNetworkShape(
+					"Freeform",
+					MessageTokenArr[2], //girth
+					MessageTokenArr[3], //color
+					pointsList // array of x,y,x,y,x,y
+			);
+>>>>>>> Stashed changes
 		}
 
 	}	   

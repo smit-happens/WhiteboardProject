@@ -24,6 +24,7 @@ public class InitialData {
 		whiteboardList.add(whiteboardObject2);
 		whiteboardObject3.setWbName("Smitty's board");
 		whiteboardList.add(whiteboardObject3);
+		System.out.println("whiteboard list created");
 		return whiteboardList;
 	}
 	
@@ -36,14 +37,15 @@ public class InitialData {
 		accountObject1.setPassword("cat");
 		accountObject1.setUsername("Cara");
 		AccountList.add(accountObject1);
-		accountObject1.setEmail("awalsh6@ycp.edu");
-		accountObject1.setPassword("dog");
-		accountObject1.setUsername("Aaron");
+		accountObject2.setEmail("awalsh6@ycp.edu");
+		accountObject2.setPassword("dog");
+		accountObject2.setUsername("Aaron");
 		AccountList.add(accountObject2);
-		accountObject1.setEmail("asmit147@ycp.edu");
-		accountObject1.setPassword("frog");
-		accountObject1.setUsername("Smitty");
+		accountObject3.setEmail("asmit147@ycp.edu");
+		accountObject3.setPassword("frog");
+		accountObject3.setUsername("Smitty");
 		AccountList.add(accountObject3);
+		System.out.println("account list created");
 		return AccountList;
 	}
 	
@@ -54,10 +56,11 @@ public class InitialData {
 		ShapeDO shapeObject3 = new ShapeDO();
 		shapeObject1.setShapeString("Update|Circle|5.4|6|8|3.2|9.54|");
 		shapeList.add(shapeObject1);
-		shapeObject1.setShapeString("Update|Rectangle|5|6|7.6|3.4|6.5|8.1|");
+		shapeObject2.setShapeString("Update|Rectangle|5|6|7.6|3.4|6.5|8.1|");
 		shapeList.add(shapeObject2);
-		shapeObject1.setShapeString("Update|Triangle|1|2|8.9|6.7|5.4|3.1|");
+		shapeObject3.setShapeString("Update|Triangle|1|2|8.9|6.7|5.4|3.1|");
 		shapeList.add(shapeObject3);
+		System.out.println("shape list created");
 		return shapeList;
 		
 	}

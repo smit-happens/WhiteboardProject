@@ -2,6 +2,7 @@ package persist;
 
 import java.util.List;
 import model.AccountDO;
+import model.WhiteboardDO;
 import model.WhiteboardNameDO;
 
 public interface IDatabase {
@@ -11,7 +12,7 @@ public interface IDatabase {
 	public List<WhiteboardNameDO> ListWhiteboards(final AccountDO account);	
 	public void shareWhiteboard(final AccountDO account1, final AccountDO account2, final String whiteboardName );
 	public boolean isVaildAccount(final AccountDO account);	
-	public WhiteboardNameDO getWhiteboard(String whiteboardName);
+	public WhiteboardDO getWhiteboard(String whiteboardName);
 	public Integer insertWhiteboard(final String whiteboardName, final AccountDO account);
 	public Integer insertShape(final String shape, final String whiteboardName);
 }
