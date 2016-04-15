@@ -22,16 +22,49 @@ public class DerbyDatabase implements IDatabase {
 			throw new IllegalStateException("Could not load Derby driver");
 		}
 	}
+	private static final int MAX_ATTEMPTS = 10;
 
 	private interface Transaction<ResultType> {
 		public ResultType execute(Connection conn) throws SQLException;
 	}
 
-	private static final int MAX_ATTEMPTS = 10;
-
 	public Integer insertAccount(final String email,final String password, final String username ) {
-		return null;
-	}	
+		return executeTransaction(new Transaction<Integer>() {
+			
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+			PreparedStatement stmt1 = null; // insert new info into accounts table
+
+			ResultSet resultSet1 = null; // accountKey
+
+
+			try {
+				stmt1 = conn.prepareStatement(
+						"insert into accounts (email, password, username) " +
+								"  values(?, ?,?) ",
+								Statement.RETURN_GENERATED_KEYS);
+				stmt1.setString(1, email);
+				stmt1.setString(2, password);
+				stmt1.setString(3, username);
+
+				// execute the query, get the result
+				stmt1.executeUpdate();
+				resultSet1 = stmt1.getGeneratedKeys();
+
+				resultSet1.next();
+				Integer accountKey = resultSet1.getInt(1);
+				return accountKey;
+
+			}
+
+			finally {
+				DBUtil.closeQuietly(resultSet1);
+				DBUtil.closeQuietly(stmt1);				
+			}
+
+			}
+		});
+	}
 
 	public AccountDO removeAccount(final AccountDO account) {
 		return null;
@@ -41,7 +74,7 @@ public class DerbyDatabase implements IDatabase {
 
 	}
 
-	public AccountDO insertAccount(final String email,final String password) {
+	public Integer insertAccount(final String email,final String password) {
 		return null;
 	}	
 
@@ -77,7 +110,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet1 = null;
 				ResultSet resultSet2 = null;
 
-				// for saving whiteboard ID
+				// for saving accountKey
 				Integer accountKey = -1;
 
 				// try to retrieve whiteboard id (if it exists) 
@@ -96,12 +129,12 @@ public class DerbyDatabase implements IDatabase {
 					if (resultSet1.next())
 					{
 						accountKey = resultSet1.getInt(1);
-						System.out.println("account " + account + "found with key: " + accountKey);						
+						System.out.println("account " + (account.getEmail()) + " found with key: " + accountKey);						
 					}
 					else
 					{
-						System.out.println("account <" + account + "> not found");
-						throw new PersistenceException("account <" + account + "> not found");
+						System.out.println("account <" + account.getEmail() + " > not found");
+						throw new PersistenceException("account <" + (account.getEmail()) + "> not found");
 					}
 					stmt2 = conn.prepareStatement(
 							"insert into wbNames (wbName) " +
@@ -267,7 +300,7 @@ public class DerbyDatabase implements IDatabase {
 		Connection conn = DriverManager.getConnection("jdbc:derby:/Users/carasperbeck/Documents/lib.db;create=true");	  // for cara
 		// Connection conn = DriverManager.getConnection("jdbc:derby:/Users/carasperbeck/Documents/lib.db;create=true");  // for smitty
 		// Connection conn = DriverManager.getConnection("jdbc:derby:/Users/carasperbeck/Documents/lib.db;create=true");  // for aaron
-		
+
 		// Set autocommit to false to allow multiple the execution of
 		// multiple queries/statements as part of the same transaction.
 		conn.setAutoCommit(false);
