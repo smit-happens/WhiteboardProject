@@ -74,9 +74,6 @@ public class DerbyDatabase implements IDatabase {
 
 	}
 
-	public Integer insertAccount(final String email,final String password) {
-		return null;
-	}	
 
 	public List<WhiteboardNameDO> ListWhiteboards(final AccountDO account) {
 		return null;
