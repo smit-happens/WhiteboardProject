@@ -1,5 +1,10 @@
 package com.pretech.test.websockets;
 import org.apache.commons.lang3.StringUtils;
+
+import persist.DatabaseProvider;
+import persist.DerbyDatabase;
+import persist.IDatabase;
+
 import java.io.IOException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -16,18 +21,26 @@ public class WebSocketTest {
 	//to create a thread and instance of the class for each @onOpen.  For milestone1,
 	// whiteboard variable is not threadsafe (e.g. no locks to prevent 
 	// simultaneous use)
+	
+	
+	//IDatabase db;
 	private static Whiteboard whiteboard;
+	
+	/*private void setDB(){
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
+	}*/
 	
 	Session session;
 		
 	public WebSocketTest() {
 		this.whiteboard = new Whiteboard();
+		//setDB();	
 	}
 
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException,
 	InterruptedException {
-		
 		// Update | Circle | radius(#) | center X (#) | center Y (#) | girth(#) | color(#)
 		//System.out.println(message);
 		String command = StringUtils.substringBefore(message, "|");
@@ -56,7 +69,8 @@ public class WebSocketTest {
 			whiteboard.broadcastMessage(MessageCommand.Update, commandData);
 			String shape = StringUtils.substringBefore(commandData, "|"); // circle
 			String shapeData = StringUtils.substringAfter(commandData, "|"); // girth | color | point1x | point1y | point2x |point2y |
-			
+			//Integer shapeKey = db.insertShape(shapeData, "Cara's board");
+			/*
 			if(shape.equals("Circle")){
 
 				String[] circleDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
@@ -86,7 +100,7 @@ public class WebSocketTest {
 				int Y1 = Integer.parseInt(triangleDataArrStr[3]);
 				int X2 = Integer.parseInt(triangleDataArrStr[4]);
 				int Y2 = Integer.parseInt(triangleDataArrStr[5]);
-			}
+			}*/
 			if(shape.equals("Freeform")){
 				String[] freeformDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
 				double girth = Double.parseDouble(freeformDataArrStr[0]); 

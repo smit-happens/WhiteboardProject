@@ -55,8 +55,8 @@ function setDrawingFalse(event) {
 
     var pixel = getCursorPosition(canvas , event); //gets ending pos
     cShape = tool.onEndDraw(pixel, getContext(canvas) );
-
     notify(cTool, cShape); //sends to server
+    console.log("num points collected " + cShape.points.length);
 }
 
 function anchorToBase() {
@@ -64,7 +64,7 @@ function anchorToBase() {
     var top = getTopCanvas();
     base.getContext('2d').drawImage(top, 0, 0);
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
-
+    shapes.push(cShape);
 }
 
 function undo() { //rudimentary undo button
@@ -88,6 +88,13 @@ function clearCanvas() {
 function changeColor() {
     color = "#" + Math.random().toString(16).slice(2, 8);   //creates a random number, converts it into a string with base 16, and 'cuts' it to the correct length
     tool.setColor(color);
+}
+
+
+function colorPicker() {
+    color = document.getElementById("Picker").value;
+    tool.setColor(color);
+     messageConsole.log("color changed to " + color);
 }
 
 function colorButton(button_color) {
@@ -126,6 +133,26 @@ function recordEvent(event) { //calls tool to update shape
     var pixel = getCursorPosition(canvas , event);
 
     cShape = tool.onRecordDraw(pixel, getContext(canvas));
+    if(cTool == 0) {
+        if(cShape.points.length >= 15) {
+            terminateFreeform(cShape);
+        }
+    }
+}
+
+function terminateFreeform() {
+    var canvas = getTopCanvas();
+    //var pixel = getCursorPosition(canvas , event); //gets ending pos
+    var pixel = cShape.points[cShape.points.length-1];
+    //console.log("last point was (" +  pixel.getX() +  "," + pixel.getY() + ")");
+    cShape = tool.onEndDraw(pixel, getContext(canvas) );
+
+    notify(cTool, cShape); //sends to server
+
+    anchorToBase(); //dump to underlay
+    cShape = tool.onStartDraw(new FreeFormShape(), pixel, getContext(canvas)); //start new Freeform with cTool
+    //cShape.add(getCursorPosition(canvas , event)); //adds current point to it to make sure it does not have any breaks
+
 }
 
 function createNetworkShape(type, thickness, color, startX, startY, endX, endY) {
@@ -152,9 +179,29 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     netShape.add(end_point);
     netShape.draw(getContext(getTopCanvas()));
     shapes.push(netShape);
-   
+    messageConsole.log("User drew" + type +" shape");
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
+
+function createFreeformShape(thickness, color, pointsList) {
+    var netShape = new FreeFormShape();
+    netShape.setThickness(thickness);
+    netShape.setColor(color);
+    //console.log("Point list length " + pointsList.length);
+    netShape.points = pointsList;
+
+    //var debugStr = "";
+    //for(var i=0; i<netShape.points.length-1; i++) {
+    //    debugStr += "(" + netShape.points[i].getX() + "," + netShape.points[i].getY() + ") | ";
+    //}
+    //console.log(debugStr);
+
+    netShape.draw(getContext(getTopCanvas()));
+    shapes.push(netShape);
+    messageConsole.log("User drew freeform shape");
+    anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
+}
+
 
 function notify(type, shape) {
     //TODO: send shape to server
@@ -163,19 +210,16 @@ function notify(type, shape) {
     switch(type) {
         case 0:
             strtype = 'Freeform';
-            // broadcastFreeform(...)
+            broadcastFreeform(shape.thickness, shape.color, shape.points);
             return;
         case 1:
             strtype = 'Triangle';
-           // broadcastTriangle(girth, color, x1, y1, x2, y2)
             break;
         case 2:
             strtype = 'Circle';
-           // broadcastCircle(girth, color, x1, y1, x2, y2);
             break;
         case 3:
             strtype = 'Rectangle';
-            // broadcastRectangle(girth, color, x1, y1, x2, y2)
             break;
         default:
             strtype = 'Shape';
@@ -183,11 +227,9 @@ function notify(type, shape) {
     }
     broadcastShape(strtype, shape.thickness, shape.color, shape.points[0].getX(),
     		shape.points[0].getY(), shape.points[shape.points.length-1].getX(), shape.points[shape.points.length-1].getY());
-    messageConsole.log("User drew " + strtype + " shape");
+    //messageConsole.log("User drew " + strtype + " shape");
 
 }
-
-
 
 
 function getCanvas() {

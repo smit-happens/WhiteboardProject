@@ -17,6 +17,7 @@ function startTest() {
     testShapes();
     testTool();
     testMessageConsole();
+    testOnMessageFreeform();
 
     var test2 = new Test("Examples");
 
@@ -28,6 +29,7 @@ function startTest() {
     test2.testGreater("example test greater", 1, 3);
     test2.testLesser("example test lesser", 2, 1);
     test2.closeTests();
+
 }
 //Test model.js code
 
@@ -60,7 +62,7 @@ function testShapes() {
     shape.setColor("#31B5FF");
     shape.setThickness(21);
 
-    var shapeTest = new Test("Generic Shape Object tests")
+    var shapeTest = new Test("Generic Shape Object tests");
     shapeTest.testEqualsPoint("start point", startPoint, shape.points[0]);
     shapeTest.testEqualsPoint("end point", endPoint, shape.points[shape.points.length-1]);
     shapeTest.testEqualColor("shape color", "#31B5FF", shape.color);
@@ -129,14 +131,40 @@ function testTool() {
 function testMessageConsole() {
 
     var messageTest = new Test("Message Console test");
+
+    var textArea = document.getElementById("messageWindow");
+    textArea.innerHTML = ""; //clear the text area
+
     messageConsole.log("logging test");
     messageConsole.log("log test");
 
-    var textArea = document.getElementById("messageWindow");
+
     var arrayOfLines = textArea.value.split("\n"); // arrayOfLines is array where every element
 
     messageTest.testEqualString("text sent to message console", "logging test", arrayOfLines[0]);
     messageTest.testEqualString("more text sent to message console", "log test", arrayOfLines[1]);
     messageTest.closeTests();
 
+}
+
+function testOnMessageFreeform() {
+    var msg = "Update|Freeform|5|red|500,100|80,30|125,50|572|1025";
+    var result = onMessage(msg);
+
+    //var pointsList = msg.split("|").slice(4);
+    //console.log(pointsList);
+    //var outputList = {};
+    //
+    //for(var i=0; i<pointsList.length-1; i++) {
+    //    var xy = pointsList[i].split(",");
+    //    console.log(pointsList[i]);
+    //    outputList[i] = new Point(xy[0], xy[1]);
+    //}
+
+    var parseTest = new Test("Freeform Parsing");
+    var p = new Point(500,100);
+    var p1 = new Point(80,30);
+    parseTest.testEqualsPoint("First Point in string", p, result[0]);
+    parseTest.testEqualsPoint("Second point in String", p1, result[1]);
+    parseTest.closeTests();
 }

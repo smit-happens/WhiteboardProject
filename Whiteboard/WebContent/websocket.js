@@ -9,7 +9,7 @@ webSocket.onopen = function(event) {
 };
 
 webSocket.onmessage = function(event) {
-	onMessage(event)
+	onMessage(event.data)
 };
 
 function onOpen(event) {
@@ -22,7 +22,7 @@ function onError(event) {
 }
 
 function start() {
-	var text = document.getElementById("userinput").value;
+	//var text = document.getElementById("userinput").value;
 	webSocket.send(text);
 	return false;
 }
@@ -82,31 +82,40 @@ function broadcastShape(type, girth, color, x1, y1, x2, y2){
 	webSocket.send(message);
 	
 }
-function broadcastFreeform(girth, color, arr){ // how to pass an array of x,y,x,y on JS?
+function broadcastFreeform(girth, color, points){ // how to pass an array of x,y,x,y on JS?
 	var message =  "Update|Freeform|" +
 	girth.toString() + "|" +
 	color + "|";
 	
-	for(var i=0; i< arr.length(); i+=2){
-		if(i== length-1){
-			message = message + arr[i].toString + "|";
-		}
-		else{
-			message = message + arr[i].toString + ",";
-		}
-	}
+	//for(var i=0; i< arr.length(); i+=2){
+	//	if(i== length-1){
+	//		message = message + arr[i].toString + "|";
+	//	}
+	//	else{
+	//		message = message + arr[i].toString + ",";
+	//	}
+	//}
+
+	for(var i=0; i<points.length-1; i++) {
+        //loop over points
+        message += points[i].getX() + "," + points[i].getY() +"|";
+    }
+
+   // message += points[points.length-1].getX() + "," + points[points.length-1].getY();
+    //messageConsole.log(message);
+
 	webSocket.send(message);
 }
 
 
 
-function onMessage(event) {
+function onMessage(msg) {
 
 	// THIS line below is what WAS in onMessage()
 	//document.getElementById('messages').innerHTML += '<br />' + event.data;
 	//messageConsole.log(event.data);
-	var MessageTokenArr = event.data.split("|");
-	//messageConsole.log(MessageTokenArr[0]);
+	var MessageTokenArr = msg.split("|");
+	console.log(msg);
 	
 	if (MessageTokenArr[0] == "NumberUsers"){
 		DisplayNumUsers(MessageTokenArr[1]);
@@ -157,14 +166,23 @@ function onMessage(event) {
 			);
 		}
 		else if (MessageTokenArr[1] === "Freeform"){
-			var pointsList = MessageTokenArr[2];// parse in js x,y,x,y
-			createNetworkShape(
-					"Freeform",
-					parseFloat(MessageTokenArr[2]), //girth
-					parseInt(MessageTokenArr[3]), //color
-					pointsList // array of x,y,x,y,x,y
-			);
+            var pointsList = MessageTokenArr.slice(4);
+            //console.log(pointsList);
+            var outputList = [];
+            //var debugStr = "WEBSOCKET : ";
+
+            for(var i=0; i<pointsList.length-1; i++) {
+                var xy = pointsList[i].split(",");
+                var p = new Point(parseInt(xy[0]), parseInt(xy[1]));
+                outputList[i] = p;
+               // debugStr += "(" + p.getX() + "," + p.getY() + ") | ";
+            }
+            //console.log("Point list length " + outputList.length);
+            //console.log(debugStr);
+            createFreeformShape(MessageTokenArr[2],
+                MessageTokenArr[3], outputList);
+            return outputList;
 		}
 
-	}	   
+	}
 }
