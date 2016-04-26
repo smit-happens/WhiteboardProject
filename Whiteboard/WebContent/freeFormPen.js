@@ -56,7 +56,7 @@ function setDrawingFalse(event) {
     var pixel = getCursorPosition(canvas , event); //gets ending pos
     cShape = tool.onEndDraw(pixel, getContext(canvas) );
     notify(cTool, cShape); //sends to server
-    console.log("num points collected " + cShape.points.length);
+    //console.log("num points collected " + cShape.points.length);
 }
 
 function anchorToBase() {
@@ -71,7 +71,7 @@ function undo() { //rudimentary undo button
     var top = getTopCanvas();
     top.getContext('2d').clearRect(0, 0, top.width, top.height);
     broadcastWhiteboardUndo(); //sends request to server
-    messageConsole.log("action undone");
+    messageConsole.log("Action undone");
 }
 
 function clearCanvas() {
@@ -82,7 +82,7 @@ function clearCanvas() {
     var top = getTopCanvas();
     top.getContext('2d').clearRect(0, 0, top.width, top.height); //can't call undo- this would send the wrong message to the server
     broadcastWhiteboardClear(); //sends request to server
-    messageConsole.log("canvas cleared")
+    messageConsole.log("Canvas cleared")
 }
 
 function changeColor() {
@@ -94,13 +94,13 @@ function changeColor() {
 function colorPicker() {
     color = document.getElementById("Picker").value;
     tool.setColor(color);
-     messageConsole.log("color changed to " + color);
+     messageConsole.log("Color changed to " + color);
 }
 
 function colorButton(button_color) {
     color = button_color;
     tool.setColor(button_color);
-    messageConsole.log("color changed to " + color );
+    messageConsole.log("Color changed to " + color );
 }
 
 function DisplayNumUsers(users) {
@@ -120,7 +120,7 @@ function setSize(size) {
     thickness = size;
     //document.getElementById("thickDisplay").innerHTML = "" + size; //depreciated
     tool.setThickness(thickness);
-    messageConsole.log('thickness changed to ' + size);
+    messageConsole.log('Thickness changed to ' + size);
 }
 
 function changeTool(tool) {
@@ -179,7 +179,7 @@ function createNetworkShape(type, thickness, color, startX, startY, endX, endY) 
     netShape.add(end_point);
     netShape.draw(getContext(getTopCanvas()));
     shapes.push(netShape);
-    messageConsole.log("User drew" + type +" shape");
+    messageConsole.log("User drew " + type +" shape");
     anchorToBase(); //remove the net shape from the temp canvas as fast as possible.
 }
 
