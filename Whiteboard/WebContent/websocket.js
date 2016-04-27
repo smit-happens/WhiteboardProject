@@ -117,12 +117,12 @@ function onMessage(msg) {
 	var MessageTokenArr = msg.split("|");
 	console.log(msg);
 	
-	if (MessageTokenArr[0] == "NumberUsers"){
+	if (MessageTokenArr[0] === "NumberUsers"){
 		DisplayNumUsers(MessageTokenArr[1]);
 	}
-	/*else if (MessageTokenArr[0] = "Clear"){
-		clearCanvas();
-	}*/
+	else if (MessageTokenArr[0] === "Clear"){
+			clearCanvasOnMessage();
+	}
 	else if (MessageTokenArr[0] === "Redo"){
 		redo();
 	}

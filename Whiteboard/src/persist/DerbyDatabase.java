@@ -30,37 +30,37 @@ public class DerbyDatabase implements IDatabase {
 
 	public Integer insertAccount(final String email,final String password, final String username ) {
 		return executeTransaction(new Transaction<Integer>() {
-			
+
 			@Override
 			public Integer execute(Connection conn) throws SQLException {
-			PreparedStatement stmt1 = null; // insert new info into accounts table
+				PreparedStatement stmt1 = null; // insert new info into accounts table
 
-			ResultSet resultSet1 = null; // accountKey
+				ResultSet resultSet1 = null; // accountKey
 
 
-			try {
-				stmt1 = conn.prepareStatement(
-						"insert into accounts (email, password, username) " +
-								"  values(?, ?,?) ",
-								Statement.RETURN_GENERATED_KEYS);
-				stmt1.setString(1, email);
-				stmt1.setString(2, password);
-				stmt1.setString(3, username);
+				try {
+					stmt1 = conn.prepareStatement(
+							"insert into accounts (email, password, username) " +
+									"  values(?, ?,?) ",
+									Statement.RETURN_GENERATED_KEYS);
+					stmt1.setString(1, email);
+					stmt1.setString(2, password);
+					stmt1.setString(3, username);
 
-				// execute the query, get the result
-				stmt1.executeUpdate();
-				resultSet1 = stmt1.getGeneratedKeys();
+					// execute the query, get the result
+					stmt1.executeUpdate();
+					resultSet1 = stmt1.getGeneratedKeys();
 
-				resultSet1.next();
-				Integer accountKey = resultSet1.getInt(1);
-				return accountKey;
+					resultSet1.next();
+					Integer accountKey = resultSet1.getInt(1);
+					return accountKey;
 
-			}
+				}
 
-			finally {
-				DBUtil.closeQuietly(resultSet1);
-				DBUtil.closeQuietly(stmt1);				
-			}
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);				
+				}
 
 			}
 		});
@@ -70,26 +70,110 @@ public class DerbyDatabase implements IDatabase {
 		return null;
 	}	
 
-	public void login(final String email,final String password, final String username ) {
+	/*
+	public WhiteboardDO login(final String email,final String password, final String username ) {
+		return executeTransaction(new Transaction<WhiteboardDO>() {
 
+			@Override
+			public WhiteboardDO execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null; // check if account is in the table already by returning accountKey
+				PreparedStatement stmt2 = null; // get whiteboard keys associated with the account
+				PreparedStatement stmt3 = null;
+				
+				ResultSet resultSet1 = null; // accountKey
+				//boolean isValidAccount = false; // isValidAccount
+				WhiteboardDO wbDO;
+				try {
+					stmt1 = conn.prepareStatement(
+							"select accountKey from accounts" +
+									"  where username = ?  and"
+									+ "where password= ? and "
+									+ "where username= ?"
+							);
+					stmt1.setString(1, email);
+					stmt1.setString(2, password);
+					stmt1.setString(3, username);
+
+					// execute the query, get the result
+					stmt1.executeUpdate();
+					resultSet1 = stmt1.getResultSet();
+
+					resultSet1.next();
+					Integer accountKey = resultSet1.getInt(1);
+
+					if(accountKey<0){
+						//isValidAccount = true;
+						wbDO.setAccountarr(accountarr); 
+						wbDO.setShapearr(shapearr);
+						wbDO.setWbKey(wbKey);
+						wbDO.setWbName(wbName);
+					}
+					
+					return null;
+				}
+
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);				
+				}
+
+			}
+		});
 	}
+	*/
 
 
 	public List<WhiteboardNameDO> ListWhiteboards(final AccountDO account) {
 		return null;
 	}	
 
-	public void shareWhiteboard(final AccountDO account1, final AccountDO account2, final String whiteboardName ) {
+	public Boolean isVaildAccount(final AccountDO account) {
+		return executeTransaction(new Transaction<Boolean>() {
 
-	}
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null; // check if account is in the table already by returning accountKey
 
-	public boolean isVaildAccount(final AccountDO account) {
-		return false;
+				ResultSet resultSet1 = null; // accountKey
+
+
+				try {
+					stmt1 = conn.prepareStatement(
+							"select accountKey from accounts" +
+									//"  where email = ?  and" +
+									 "where password= ? and "
+									+ "where username= ?"
+							);
+				//	stmt1.setString(1, account.getEmail());
+					stmt1.setString(1, account.getPassword());
+					stmt1.setString(2, account.getUsername());
+
+					// execute the query, get the result
+					stmt1.executeUpdate();
+					resultSet1 = stmt1.getResultSet();
+
+					resultSet1.next();
+					Integer accountKey = resultSet1.getInt(1);
+					if(accountKey== account.getAccountKey()){
+						if(accountKey<0){
+							return true;
+						}
+					}
+					return false;
+				}
+
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);				
+				}
+
+			}
+		});
 	}	
 
 	public WhiteboardDO getWhiteboard(String whiteboardName) {
 		PreparedStatement stmt1 = null; // get wb key of whiteboard passed in 
-		PreparedStatement stmt2 = null; // join wbAccounts with Accounts; resultset2 to fill in accounts list
+		PreparedStatement stmt2 = null; // join wbAccounts with Accounts; resultset2 to fill in accounts list(all accounts assocaited with whiteboard)
 		PreparedStatement stmt3 = null; // get all shapes associated with the whiteboard passed in; resultset3 to fill shapes list
 		return null;
 	}
@@ -535,5 +619,55 @@ public class DerbyDatabase implements IDatabase {
 		db.loadInitialData();
 
 		System.out.println("Success!");
+	}
+
+	@Override
+	public WhiteboardDO clearWhiteboard(String whiteboardName) {
+		return executeTransaction(new Transaction<WhiteboardDO>() {
+
+			@Override
+			public WhiteboardDO execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null; // get wbKey from wbName table using whiteboardName
+				PreparedStatement stmt2 = null; // using wbKey from above, delete all shapes with that whiteboard key in wbShapes table
+				
+				ResultSet resultSet1 = null; // accountKey
+				//boolean isValidAccount = false; // isValidAccount
+				WhiteboardDO wbDO;
+				try {
+					stmt1 = conn.prepareStatement(
+							"select accountKey from accounts" +
+									"  where username = ?  and"
+									+ "where password= ? and "
+									+ "where username= ?"
+							);
+					stmt1.setString(1, email);
+					stmt1.setString(2, password);
+					stmt1.setString(3, username);
+
+					// execute the query, get the result
+					stmt1.executeUpdate();
+					resultSet1 = stmt1.getResultSet();
+
+					resultSet1.next();
+					Integer accountKey = resultSet1.getInt(1);
+
+					if(accountKey<0){
+						//isValidAccount = true;
+						wbDO.setAccountarr(accountarr); 
+						wbDO.setShapearr(shapearr);
+						wbDO.setWbKey(wbKey);
+						wbDO.setWbName(wbName);
+					}
+					
+					return null;
+				}
+
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);				
+				}
+
+			}
+		});
 	}
 }
