@@ -2,22 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="websocket.js"></script>
-    <script src="model.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">    <!-- imports CSS file called style -->
     <title>Whiteboard</title>
 </head>
 <body>
     <a href="index.html">← Back to main</a>
-    <div class="loginform">
-        <form name="login">
 
-                    <label for="usermail">Email</label>
-                    <input type="email" id="usermail" placeholder="yourname@email.com" required>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="password" required>
-                    <input type="submit" value="Login">
-        </form>
+    <div class="login-page">
+        <!--<div class="form">
+            <form class="register-form">
+                <input type="text" placeholder="name"/>
+                <input type="password" placeholder="password"/>
+                <input type="text" placeholder="email address"/>
+                <button>create</button>
+            </form>
+        </div>
+        !-->
+        <div class="form">
+            <form class="login-form">
+                <input type="email" placeholder="yourname@email.com" required/>
+                <input type="password" placeholder="password" required/>
+                <input id="submit" type="submit" value="Login">
+            </form>
+        </div>
     </div>
 </body>
 </html>
