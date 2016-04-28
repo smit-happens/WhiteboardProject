@@ -162,7 +162,7 @@ public class DerbyDatabase implements IDatabase {
 					if (resultSet1.next())
 					{
 						wbKey = resultSet1.getInt(1);
-						System.out.println("whiteboardName " + whiteboardName + "found with key: " + wbKey);						
+						System.out.println("whiteboardName " + whiteboardName + " found with key: " + wbKey);						
 					}
 					else
 					{
@@ -171,13 +171,13 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					stmt2 = conn.prepareStatement(
-							"select email, password, username from accounts" +
-									"wbAccounts.wbKey= ? and "
-									+ "  where wbAccounts.accountKey = accounts.accountKey and"
+							"select * from accounts, wbAccounts" +
+									" where wbAccounts.wbKey= ? and "
+									+ " wbAccounts.accountKey = accounts.accountKey"
 							);
 					stmt2.setInt(1, wbKey);
 					resultSet2 = stmt2.executeQuery();
-
+					System.out.println("here with no error");
 					while (resultSet2.next()) {
 						AccountDO accountDO = new AccountDO();
 						loadAccount(accountDO, resultSet2, 1);
@@ -185,8 +185,8 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					stmt3 = conn.prepareStatement(
-							"select shapeKey, shape from shapes" +
-									"where wbKey = ?"
+							"select * from shapes" +
+									" where wbKey = ?"
 							);
 					stmt3.setInt(1, wbKey);
 
@@ -677,7 +677,7 @@ public class DerbyDatabase implements IDatabase {
 				List<ShapeDO> shapeList = new ArrayList<ShapeDO>();
 				List<AccountDO> accountList = new ArrayList<AccountDO>();
 
-				WhiteboardDO wbDO = new WhiteboardDO();;
+				WhiteboardDO wbDO = new WhiteboardDO();
 				int wbKey = 0;
 
 
@@ -689,29 +689,28 @@ public class DerbyDatabase implements IDatabase {
 					stmt1.setString(1, whiteboardName);
 
 					// execute the query, get the result
-					stmt1.executeUpdate();
-					resultSet1 = stmt1.getResultSet(); // wbKey
+					resultSet1 = stmt1.executeQuery(); // wbKey
 					while(resultSet1.next()){
 						wbKey = resultSet1.getInt(1);
 					}
 
 					stmt2 = conn.prepareStatement(
-							"delete * from shapes" +
+							"delete from shapes" +
 									"  where wbKey = ?  "
 							);
 					stmt2.setInt(1, wbKey);
 
-					// execute the query, get the result
 					stmt2.executeUpdate();
 
 					stmt3 = conn.prepareStatement(
-							"select shapeKey, shape from shapes" +
-									"where wbKey = ?"
+							"select * from shapes" +
+									" where wbKey = ? "
 							);
 					stmt3.setInt(1, wbKey);
 
-					resultSet3 = stmt3.executeQuery(); // shapeKey and shape 
-
+					stmt3.executeQuery(); 
+					resultSet3 = stmt3.getResultSet(); // shapeKey and shape 
+					
 					while (resultSet3.next()) { // should be empty now
 						ShapeDO shapeDO = new ShapeDO();
 						loadShape(shapeDO, resultSet3, 1);
@@ -719,9 +718,9 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					stmt4 = conn.prepareStatement(
-							"select email, password, username from accounts" +
-									"wbAccounts.wbKey= ? and "
-									+ "  where wbAccounts.accountKey = accounts.accountKey and"
+							"select * from accounts,wbAccounts" +
+									" where wbAccounts.wbKey = ? and "
+									+ "wbAccounts.accountKey = accounts.accountKey"
 							);
 					stmt4.setInt(1, wbKey);
 					resultSet4 = stmt4.executeQuery();
@@ -742,6 +741,8 @@ public class DerbyDatabase implements IDatabase {
 
 				finally {
 					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(resultSet4);
 					DBUtil.closeQuietly(stmt1);	
 					DBUtil.closeQuietly(stmt2);
 					DBUtil.closeQuietly(stmt3);
@@ -765,12 +766,12 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					stmt1 = conn.prepareStatement(
 							"select * from accounts" +
-									"accounts.email= ? "
+									" where email = ? "
 							);
 					stmt1.setString(1, email);
 					resultSet1 = stmt1.executeQuery();
 
-					while (resultSet1.next()) {
+					if(resultSet1.next()) {
 						loadAccount(accountDO, resultSet1, 1);
 					}
 					return accountDO;

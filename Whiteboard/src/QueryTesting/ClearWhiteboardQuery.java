@@ -19,7 +19,6 @@ public class ClearWhiteboardQuery {
 		
 		WhiteboardDO whiteboardDO= db.clearWhiteboard(whiteboardName);
 		
-		System.out.print("ShapeList Size: "+ whiteboardDO.getShapeList().size());
-		System.out.print("First entry in ShapeList" +whiteboardDO.getShapeList().get(0));
+		System.out.println("ShapeList Size: "+ whiteboardDO.getShapeList().size());
 	}
 }

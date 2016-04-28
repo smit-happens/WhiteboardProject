@@ -19,9 +19,9 @@ public class getAccountbyEmailQuery {
 		
 		AccountDO accountDO= db.getAccountbyEmail(email);
 
-		System.out.print("AccountKey: " + accountDO.getAccountKey());
-		System.out.print("Email: " + accountDO.getEmail());
-		System.out.print("Password: " + accountDO.getPassword());
-		System.out.print("Username: " + accountDO.getUsername());
+		System.out.println("AccountKey: " + accountDO.getAccountKey());
+		System.out.println("Email: " + accountDO.getEmail());
+		System.out.println("Password: " + accountDO.getPassword());
+		System.out.println("Username: " + accountDO.getUsername());
 	}
 }
