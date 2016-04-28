@@ -5,11 +5,11 @@ public enum MessageCommand {
 	Update, // Shape
 	Login, // Name
 	Logout, // Token
-	Mode, // Manual or Live or Offline
-	NewUser, 
-	DeleteUser,
+	CreateAccount, 
+	DeleteAccount,
 	NumberUsers,
-	Redo,
-	Undo, 
-	Clear
+	Clear, 
+	InvalidPassword, 
+	InvalidEmailAccount,
+	AccountExists
 }
