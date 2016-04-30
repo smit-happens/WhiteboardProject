@@ -38,6 +38,22 @@ function broadcastWhiteboardRedo(){
 	var message = "Redo|";
 	webSocket.send(message);
 }
+
+function broadcastLogin(email, pwrdHash) {
+	var message = "Login|";
+	message += email + "|";
+	message += pwrdHash +"|";
+	webSocket.send(message);
+}
+
+function broadcastLogout(email) {
+	var message = "Logout|";
+	message += email + "|";
+	webSocket.send(message);
+}
+
+
+
 /*
 function broadcastCircle(girth, color, x1, y1, x2, y2){
 	message = "Update|Circle|" +
