@@ -2,12 +2,16 @@ package com.pretech.test.websockets;
 import org.apache.commons.lang3.StringUtils;
 
 import model.AccountDO;
+import model.ShapeDO;
 import model.WhiteboardDO;
 import persist.DatabaseProvider;
 import persist.DerbyDatabase;
 import persist.IDatabase;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -37,6 +41,8 @@ public class WebSocketTest {
 
 	public WebSocketTest() {
 		this.whiteboard = new Whiteboard("CS 320 board");
+		DatabaseProvider.setInstance(new DerbyDatabase());
+		db = DatabaseProvider.getInstance();
 		//setDB();	
 	}
 
@@ -52,35 +58,53 @@ public class WebSocketTest {
 		switch (command) {
 
 		case "Login"://command= Login|email|password; commandData = email|password
+			System.out.println("Login" +commandData);
 			String email = StringUtils.substringBefore(commandData, "|"); // email
 			String password = StringUtils.substringAfter(commandData, "|"); // password
 			AccountDO accountDO = new AccountDO();
 			accountDO = db.getAccountbyEmail(email); // null if invalid account
 			Account account = null;
+			int wbKey=0;
+			WhiteboardDO whiteboardDO= db.getWhiteboard(whiteboard.getName());
 			if(accountDO != null){
 				if(accountDO.getPassword()== password){ 
 					account = whiteboard.getAccountbySessionID(session.getId());
 					if(account.getMessageSender().getSessionId() != null){ // always check this
 						if(whiteboard.getNumberOfAccounts()==1){ // only get the whiteboard for the first user to log on
 							if(account.getMessageSender().getSessionId() != null){
-								WhiteboardDO whiteboardDO= db.getWhiteboard(whiteboard.getName());
+
 								// get all shapes from whiteboardDO and add them to the whiteboard
-								whiteboard.
-								
+								whiteboard.setShapeArrList(whiteboardDO.getShapeList());
 								// send out a messages to the user that opened the session of all the shapes in the whiteboard model
-								
+								for(int i=0; i<whiteboardDO.getShapeList().size(); i++){
+									ShapeDO shapeDO= whiteboardDO.getShapeList().get(i);
+									String msg = shapeDO.getShapeString();
+									account.sendSingleAccountMessage(MessageCommand.Update, msg);
+								}
 								// update the empty account with the login email and password information
+								account.setEmail(email);
+								account.setPassword(password);
+								account.setName(email);
 							}
 
 						}
 						else{ // all other users
+
 							// send out a messages to the user that opened the session of all the shapes in the whiteboard model
-							
+							for(int i=0; i<whiteboardDO.getShapeList().size(); i++){
+								ShapeDO shapeDO= whiteboardDO.getShapeList().get(i);
+								String msg = shapeDO.getShapeString();
+								account.sendSingleAccountMessage(MessageCommand.Update, msg);
+							}
 							// update the empty account with the login email and password information
+							account.setEmail(email);
+							account.setPassword(password);
+							account.setName(email);
 						}
 					}
-					else{ // shouldnt get her! ids should match
+					else{ // shouldnt get here! ids should match
 						System.out.println(" ids do not match");
+
 					}
 
 				}
@@ -95,12 +119,14 @@ public class WebSocketTest {
 			break;
 
 		case "Clear":
+			System.out.println("Clear" +commandData);
 			whiteboard.broadcastMessage(MessageCommand.Clear, "");
 			String whiteboardName = whiteboard.getName();
 			db.clearWhiteboard(whiteboardName);
 			break;
 
 		case "DeleteAccount": // commandData = email|
+			System.out.println("DeleteAccount" +commandData);
 			// remove account from the server whiteboard model object
 			String email1 = StringUtils.substringBefore(commandData, "|"); // email
 			MessageSender messageSender1 = new MessageSender(session);
@@ -113,6 +139,7 @@ public class WebSocketTest {
 			break;
 
 		case "CreateAccount": // commandData = email|password|
+			System.out.println("CreateAccount" +commandData);
 			String email2 = StringUtils.substringBefore(commandData, "|"); // email
 			String password2 = StringUtils.substringAfter(commandData, "|"); // password
 			MessageSender messageSender2 = new MessageSender(session);
@@ -122,6 +149,7 @@ public class WebSocketTest {
 			// add account into database
 			if(accountDO2 == null){
 				db.insertAccount(email2, password2, email2); // in this version username = email
+				account2.sendSingleAccountMessage(MessageCommand.AccountCreated, "account successfully created");
 			}
 			else{
 				account2.sendSingleAccountMessage(MessageCommand.AccountExists, "account already exists");
@@ -129,6 +157,8 @@ public class WebSocketTest {
 			break;
 
 		case "Logout": // commandData = email|
+			
+			System.out.println("Logout" +commandData);
 			// remove account from the server whiteboard model object
 			String email3 = StringUtils.substringBefore(commandData, "|"); // email
 			MessageSender messageSender3 = new MessageSender(session);
@@ -137,11 +167,25 @@ public class WebSocketTest {
 			whiteboard.removeAccount(account3);
 			break;
 
+
 		case "Update" :
+			System.out.println("Update" +commandData);
+			// broadcast the update shape to all users connected
 			whiteboard.broadcastMessage(MessageCommand.Update, commandData);
+
+			//for any update message- update both the whiteboard model and database model
+			int shapeKey= db.insertShape(commandData, whiteboard.getName());
+			ShapeDO shapeDO= new ShapeDO();
+			shapeDO.setShapeKey(shapeKey);
+			shapeDO.setShapeString(commandData);
+			List<ShapeDO> shapeDOList = whiteboard.getShapeArrList();
+			shapeDOList.add(shapeDO);
+
+			/*
 			String shape = StringUtils.substringBefore(commandData, "|"); // circle
 			String shapeData = StringUtils.substringAfter(commandData, "|"); // girth | color | point1x | point1y | point2x |point2y |
 			//Integer shapeKey = db.insertShape(shapeData, "Cara's board");
+
 			if(shape.equals("Freeform")){
 				String[] freeformDataArrStr = StringUtils.splitByWholeSeparatorPreserveAllTokens(shapeData, "|");
 				double girth = Double.parseDouble(freeformDataArrStr[0]); 
@@ -153,27 +197,32 @@ public class WebSocketTest {
 					Point point= new Point(x1, y1);
 					// freeform.addPoint(point);
 				}
-				//for all the shapes- update both the whiteboard model and database model
-			}
-			break;
-		}	
-	}
+			}*/
+		
+		
+		break;
+	}	
+}
 
-	@OnOpen
-	public void onOpen(Session session) throws IOException {
-		this.session = session;
-		MessageSender messageSender = new MessageSender(session);
-		Account account = whiteboard.createAndAddAccount(messageSender);
-
-
-	}
-
-	@OnClose
-	public void onClose(Session session) throws IOException {
-
-		whiteboard.removeAccountBySessionId(this.session.getId());
-		System.out.println("Connection closed");
+@OnOpen
+public void onOpen(Session session) throws IOException {
+	this.session = session;
+	MessageSender messageSender = new MessageSender(session);
+	Account account = whiteboard.createAndAddAccount(messageSender);
 
 
-	}
+}
+
+@OnClose
+public void onClose(Session session) throws IOException {
+
+	whiteboard.removeAccountBySessionId(this.session.getId());
+	System.out.println("Connection closed");
+
+
+}
+public static void main(String[] args) throws Exception {
+	DatabaseProvider.setInstance(new DerbyDatabase());
+	IDatabase db = DatabaseProvider.getInstance();
+}
 }
