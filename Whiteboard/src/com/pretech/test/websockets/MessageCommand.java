@@ -11,5 +11,6 @@ public enum MessageCommand {
 	Clear, 
 	InvalidPassword, 
 	InvalidEmailAccount,
-	AccountExists
+	AccountExists,
+	AccountCreated
 }

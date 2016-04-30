@@ -129,7 +129,18 @@ function onMessage(msg) {
 	else if (MessageTokenArr[0] === "Undo"){
 		undo();
 	}
-	
+	else if(MessageTokenArr[0] === "InvalidPassword"){
+		messageConsole.log("InvalidPassword");
+	}
+	else if(MessageTokenArr[0] === "InvalidEmailAccount"){
+		messageConsole.log("InvalidEmailAccount");
+	}
+	else if(MessageTokenArr[0] === "AccountExists"){
+		messageConsole.log("AccountExists");
+	}
+	else if(MessageTokenArr[0] === "AccountCreated"){
+		messageConsole.log("AccountCreated");
+	}
 	else if (MessageTokenArr[0] === "Update"){
 		
 		if (MessageTokenArr[1] === "Circle"){
