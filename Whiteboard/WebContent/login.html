@@ -10,20 +10,22 @@
 
     <div class="login-page">
         <div class="form">
-            <form class="register-form">
-                <input type="text" placeholder="name"/>
-                <input type="password" placeholder="password"/>
-                <input type="text" placeholder="email address"/>
-                <input id="submit" type="submit" value="Create Account">
-            </form>
-        </div>
-
-        <div class="form">
-            <form class="login-form">
-                <input type="email" placeholder="yourname@email.com" required/>
-                <input type="password" placeholder="password" required/>
-                <input id="submit" type="submit" value="Login">
-            </form>
+            <div>
+                <form class="loginForm">
+                    <input type="email" placeholder="email address" required/>
+                    <input type="password" placeholder="password" required/>
+                    <input class="submit" type="submit" value="Login">
+                </form>
+            </div>
+            <div>
+                <form class="registerForm">
+                    <hr>
+                    <input type="text" placeholder="name" required/>
+                    <input type="email" placeholder="email address" required/>
+                    <input type="password" placeholder="password" required/>
+                    <input class="submit" type="submit" value="Create Account">
+                </form>
+            </div>
         </div>
     </div>
 </body>
