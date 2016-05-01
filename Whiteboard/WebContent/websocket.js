@@ -26,6 +26,11 @@ function start() {
 	webSocket.send(text);
 	return false;
 }
+function TestCommand(){
+	var message = "Login|cs320@ycp.edu|hakerocks|";
+	messageConsole.log("TestCommand");
+	webSocket.send(message);
+}
 function broadcastWhiteboardClear(){
 	var message = "Clear|";
 	webSocket.send(message);
@@ -54,7 +59,7 @@ function broadcastLogout(email) {
 
 
 
-/*
+
 function broadcastCircle(girth, color, x1, y1, x2, y2){
 	message = "Update|Circle|" +
 	girth.toString() + "|" +
@@ -85,7 +90,8 @@ function broadcastTriangle(girth, color, x1, y1, x2, y2){
 	y2.toString() + "|" ;
 	webSocket.send(message);
 }
-*/
+
+
 function broadcastShape(type, girth, color, x1, y1, x2, y2){
 	var message =  "Update|" +
 	type + "|" +

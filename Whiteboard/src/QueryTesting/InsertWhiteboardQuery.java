@@ -18,9 +18,9 @@ public class InsertWhiteboardQuery {
 		System.out.print("Enter the Whiteboard Name: ");
 		String wbName = keyboard.nextLine();
 		AccountDO account = new AccountDO();
-		String email = "csperbec@ycp.edu";
-		String password = "cat";
-		String username = "Cara";
+		String email = "cs320@ycp.edu";
+		String password = "hakerocks";
+		String username = "cs320@ycp.edu";
 		account.setEmail(email);
 		account.setPassword(password);
 		account.setUsername(username);

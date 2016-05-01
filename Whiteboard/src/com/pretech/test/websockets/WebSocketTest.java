@@ -60,15 +60,14 @@ public class WebSocketTest {
 		case "Login"://command= Login|email|password; commandData = email|password
 			System.out.println("Login" +commandData);
 			String email = StringUtils.substringBefore(commandData, "|"); // email
-			String password = StringUtils.substringAfter(commandData, "|"); // password
+			String password = StringUtils.substringBefore(StringUtils.substringAfter(commandData, "|"),"|"); // password
 			AccountDO accountDO = new AccountDO();
 			accountDO = db.getAccountbyEmail(email); // null if invalid account
-			Account account = null;
 			int wbKey=0;
+			Account account = whiteboard.getAccountbySessionID(session.getId());
 			WhiteboardDO whiteboardDO= db.getWhiteboard(whiteboard.getName());
 			if(accountDO != null){
-				if(accountDO.getPassword()== password){ 
-					account = whiteboard.getAccountbySessionID(session.getId());
+				if(accountDO.getPassword().equals(password)){ 
 					if(account.getMessageSender().getSessionId() != null){ // always check this
 						if(whiteboard.getNumberOfAccounts()==1){ // only get the whiteboard for the first user to log on
 							if(account.getMessageSender().getSessionId() != null){
@@ -80,6 +79,7 @@ public class WebSocketTest {
 									ShapeDO shapeDO= whiteboardDO.getShapeList().get(i);
 									String msg = shapeDO.getShapeString();
 									account.sendSingleAccountMessage(MessageCommand.Update, msg);
+									System.out.println("Shape message=  " + msg);
 								}
 								// update the empty account with the login email and password information
 								account.setEmail(email);
@@ -133,7 +133,7 @@ public class WebSocketTest {
 			Account account1 = new Account(whiteboard, messageSender1);
 			account1.setName(email1); // remove account checks by name and in this version name = email
 			whiteboard.removeAccount(account1);
-
+			
 			// remove account from database
 			db.removeAccount(email1);
 			break;

@@ -38,6 +38,7 @@
 */
 
 /* SHA256 logical functions */
+
 function rotateRight(n,x) {
 	return ((x >>> n) | (x << (32 - n)));
 }

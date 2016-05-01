@@ -171,7 +171,7 @@ public class DerbyDatabase implements IDatabase {
 					}
 
 					stmt2 = conn.prepareStatement(
-							"select * from accounts, wbAccounts" +
+							"select accounts.accountKey, accounts.email, accounts.password, accounts.username from accounts, wbAccounts" +
 									" where wbAccounts.wbKey= ? and "
 									+ " wbAccounts.accountKey = accounts.accountKey"
 							);
@@ -180,12 +180,15 @@ public class DerbyDatabase implements IDatabase {
 					System.out.println("here with no error");
 					while (resultSet2.next()) {
 						AccountDO accountDO = new AccountDO();
-						loadAccount(accountDO, resultSet2, 1);
+						accountDO.setAccountKey(resultSet2.getInt(1));
+						accountDO.setEmail(resultSet2.getString(2));
+						accountDO.setPassword(resultSet2.getString(3));
+						accountDO.setUsername(resultSet2.getString(4));
 						accountList.add(accountDO);
 					}
 
 					stmt3 = conn.prepareStatement(
-							"select * from shapes" +
+							"select shapeKey, shape from shapes" +
 									" where wbKey = ?"
 							);
 					stmt3.setInt(1, wbKey);
@@ -195,7 +198,8 @@ public class DerbyDatabase implements IDatabase {
 					// if shapes are in whiteboard save them all 				
 					while (resultSet3.next()) {
 						ShapeDO shapeDO = new ShapeDO();
-						loadShape(shapeDO, resultSet3, 1);
+						shapeDO.setShapeKey(resultSet3.getInt(1));
+						shapeDO.setShapeString(resultSet3.getString(2));
 						shapeList.add(shapeDO);
 					}
 

@@ -91,7 +91,7 @@ function clearCanvasOnMessage() {
 	getContext(canvas).clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
 	var top = getTopCanvas();
 	top.getContext('2d').clearRect(0, 0, top.width, top.height); //can't call undo- this would send the wrong message to the server
-	messageConsole.log("Canvas cleared on message");
+	//messageConsole.log("Canvas cleared on message");
 }
 
 function changeColor() {
