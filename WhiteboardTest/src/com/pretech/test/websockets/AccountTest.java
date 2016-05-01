@@ -8,17 +8,11 @@ import static org.junit.Assert.*;
 /**
  * The class <code>AccountTest</code> contains tests for the class <code>{@link Account}</code>.
  *
- * @generatedBy CodePro at 3/30/16 7:49 PM
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class AccountTest {
 	/**
 	 * Run the Account(Whiteboard,MessageSender) constructor test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testAccount_1()
@@ -36,10 +30,6 @@ public class AccountTest {
 
 	/**
 	 * Run the MessageSender getMessageSender() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetMessageSender_1()
@@ -56,10 +46,6 @@ public class AccountTest {
 
 	/**
 	 * Run the List<Message> getMessages() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetMessages_1()
@@ -77,10 +63,6 @@ public class AccountTest {
 
 	/**
 	 * Run the String getName() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetName_1()
@@ -97,10 +79,6 @@ public class AccountTest {
 
 	/**
 	 * Run the String getPassword() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetPassword_1()
@@ -117,10 +95,6 @@ public class AccountTest {
 
 	/**
 	 * Run the Whiteboard getWhiteboard() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetWhiteboard_1()
@@ -138,10 +112,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void removeAccountFromWhiteboard() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccountFromWhiteboard_1()
@@ -157,10 +127,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void removeAccountFromWhiteboard() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccountFromWhiteboard_2()
@@ -176,10 +142,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void removeAccountFromWhiteboard() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccountFromWhiteboard_3()
@@ -195,10 +157,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSendSingleAccountMessage_1()
@@ -220,10 +178,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSendSingleAccountMessage_2()
@@ -245,10 +199,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
 	public void testSendSingleAccountMessage_3()
@@ -266,10 +216,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test(expected = java.lang.NullPointerException.class)
 	public void testSendSingleAccountMessage_4()
@@ -287,10 +233,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void setName(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSetName_1()
@@ -307,10 +249,6 @@ public class AccountTest {
 
 	/**
 	 * Run the void setPassword(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSetPassword_1()
@@ -327,11 +265,6 @@ public class AccountTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Before
 	public void setUp()
@@ -341,11 +274,6 @@ public class AccountTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@After
 	public void tearDown()
@@ -355,10 +283,6 @@ public class AccountTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(AccountTest.class);

@@ -7,15 +7,11 @@ import static org.junit.Assert.*;
 /**
  * The class <code>WhiteboardTest</code> contains tests for the class <code>{@link Whiteboard}</code>.
  *
- * @generatedBy CodePro at 3/30/16 7:49 PM
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class WhiteboardTest {
 	/**
 	 * Run the Whiteboard() constructor test.
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testWhiteboard_1()
@@ -27,10 +23,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void broadcastMessage(MessageCommand,String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testBroadcastMessage_1()
@@ -51,10 +43,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void broadcastMessage(MessageCommand,String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testBroadcastMessage_2()
@@ -75,10 +63,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void broadcastMessage(MessageCommand,String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testBroadcastMessage_3()
@@ -99,10 +83,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the Account createAndAddAccount(MessageSender) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testCreateAndAddAccount_1()
@@ -124,10 +104,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the Account createAndAddAccount(MessageSender) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testCreateAndAddAccount_2()
@@ -149,10 +125,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the int getNumberOfAccounts() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetNumberOfAccounts_1()
@@ -167,10 +139,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccount(Account) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccount_1()
@@ -192,10 +160,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccount(Account) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccount_2()
@@ -213,10 +177,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccount(Account) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccount_3()
@@ -238,10 +198,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccount(Account) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccount_4()
@@ -263,10 +219,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccountBySessionId(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccountBySessionId_1()
@@ -285,10 +237,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccountBySessionId(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccountBySessionId_2()
@@ -307,10 +255,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccountBySessionId(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccountBySessionId_3()
@@ -329,10 +273,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Run the void removeAccountBySessionId(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testRemoveAccountBySessionId_4()
@@ -351,11 +291,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Before
 	public void setUp()
@@ -365,11 +300,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@After
 	public void tearDown()
@@ -379,10 +309,6 @@ public class WhiteboardTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(WhiteboardTest.class);

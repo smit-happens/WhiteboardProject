@@ -177,7 +177,6 @@ public class DerbyDatabase implements IDatabase {
 							);
 					stmt2.setInt(1, wbKey);
 					resultSet2 = stmt2.executeQuery();
-					System.out.println("here with no error");
 					while (resultSet2.next()) {
 						AccountDO accountDO = new AccountDO();
 						accountDO.setAccountKey(resultSet2.getInt(1));
@@ -464,7 +463,7 @@ public class DerbyDatabase implements IDatabase {
 									"	accountKey integer primary key " +
 									"		generated always as identity (start with 1, increment by 1), " +									
 									"	email varchar(40)," +
-									"	password varchar(40)," +
+									"	password varchar(500)," +
 									"   username varchar(40)" +
 									")"
 							);	
@@ -707,7 +706,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt2.executeUpdate();
 
 					stmt3 = conn.prepareStatement(
-							"select * from shapes" +
+							"select shapeKey, shapes from shapes" +
 									" where wbKey = ? "
 							);
 					stmt3.setInt(1, wbKey);
@@ -717,12 +716,13 @@ public class DerbyDatabase implements IDatabase {
 					
 					while (resultSet3.next()) { // should be empty now
 						ShapeDO shapeDO = new ShapeDO();
-						loadShape(shapeDO, resultSet3, 1);
+						shapeDO.setShapeKey(resultSet3.getInt(1));
+						shapeDO.setShapeString(resultSet3.getString(2));
 						shapeList.add(shapeDO);
 					}
 
 					stmt4 = conn.prepareStatement(
-							"select * from accounts,wbAccounts" +
+							"select accounts.accountKey, accounts.email, accounts.password, accounts.username from accounts,wbAccounts" +
 									" where wbAccounts.wbKey = ? and "
 									+ "wbAccounts.accountKey = accounts.accountKey"
 							);
@@ -731,7 +731,10 @@ public class DerbyDatabase implements IDatabase {
 
 					while (resultSet4.next()) {
 						AccountDO accountDO = new AccountDO();
-						loadAccount(accountDO, resultSet4, 1);
+						accountDO.setAccountKey(resultSet4.getInt(1));
+						accountDO.setEmail(resultSet4.getString(2));
+						accountDO.setPassword(resultSet4.getString(3));
+						accountDO.setUsername(resultSet4.getString(4));
 						accountList.add(accountDO);
 					}
 
@@ -769,14 +772,17 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					stmt1 = conn.prepareStatement(
-							"select * from accounts" +
+							"select accountKey, email, password, username from accounts" +
 									" where email = ? "
 							);
 					stmt1.setString(1, email);
 					resultSet1 = stmt1.executeQuery();
 
 					if(resultSet1.next()) {
-						loadAccount(accountDO, resultSet1, 1);
+						accountDO.setAccountKey(resultSet1.getInt(1));
+						accountDO.setEmail(resultSet1.getString(2));
+						accountDO.setPassword(resultSet1.getString(3));
+						accountDO.setUsername(resultSet1.getString(4));
 					}
 					return accountDO;
 				}

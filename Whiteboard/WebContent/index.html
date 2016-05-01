@@ -27,7 +27,7 @@
                     <hr>
                     <input id="regEmail" type="email" placeholder="email address" required/>
                     <input id="regPw" type="password" placeholder="password" required/>
-                    <button class="submit" >Create Account</button>
+                    <button class="submit" onclick="createAccount()">Create Account</button>
                 </form>
             </div>
         </div>
@@ -42,7 +42,6 @@
             var pw = sha256_digest(document.getElementById("pw").value);
             document.getElementById("pw").value = "";
             broadcastLogin(email, pw);
-            onLogin(); //TODO: REMOVE THIS AND CALL WHEN LOGIN IS SUCCESSFUL <--- CARA
         }
         function onLogin() { //call when server responds that login was succcesfull. Displays whiteboard and hides login
             document.getElementById("login-page").setAttribute("style", "display:none;"); //this some duct tape shit
@@ -54,6 +53,9 @@
             //TODO: SEND LOGOUT MESSAGE TO SERVER. ALSO SEND IT ON PAGE RELOAD?
         }
         function onRegister() {
+            document.getElementById("reg").setAttribute("style", "display:none;");
+        }
+        function createAccount(){
             var email = document.getElementById("regEmail").value;
             var pw = sha256_digest(document.getElementById("regPw").value);
             document.getElementById("regPw").value = "";

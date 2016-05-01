@@ -6,6 +6,7 @@ public enum MessageCommand {
 	Login, // Name
 	Logout, // Token
 	CreateAccount, 
+	LoginSuccessful,
 	DeleteAccount,
 	NumberUsers,
 	Clear, 

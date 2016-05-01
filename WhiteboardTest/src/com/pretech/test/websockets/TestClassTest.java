@@ -6,17 +6,11 @@ import static org.junit.Assert.*;
 /**
  * The class <code>TestClassTest</code> contains tests for the class <code>{@link TestClass}</code>.
  *
- * @generatedBy CodePro at 3/30/16 7:48 PM
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class TestClassTest {
 	/**
 	 * Run the void main(String[]) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testMain_1()
@@ -30,10 +24,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_1()
@@ -48,10 +38,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_2()
@@ -66,10 +52,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_3()
@@ -84,10 +66,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_4()
@@ -102,10 +80,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_5()
@@ -120,10 +94,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_6()
@@ -138,10 +108,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_7()
@@ -156,10 +122,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_8()
@@ -174,10 +136,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_9()
@@ -192,10 +150,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_10()
@@ -210,10 +164,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_11()
@@ -228,10 +178,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_12()
@@ -246,10 +192,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_13()
@@ -264,10 +206,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_14()
@@ -282,10 +220,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_15()
@@ -300,10 +234,6 @@ public class TestClassTest {
 
 	/**
 	 * Run the void testMe(String) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testTestMe_16()
@@ -318,11 +248,6 @@ public class TestClassTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Before
 	public void setUp()
@@ -332,11 +257,6 @@ public class TestClassTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@After
 	public void tearDown()
@@ -346,10 +266,6 @@ public class TestClassTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(TestClassTest.class);

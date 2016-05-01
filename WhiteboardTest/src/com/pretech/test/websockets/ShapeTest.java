@@ -6,18 +6,12 @@ import static org.junit.Assert.*;
 
 /**
  * The class <code>ShapeTest</code> contains tests for the class <code>{@link Shape}</code>.
- *
- * @generatedBy CodePro at 3/30/16 7:48 PM
+ * 
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class ShapeTest {
 	/**
 	 * Run the Account getAccountID() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testGetAccountID_1()
@@ -37,10 +31,6 @@ public class ShapeTest {
 
 	/**
 	 * Run the int getColor() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testGetColor_1()
@@ -58,10 +48,6 @@ public class ShapeTest {
 
 	/**
 	 * Run the double getGirth() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testGetGirth_1()
@@ -79,10 +65,6 @@ public class ShapeTest {
 
 	/**
 	 * Run the void setAccountID(Account) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testSetAccountID_1()
@@ -100,10 +82,6 @@ public class ShapeTest {
 
 	/**
 	 * Run the void setColor(int) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testSetColor_1()
@@ -121,10 +99,6 @@ public class ShapeTest {
 
 	/**
 	 * Run the void setGirth(double) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testSetGirth_1()
@@ -142,11 +116,6 @@ public class ShapeTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Before
 	public void setUp()
@@ -156,11 +125,6 @@ public class ShapeTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@After
 	public void tearDown()
@@ -170,10 +134,6 @@ public class ShapeTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(ShapeTest.class);

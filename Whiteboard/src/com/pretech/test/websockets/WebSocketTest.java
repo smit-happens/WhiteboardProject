@@ -85,6 +85,8 @@ public class WebSocketTest {
 								account.setEmail(email);
 								account.setPassword(password);
 								account.setName(email);
+								// send login successful message
+								account.sendSingleAccountMessage(MessageCommand.LoginSuccessful, "LoginSuccessful");
 							}
 
 						}
@@ -139,19 +141,24 @@ public class WebSocketTest {
 			break;
 
 		case "CreateAccount": // commandData = email|password|
-			System.out.println("CreateAccount" +commandData);
+			System.out.println("CreateAccount|" +commandData);
 			String email2 = StringUtils.substringBefore(commandData, "|"); // email
 			String password2 = StringUtils.substringAfter(commandData, "|"); // password
+			System.out.println("email " +email2);
+			System.out.println("password " +password2);
 			MessageSender messageSender2 = new MessageSender(session);
 			Account account2 = new Account(whiteboard, messageSender2);
 			AccountDO accountDO2 = new AccountDO();
 			accountDO2 = db.getAccountbyEmail(email2); // null if invalid account
 			// add account into database
-			if(accountDO2 == null){
-				db.insertAccount(email2, password2, email2); // in this version username = email
+			System.out.println("accountKey" +accountDO2.getAccountKey());
+			if(accountDO2.getAccountKey() <= 0){
+				Integer accountKey = db.insertAccount(email2, password2, email2); // in this version username = email
+				System.out.println("inserted account");
 				account2.sendSingleAccountMessage(MessageCommand.AccountCreated, "account successfully created");
 			}
 			else{
+				System.out.println("account exists");
 				account2.sendSingleAccountMessage(MessageCommand.AccountExists, "account already exists");
 			}
 			break;

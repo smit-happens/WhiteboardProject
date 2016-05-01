@@ -8,18 +8,12 @@ import java.io.IOException;
 
 /**
  * The class <code>WebSocketTestTest</code> contains tests for the class <code>{@link WebSocketTest}</code>.
- *
- * @generatedBy CodePro at 3/30/16 7:49 PM
+ * 
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class WebSocketTestTest {
 	/**
 	 * Run the WebSocketTest() constructor test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testWebSocketTest_1()
@@ -33,10 +27,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onClose() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnClose_1()
@@ -58,10 +48,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onClose() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnClose_2()
@@ -83,10 +69,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_1()
@@ -103,10 +85,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_2()
@@ -130,10 +108,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_3()
@@ -157,10 +131,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_4()
@@ -184,11 +154,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 * @throws IOException 
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_5() throws IOException{
@@ -209,10 +174,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_6()
@@ -236,10 +197,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_7()
@@ -263,11 +220,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 * @throws IOException 
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_8() throws IOException{
@@ -289,10 +241,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_9()
@@ -316,10 +264,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_10()
@@ -343,10 +287,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_11()
@@ -370,10 +310,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_12()
@@ -397,10 +333,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_13()
@@ -424,10 +356,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_14()
@@ -451,10 +379,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_15()
@@ -478,10 +402,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onMessage(String,Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnMessage_16()
@@ -505,10 +425,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onOpen(Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnOpen_1()
@@ -529,10 +445,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Run the void onOpen(Session) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testOnOpen_2()
@@ -554,11 +466,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Before
 	public void setUp()
@@ -568,11 +475,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@After
 	public void tearDown()
@@ -582,10 +484,6 @@ public class WebSocketTestTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(WebSocketTestTest.class);

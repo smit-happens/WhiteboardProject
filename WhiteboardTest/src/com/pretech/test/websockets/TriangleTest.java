@@ -6,18 +6,12 @@ import static org.junit.Assert.*;
 
 /**
  * The class <code>TriangleTest</code> contains tests for the class <code>{@link Triangle}</code>.
- *
- * @generatedBy CodePro at 3/30/16 7:49 PM
+ * 
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class TriangleTest {
 	/**
 	 * Run the Triangle(Point,double,double) constructor test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testTriangle_1()
@@ -39,10 +33,6 @@ public class TriangleTest {
 
 	/**
 	 * Run the double getBase() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetBase_1()
@@ -60,10 +50,6 @@ public class TriangleTest {
 
 	/**
 	 * Run the double getHeight() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetHeight_1()
@@ -81,10 +67,6 @@ public class TriangleTest {
 
 	/**
 	 * Run the Point getTop() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetTop_1()
@@ -104,10 +86,6 @@ public class TriangleTest {
 
 	/**
 	 * Run the void setBase(double) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSetBase_1()
@@ -125,10 +103,6 @@ public class TriangleTest {
 
 	/**
 	 * Run the void setHeight(double) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSetHeight_1()
@@ -146,10 +120,6 @@ public class TriangleTest {
 
 	/**
 	 * Run the void setTop(Point) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSetTop_1()
@@ -167,11 +137,6 @@ public class TriangleTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Before
 	public void setUp()
@@ -181,11 +146,6 @@ public class TriangleTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@After
 	public void tearDown()
@@ -195,10 +155,6 @@ public class TriangleTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(TriangleTest.class);

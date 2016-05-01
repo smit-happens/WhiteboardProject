@@ -6,18 +6,11 @@ import static org.junit.Assert.*;
 
 /**
  * The class <code>CircleTest</code> contains tests for the class <code>{@link Circle}</code>.
- *
- * @generatedBy CodePro at 3/30/16 7:49 PM
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class CircleTest {
 	/**
 	 * Run the Circle(Point,double) constructor test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testCircle_1()
@@ -37,10 +30,6 @@ public class CircleTest {
 
 	/**
 	 * Run the Point getCenter() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetCenter_1()
@@ -60,10 +49,6 @@ public class CircleTest {
 
 	/**
 	 * Run the double getRadius() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetRadius_1()
@@ -81,10 +66,6 @@ public class CircleTest {
 
 	/**
 	 * Run the void setCenter(Point) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSetCenter_1()
@@ -102,10 +83,6 @@ public class CircleTest {
 
 	/**
 	 * Run the void setRadius(double) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSetRadius_1()
@@ -123,11 +100,6 @@ public class CircleTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Before
 	public void setUp()
@@ -137,11 +109,6 @@ public class CircleTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@After
 	public void tearDown()
@@ -151,10 +118,6 @@ public class CircleTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(CircleTest.class);

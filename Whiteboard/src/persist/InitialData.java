@@ -18,7 +18,7 @@ public class InitialData {
 		WhiteboardNameDO whiteboardObject1= new WhiteboardNameDO();
 		WhiteboardNameDO whiteboardObject2= new WhiteboardNameDO();
 		WhiteboardNameDO whiteboardObject3= new WhiteboardNameDO();
-		whiteboardObject1.setWbName("Cara's board");
+		whiteboardObject1.setWbName("CS 320 board");
 		whiteboardList.add(whiteboardObject1);
 		whiteboardObject2.setWbName("Aaron's board");
 		whiteboardList.add(whiteboardObject2);

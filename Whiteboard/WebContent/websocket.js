@@ -27,6 +27,7 @@ function start() {
 	return false;
 }
 function TestCommand(){
+	//var message = "Login|cs320@ycp.edu|hakerocks|";
 	var message = "Login|cs320@ycp.edu|hakerocks|";
 	messageConsole.log("TestCommand");
 	webSocket.send(message);
@@ -149,11 +150,9 @@ function onMessage(msg) {
 	else if (MessageTokenArr[0] === "Clear"){
 			clearCanvasOnMessage();
 	}
-	else if (MessageTokenArr[0] === "Redo"){
-		redo();
-	}
-	else if (MessageTokenArr[0] === "Undo"){
-		undo();
+	else if(MessageTokenArr[0] === "LoginSuccessful"){
+		onLogin();
+		messageConsole.log("LoginSuccessful");
 	}
 	else if(MessageTokenArr[0] === "InvalidPassword"){
 		messageConsole.err("InvalidPassword");
@@ -166,6 +165,7 @@ function onMessage(msg) {
 	}
 	else if(MessageTokenArr[0] === "AccountCreated"){
 		messageConsole.log("AccountCreated");
+		onRegister();
 	}
 	else if (MessageTokenArr[0] === "Update"){
 		

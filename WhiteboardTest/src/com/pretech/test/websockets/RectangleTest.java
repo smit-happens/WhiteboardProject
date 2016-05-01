@@ -7,17 +7,11 @@ import static org.junit.Assert.*;
 /**
  * The class <code>RectangleTest</code> contains tests for the class <code>{@link Rectangle}</code>.
  *
- * @generatedBy CodePro at 3/30/16 7:48 PM
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class RectangleTest {
 	/**
 	 * Run the Rectangle(Point,double,double) constructor test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testRectangle_1()
@@ -39,10 +33,6 @@ public class RectangleTest {
 
 	/**
 	 * Run the double getHeight() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testGetHeight_1()
@@ -60,10 +50,6 @@ public class RectangleTest {
 
 	/**
 	 * Run the Point getTopLeft() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testGetTopLeft_1()
@@ -83,10 +69,6 @@ public class RectangleTest {
 
 	/**
 	 * Run the double getWidth() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testGetWidth_1()
@@ -104,10 +86,6 @@ public class RectangleTest {
 
 	/**
 	 * Run the void setHeight(double) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testSetHeight_1()
@@ -125,10 +103,6 @@ public class RectangleTest {
 
 	/**
 	 * Run the void setTopLeft(Point) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testSetTopLeft_1()
@@ -146,10 +120,6 @@ public class RectangleTest {
 
 	/**
 	 * Run the void setWidth(double) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Test
 	public void testSetWidth_1()
@@ -167,11 +137,6 @@ public class RectangleTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	@Before
 	public void setUp()
@@ -195,10 +160,6 @@ public class RectangleTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:48 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(RectangleTest.class);
