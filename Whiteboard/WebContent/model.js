@@ -101,6 +101,16 @@ FreeFormShape.prototype = Object.create(Shape.prototype, {
             }
             context.stroke();
             context.closePath();
+
+            //do the last 2 points
+            context.moveTo(this.points[this.points.length-2].getX(), this.points[this.points.length-2].getY());
+            context.beginPath();
+            var mx = (this.points[this.points.length-2].getX() + this.points[this.points.length-1].getX()) / 2.0;
+            var my = (this.points[this.points.length-2].getY() + this.points[this.points.length-1].getY()) / 2.0;
+            context.quadraticCurveTo(this.points[this.points.length-1].getX(), this.points[this.points.length-1].getY(), mx, my);
+            context.stroke();
+            context.closePath();
+
             //this.drawX(context, this.points[0].getX(), this.points[0].getY(), 3);
             //this.drawX(context, this.points[this.points.length-1].getX(), this.points[this.points.length-1].getY(), 3); //debug
         }

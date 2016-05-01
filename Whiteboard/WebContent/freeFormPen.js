@@ -153,7 +153,7 @@ function terminateFreeform() {
 	var canvas = getTopCanvas();
 	//var pixel = getCursorPosition(canvas , event); //gets ending pos
 	var pixel = cShape.points[cShape.points.length-1];
-	//console.log("last point was (" +  pixel.getX() +  "," + pixel.getY() + ")");
+	console.log("last point was (" +  pixel.getX() +  "," + pixel.getY() + ")");
 	cShape = tool.onEndDraw(pixel, getContext(canvas) );
 
 	notify(cTool, cShape); //sends to server

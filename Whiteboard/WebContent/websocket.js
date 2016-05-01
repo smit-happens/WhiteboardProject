@@ -131,7 +131,7 @@ function onMessage(msg) {
 	//document.getElementById('messages').innerHTML += '<br />' + event.data;
 	//messageConsole.log(event.data);
 	var MessageTokenArr = msg.split("|");
-	console.log(msg);
+	//console.log(msg);
 	
 	if (MessageTokenArr[0] === "NumberUsers"){
 		DisplayNumUsers(MessageTokenArr[1]);
@@ -204,6 +204,8 @@ function onMessage(msg) {
                 outputList[i] = p;
                // debugStr += "(" + p.getX() + "," + p.getY() + ") | ";
             }
+			console.log("First point received was (" + outputList[0].getX() + "," + outputList[0].getY() +")");
+			console.log("Last point received was (" + outputList[outputList.length-1].getX() + "," + outputList[outputList.length-1].getY() +")");
             //console.log("Point list length " + outputList.length);
             //console.log(debugStr);
             createFreeformShape(MessageTokenArr[2],
