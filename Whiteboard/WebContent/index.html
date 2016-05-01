@@ -25,8 +25,8 @@
             <div id="reg" style="display:none;">
                 <form class="registerForm">
                     <hr>
-                    <input type="email" placeholder="email address" required/>
-                    <input type="password" placeholder="password" required/>
+                    <input id="regEmail" type="email" placeholder="email address" required/>
+                    <input id="regPw" type="password" placeholder="password" required/>
                     <button class="submit" >Create Account</button>
                 </form>
             </div>
@@ -40,16 +40,24 @@
         function login() {
             var email = document.getElementById("email").value;
             var pw = sha256_digest(document.getElementById("pw").value);
+            document.getElementById("pw").value = "";
             broadcastLogin(email, pw);
-            onLogin(); //TODO, REMOVE
+            onLogin(); //TODO: REMOVE THIS AND CALL WHEN LOGIN IS SUCCESSFUL <--- CARA
         }
-        function onLogin() {
-            document.getElementById("login-page").setAttribute("style", "display:none;");
+        function onLogin() { //call when server responds that login was succcesfull. Displays whiteboard and hides login
+            document.getElementById("login-page").setAttribute("style", "display:none;"); //this some duct tape shit
             document.getElementById("wb").setAttribute("style", "display:block;");
         }
         function onLogout() {
-            document.getElementById("login-page").setAttribute("style", "display:block;");
+            document.getElementById("login-page").setAttribute("style", "display:block;"); //undoes the same shit as before. Does NOT send logout message to server.
             document.getElementById("wb").setAttribute("style", "display:none;");
+            //TODO: SEND LOGOUT MESSAGE TO SERVER. ALSO SEND IT ON PAGE RELOAD?
+        }
+        function onRegister() {
+            var email = document.getElementById("regEmail").value;
+            var pw = sha256_digest(document.getElementById("regPw").value);
+            document.getElementById("regPw").value = "";
+            broadcastCreateAccount(email, pw);
         }
     </script>
 

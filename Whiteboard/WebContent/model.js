@@ -280,5 +280,9 @@ MessageConsole.prototype = {
         var textBox = document.getElementById('messageWindow'); //this should not be in model.js. But it is for now.
         textBox.innerHTML += message + '\n';
         textBox.scrollTop = textBox.scrollHeight
+    },
+
+    err : function(message) {
+        alert(message);
     }
-};
+ };

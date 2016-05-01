@@ -57,8 +57,12 @@ function broadcastLogout(email) {
 	webSocket.send(message);
 }
 
-
-
+function broadcastCreateAccount(email, pwrdHash) {
+	var message = "CreateAccount|";
+	message += email + "|";
+	message += pwrdHash + "|";
+	webSocket.send(message);
+}
 
 function broadcastCircle(girth, color, x1, y1, x2, y2){
 	message = "Update|Circle|" +
@@ -152,10 +156,10 @@ function onMessage(msg) {
 		undo();
 	}
 	else if(MessageTokenArr[0] === "InvalidPassword"){
-		messageConsole.log("InvalidPassword");
+		messageConsole.err("InvalidPassword");
 	}
 	else if(MessageTokenArr[0] === "InvalidEmailAccount"){
-		messageConsole.log("InvalidEmailAccount");
+		messageConsole.err("InvalidEmailAccount");
 	}
 	else if(MessageTokenArr[0] === "AccountExists"){
 		messageConsole.log("AccountExists");
