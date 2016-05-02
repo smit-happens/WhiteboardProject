@@ -60,12 +60,18 @@ public class WebSocketTest {
 		case "Login"://command= Login|email|password; commandData = email|password
 			System.out.println("Login" +commandData);
 			String email = StringUtils.substringBefore(commandData, "|"); // email
-			String password = StringUtils.substringBefore(StringUtils.substringAfter(commandData, "|"),"|"); // password
+			//String password = StringUtils.substringBefore(StringUtils.substringAfter(commandData, "|"),"|"); // password
+			String password = StringUtils.substringAfter(commandData, "|"); // password
+			System.out.println("email= " + email);
+			System.out.println("password= "+ password);
 			AccountDO accountDO = new AccountDO();
 			accountDO = db.getAccountbyEmail(email); // null if invalid account
+			System.out.println("accountDO.getPassword()= "+ accountDO.getPassword());
 			int wbKey=0;
 			Account account = whiteboard.getAccountbySessionID(session.getId());
+			System.out.println("account.getMessageSender().getSessionId() = "+ account.getMessageSender().getSessionId() );
 			WhiteboardDO whiteboardDO= db.getWhiteboard(whiteboard.getName());
+			System.out.println("whiteboardDO.getShapeList().size()= "+ whiteboardDO.getShapeList().size());
 			if(accountDO != null){
 				if(accountDO.getPassword().equals(password)){ 
 					if(account.getMessageSender().getSessionId() != null){ // always check this
@@ -87,11 +93,12 @@ public class WebSocketTest {
 								account.setName(email);
 								// send login successful message
 								account.sendSingleAccountMessage(MessageCommand.LoginSuccessful, "LoginSuccessful");
+								System.out.println("login successful");
 							}
 
 						}
 						else{ // all other users
-
+							
 							// send out a messages to the user that opened the session of all the shapes in the whiteboard model
 							for(int i=0; i<whiteboardDO.getShapeList().size(); i++){
 								ShapeDO shapeDO= whiteboardDO.getShapeList().get(i);
@@ -102,6 +109,9 @@ public class WebSocketTest {
 							account.setEmail(email);
 							account.setPassword(password);
 							account.setName(email);
+							
+							account.sendSingleAccountMessage(MessageCommand.LoginSuccessful, "LoginSuccessful");
+							System.out.println("login successful");
 						}
 					}
 					else{ // shouldnt get here! ids should match

@@ -12,6 +12,29 @@ public class TestingOfAllSQLMethods {
 		DatabaseProvider.setInstance(new DerbyDatabase());
 		IDatabase db = DatabaseProvider.getInstance();
 		
+		
+		// Testing InsertAccount
+		// Testing getAccountbyemail
+		
+		
+		// Testing InsertWhiteboard
+		// Testing getwhiteboard
+		
+		// insertShape
+		// Testing getwhiteboard: use get shapelist and loop through to verify inserted shapes
+		
+		
+		// insertShape - now have two shapes
+		// clearwhiteboard- no shapes now
+		// Testing getwhiteboard: use get shapelist and loop through to verify no shapes
+		
+		//remove account
+		// Testing getAccountbyemail
+		
+		
+		
+		
+		
 		// Testing Clearing Whitebaord
 		String whiteboardName = "Cara's board";
 		WhiteboardDO whiteboardDO= db.clearWhiteboard(whiteboardName);

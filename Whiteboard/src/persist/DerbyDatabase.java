@@ -706,7 +706,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt2.executeUpdate();
 
 					stmt3 = conn.prepareStatement(
-							"select shapeKey, shapes from shapes" +
+							"select shapeKey, shape from shapes" +
 									" where wbKey = ? "
 							);
 					stmt3.setInt(1, wbKey);
