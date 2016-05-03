@@ -100,23 +100,20 @@ public class DerbyDatabase implements IDatabase {
 									"  where accountKey = ? "
 							);
 
-					// delete the Book entries from the DB for this title
 					stmt2.setInt(1, accountKey);
 					stmt2.executeUpdate();
 
-					System.out.println("Deleted junction table entry from DB");									
+					//System.out.println("Deleted junction table entry from DB");									
 
-					// now delete entries in Books table for this title
 					stmt3 = conn.prepareStatement(
 							"delete from accounts " +
 									"  where accountKey = ? "
 							);
 
-					// delete the Book entries from the DB for this title
 					stmt3.setInt(1, accountKey);
 					stmt3.executeUpdate();
 
-					System.out.println("Deleted entry from account from DB");
+					//System.out.println("Deleted entry from account from DB");
 					
 					return accountKey;
 					
@@ -162,7 +159,7 @@ public class DerbyDatabase implements IDatabase {
 					if (resultSet1.next())
 					{
 						wbKey = resultSet1.getInt(1);
-						System.out.println("whiteboardName " + whiteboardName + " found with key: " + wbKey);						
+						//System.out.println("whiteboardName " + whiteboardName + " found with key: " + wbKey);						
 					}
 					else
 					{
@@ -252,7 +249,7 @@ public class DerbyDatabase implements IDatabase {
 					if (resultSet1.next())
 					{
 						accountKey = resultSet1.getInt(1);
-						System.out.println("account " + (account.getEmail()) + " found with key: " + accountKey);						
+						//System.out.println("account " + (account.getEmail()) + " found with key: " + accountKey);						
 					}
 					else
 					{
@@ -331,7 +328,7 @@ public class DerbyDatabase implements IDatabase {
 					if (resultSet1.next())
 					{
 						wbKey = resultSet1.getInt(1);
-						System.out.println("whiteboardName " + whiteboardName + "found with key: " + wbKey);						
+						//System.out.println("whiteboardName " + whiteboardName + "found with key: " + wbKey);						
 					}
 					else
 					{
@@ -546,7 +543,7 @@ public class DerbyDatabase implements IDatabase {
 					insertWhiteboard.executeUpdate();
 					insertWhiteboard.setString(1, whiteboardList.get(2).getWbName());
 					insertWhiteboard.executeUpdate();
-					System.out.println("created wbNames table");
+					//System.out.println("created wbNames table");
 
 					// get the primary keys from the records just inserted into wbNames for use later in wbAccounts join table
 					selectWhiteboards = conn.prepareStatement("select wbKey from wbNames");
@@ -556,16 +553,16 @@ public class DerbyDatabase implements IDatabase {
 					Integer autowbKey2=null;
 					Integer autowbKey3=null;
 					resultSet1 = selectWhiteboards.getResultSet();
-					System.out.println(resultSet1.getFetchSize());
+					//System.out.println(resultSet1.getFetchSize());
 					resultSet1.next();
 					autowbKey1 = resultSet1.getInt(1);
-					System.out.println(autowbKey1);
+					//System.out.println(autowbKey1);
 					resultSet1.next();
 					autowbKey2 = resultSet1.getInt(1);
-					System.out.println(autowbKey2);
+					//System.out.println(autowbKey2);
 					resultSet1.next();
 					autowbKey3 = resultSet1.getInt(1);
-					System.out.println(autowbKey3);
+					//System.out.println(autowbKey3);
 
 					// insert records into shape table
 					insertShape = conn.prepareStatement("insert into shapes (wbKey, shape) values (?, ?)");
@@ -581,7 +578,7 @@ public class DerbyDatabase implements IDatabase {
 					insertShape.addBatch();
 
 					insertShape.executeBatch();
-					System.out.println("created Shape table");
+					//System.out.println("created Shape table");
 
 
 					// insert records into accounts table
@@ -593,7 +590,7 @@ public class DerbyDatabase implements IDatabase {
 						insertAccount.addBatch();
 					}
 					insertAccount.executeBatch();
-					System.out.println("created Accounts table");
+					//System.out.println("created Accounts table");
 
 					// get the primary keys from the records just inserted into accounts for use later in wbAccounts join table
 					selectAccounts = conn.prepareStatement("select accountKey from accounts");

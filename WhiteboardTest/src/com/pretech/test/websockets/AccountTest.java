@@ -17,7 +17,7 @@ public class AccountTest {
 	@Test
 	public void testAccount_1()
 		throws Exception {
-		Whiteboard whiteboard = new Whiteboard();
+		Whiteboard whiteboard = new Whiteboard("CS 320 board");
 		MessageSender messageSender = new MessageSender((Session) null);
 
 		Account result = new Account(whiteboard, messageSender);
@@ -34,7 +34,7 @@ public class AccountTest {
 	@Test
 	public void testGetMessageSender_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 
@@ -50,7 +50,7 @@ public class AccountTest {
 	@Test
 	public void testGetMessages_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 
@@ -67,7 +67,7 @@ public class AccountTest {
 	@Test
 	public void testGetName_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 
@@ -83,7 +83,7 @@ public class AccountTest {
 	@Test
 	public void testGetPassword_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 
@@ -99,7 +99,7 @@ public class AccountTest {
 	@Test
 	public void testGetWhiteboard_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 
@@ -116,7 +116,7 @@ public class AccountTest {
 	@Test
 	public void testRemoveAccountFromWhiteboard_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 
@@ -125,35 +125,7 @@ public class AccountTest {
 		// add additional test code here
 	}
 
-	/**
-	 * Run the void removeAccountFromWhiteboard() method test.
-	 */
-	@Test
-	public void testRemoveAccountFromWhiteboard_2()
-		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
-		fixture.setName("");
-		fixture.setPassword("");
 
-		fixture.removeAccountFromWhiteboard();
-
-		// add additional test code here
-	}
-
-	/**
-	 * Run the void removeAccountFromWhiteboard() method test.
-	 */
-	@Test
-	public void testRemoveAccountFromWhiteboard_3()
-		throws Exception {
-		Account fixture = new Account((Whiteboard) null, new MessageSender((Session) null));
-		fixture.setName("");
-		fixture.setPassword("");
-
-		fixture.removeAccountFromWhiteboard();
-
-		// add additional test code here
-	}
 
 	/**
 	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
@@ -161,7 +133,7 @@ public class AccountTest {
 	@Test
 	public void testSendSingleAccountMessage_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 		MessageCommand command = MessageCommand.Clear;
@@ -176,60 +148,6 @@ public class AccountTest {
 		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
 	}
 
-	/**
-	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
-	 */
-	@Test
-	public void testSendSingleAccountMessage_2()
-		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
-		fixture.setName("");
-		fixture.setPassword("");
-		MessageCommand command = MessageCommand.Clear;
-		String content = "";
-
-		fixture.sendSingleAccountMessage(command, content);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-	}
-
-	/**
-	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
-	 */
-	@Test(expected = java.lang.NullPointerException.class)
-	public void testSendSingleAccountMessage_3()
-		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
-		fixture.setName("");
-		fixture.setPassword("");
-		MessageCommand command = MessageCommand.Clear;
-		String content = null;
-
-		fixture.sendSingleAccountMessage(command, content);
-
-		// add additional test code here
-	}
-
-	/**
-	 * Run the void sendSingleAccountMessage(MessageCommand,String) method test.
-	 */
-	@Test(expected = java.lang.NullPointerException.class)
-	public void testSendSingleAccountMessage_4()
-		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
-		fixture.setName("");
-		fixture.setPassword("");
-		MessageCommand command = null;
-		String content = "";
-
-		fixture.sendSingleAccountMessage(command, content);
-
-		// add additional test code here
-	}
 
 	/**
 	 * Run the void setName(String) method test.
@@ -237,7 +155,7 @@ public class AccountTest {
 	@Test
 	public void testSetName_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 		String name = "";
@@ -253,7 +171,7 @@ public class AccountTest {
 	@Test
 	public void testSetPassword_1()
 		throws Exception {
-		Account fixture = new Account(new Whiteboard(), new MessageSender((Session) null));
+		Account fixture = new Account(new Whiteboard("CS 320 board"), new MessageSender((Session) null));
 		fixture.setName("");
 		fixture.setPassword("");
 		String password = "";

@@ -16,9 +16,8 @@ public class WhiteboardTest {
 	@Test
 	public void testWhiteboard_1()
 		throws Exception {
-		Whiteboard result = new Whiteboard();
-		assertNotNull(result);
-		// add additional test code here
+		Whiteboard whiteboard = new Whiteboard("CS 320 board");
+		assertNotNull(whiteboard);
 	}
 
 	/**
@@ -27,58 +26,18 @@ public class WhiteboardTest {
 	@Test
 	public void testBroadcastMessage_1()
 		throws Exception {
-		Whiteboard fixture = new Whiteboard();
+		Whiteboard whiteboard = new Whiteboard("CS 320 board");
 		MessageCommand command = MessageCommand.Clear;
 		String content = "";
-
-		fixture.broadcastMessage(command, content);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
-	}
-
-	/**
-	 * Run the void broadcastMessage(MessageCommand,String) method test.
-	 */
-	@Test
-	public void testBroadcastMessage_2()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		MessageCommand command = MessageCommand.Clear;
-		String content = "";
-
-		fixture.broadcastMessage(command, content);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
-	}
-
-	/**
-	 * Run the void broadcastMessage(MessageCommand,String) method test.
-	 */
-	@Test
-	public void testBroadcastMessage_3()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		MessageCommand command = MessageCommand.Clear;
-		String content = "";
-
-		fixture.broadcastMessage(command, content);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
+		// set up whiteboard so it has multiple accounts
+		MessageSender messageSender = new MessageSender(new MockWebsocketSession());
+		Account resultAccount1 = whiteboard.createAndAddAccount(messageSender);
+		Account resultAccount2 = whiteboard.createAndAddAccount(messageSender);
+		
+		// broadcast message will loop through the accounts added above and assert true if the loop executes
+		// no way to tell what message was sent haha it gets lost in ethernetLand
+		whiteboard.broadcastMessage(command, content);
+		assertTrue(true);
 	}
 
 	/**
@@ -87,41 +46,14 @@ public class WhiteboardTest {
 	@Test
 	public void testCreateAndAddAccount_1()
 		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		MessageSender messageSender = new MessageSender((Session) null);
+		Whiteboard whiteboard = new Whiteboard("CS 320 board");
+		MessageSender messageSender = new MessageSender(new MockWebsocketSession());
 
-		Account result = fixture.createAndAddAccount(messageSender);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
-		//       at com.pretech.test.websockets.Whiteboard.createAndAddAccount(Whiteboard.java:18)
-		assertNotNull(result);
+		Account resultAccount = whiteboard.createAndAddAccount(messageSender);
+		String resultSessionID = resultAccount.getMessageSender().getSessionId();
+		assertEquals("1", resultSessionID);
 	}
 
-	/**
-	 * Run the Account createAndAddAccount(MessageSender) method test.
-	 */
-	@Test
-	public void testCreateAndAddAccount_2()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		MessageSender messageSender = new MessageSender((Session) null);
-
-		Account result = fixture.createAndAddAccount(messageSender);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
-		//       at com.pretech.test.websockets.Whiteboard.createAndAddAccount(Whiteboard.java:18)
-		assertNotNull(result);
-	}
 
 	/**
 	 * Run the int getNumberOfAccounts() method test.
@@ -129,12 +61,21 @@ public class WhiteboardTest {
 	@Test
 	public void testGetNumberOfAccounts_1()
 		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-
-		int result = fixture.getNumberOfAccounts();
-
-		// add additional test code here
-		assertEquals(2, result);
+		Whiteboard whiteboard = new Whiteboard("CS 320 board");
+		int result1 = whiteboard.getNumberOfAccounts();
+		MessageSender messageSender = new MessageSender(new MockWebsocketSession());
+		Account resultAccount1 = whiteboard.createAndAddAccount(messageSender);
+		Account resultAccount2 = whiteboard.createAndAddAccount(messageSender);
+		int result = whiteboard.getNumberOfAccounts();
+		
+		if(result1 == 0){
+			assertEquals(2, result);
+		}
+		// must use result1 -result because whiteboard classes account object is static and I only want the accounts I added to be tested
+		else{
+			assertEquals(2, result- result1);
+		}
+		
 	}
 
 	/**
@@ -143,150 +84,45 @@ public class WhiteboardTest {
 	@Test
 	public void testRemoveAccount_1()
 		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		Account a = new Account(new Whiteboard(), new MessageSender((Session) null));
-		a.setName("");
+		Whiteboard whiteboard = new Whiteboard("CS 320 board");
+		int numAcctsOrig= whiteboard.getNumberOfAccounts();
+		MessageSender messageSender = new MessageSender(new MockWebsocketSession());
+		Account resultAccount = whiteboard.createAndAddAccount(messageSender);
+		Account account = new Account(whiteboard, messageSender);
+		account.setName("Joe");
+		resultAccount.setName("Joe");
+		String resultSessionID = resultAccount.getMessageSender().getSessionId();
+		whiteboard.removeAccount(account);
+		int numAccts= whiteboard.getNumberOfAccounts();
+		if(numAcctsOrig==0){
+			assertEquals(0, numAccts);
+		}
+		else{
+			assertEquals(0, numAccts- numAcctsOrig);
+		}
+		
 
-		fixture.removeAccount(a);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
-		//       at com.pretech.test.websockets.Whiteboard.removeAccount(Whiteboard.java:34)
 	}
 
-	/**
-	 * Run the void removeAccount(Account) method test.
-	 */
-	@Test
-	public void testRemoveAccount_2()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		Account a = new Account(new Whiteboard(), new MessageSender((Session) null));
-
-		fixture.removeAccount(a);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.Whiteboard.removeAccount(Whiteboard.java:27)
-	}
-
-	/**
-	 * Run the void removeAccount(Account) method test.
-	 */
-	@Test
-	public void testRemoveAccount_3()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		Account a = new Account(new Whiteboard(), new MessageSender((Session) null));
-		a.setName("");
-
-		fixture.removeAccount(a);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
-		//       at com.pretech.test.websockets.Whiteboard.removeAccount(Whiteboard.java:34)
-	}
-
-	/**
-	 * Run the void removeAccount(Account) method test.
-	 */
-	@Test
-	public void testRemoveAccount_4()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		Account a = new Account(new Whiteboard(), new MessageSender((Session) null));
-		a.setName("");
-
-		fixture.removeAccount(a);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-		//       at com.pretech.test.websockets.Account.sendSingleAccountMessage(Account.java:53)
-		//       at com.pretech.test.websockets.Whiteboard.broadcastMessage(Whiteboard.java:55)
-		//       at com.pretech.test.websockets.Whiteboard.removeAccount(Whiteboard.java:34)
-	}
-
-	/**
+	 /**
 	 * Run the void removeAccountBySessionId(String) method test.
 	 */
 	@Test
 	public void testRemoveAccountBySessionId_1()
 		throws Exception {
-		Whiteboard fixture = new Whiteboard();
 		String id = "";
+		Whiteboard whiteboard = new Whiteboard("CS 320 board");
+		int numAcctsOrig= whiteboard.getNumberOfAccounts();
 
-		fixture.removeAccountBySessionId(id);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.getSessionId(MessageSender.java:20)
-		//       at com.pretech.test.websockets.Whiteboard.removeAccountBySessionId(Whiteboard.java:41)
-	}
-
-	/**
-	 * Run the void removeAccountBySessionId(String) method test.
-	 */
-	@Test
-	public void testRemoveAccountBySessionId_2()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		String id = "";
-
-		fixture.removeAccountBySessionId(id);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.getSessionId(MessageSender.java:20)
-		//       at com.pretech.test.websockets.Whiteboard.removeAccountBySessionId(Whiteboard.java:41)
-	}
-
-	/**
-	 * Run the void removeAccountBySessionId(String) method test.
-	 */
-	@Test
-	public void testRemoveAccountBySessionId_3()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		String id = "";
-
-		fixture.removeAccountBySessionId(id);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.getSessionId(MessageSender.java:20)
-		//       at com.pretech.test.websockets.Whiteboard.removeAccountBySessionId(Whiteboard.java:41)
-	}
-
-	/**
-	 * Run the void removeAccountBySessionId(String) method test.
-	 */
-	@Test
-	public void testRemoveAccountBySessionId_4()
-		throws Exception {
-		Whiteboard fixture = new Whiteboard();
-		String id = "";
-
-		fixture.removeAccountBySessionId(id);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.getSessionId(MessageSender.java:20)
-		//       at com.pretech.test.websockets.Whiteboard.removeAccountBySessionId(Whiteboard.java:41)
+		whiteboard.removeAccountBySessionId(id);
+		int numAccts= whiteboard.getNumberOfAccounts();
+		if(numAcctsOrig==0){
+			assertEquals(0, numAccts);
+		}
+		else{
+			assertEquals(numAcctsOrig, numAccts);
+		}
+		
 	}
 
 	/**

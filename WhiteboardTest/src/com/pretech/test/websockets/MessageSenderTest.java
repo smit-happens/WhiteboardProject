@@ -5,7 +5,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * The class <code>MessageSenderTest</code> contains tests for the class <code>{@link MessageSender}</code>.
+ * The class <code>MessageSenderTest</code> contains tests for the class <code>{@link MockMessageSender}</code>.
  *
  * @author carasperbeck
  */
@@ -18,7 +18,7 @@ public class MessageSenderTest {
 		throws Exception {
 		Session session = new MockWebsocketSession();
 
-		MessageSender result = new MessageSender(session);
+		MockMessageSender result = new MockMessageSender(session);
 
 		// add additional test code here
 		assertNotNull(result);
@@ -30,7 +30,7 @@ public class MessageSenderTest {
 	@Test
 	public void testGetSessionId_1()
 		throws Exception {
-		MessageSender fixture = new MessageSender((Session) null);
+		MockMessageSender fixture = new MockMessageSender((Session) null);
 
 		String result = fixture.getSessionId();
 
@@ -47,24 +47,7 @@ public class MessageSenderTest {
 	@Test
 	public void testSendMessage_1()
 		throws Exception {
-		MessageSender fixture = new MessageSender((Session) null);
-		Message message = new Message("");
-
-		fixture.sendMessage(message);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-	}
-
-	/**
-	 * Run the void sendMessage(Message) method test.
-	 */
-	@Test
-	public void testSendMessage_2()
-		throws Exception {
-		MessageSender fixture = new MessageSender((Session) null);
+		MockMessageSender fixture = new MockMessageSender((Session) null);
 		Message message = new Message("");
 
 		fixture.sendMessage(message);

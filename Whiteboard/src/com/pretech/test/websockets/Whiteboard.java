@@ -48,7 +48,9 @@ public class Whiteboard {
 	public void removeAccount(Account a) throws IOException {
 		// remove the specified account from the list
 		int count=0;
-		for(Account account: accounts){
+		//for(Account account: accounts){
+		for(int i=0; i<accounts.size(); i++){
+			Account account= accounts.get(i);
 			if(a.getName().equals(account.getName())){
 				accounts.remove(count);
 			}
