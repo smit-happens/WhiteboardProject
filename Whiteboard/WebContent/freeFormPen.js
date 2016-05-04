@@ -74,15 +74,17 @@ function undo() { //rudimentary undo button
 }
 
 function clearCanvas() {
-	shapes = []; //clears all shapes from mem
-	var canvas = getCanvas();
+	if(confirm('Are you sure?') === true) {
+		shapes = []; //clears all shapes from mem
+		var canvas = getCanvas();
 
-	getContext(canvas).clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
-	var top = getTopCanvas();
-	top.getContext('2d').clearRect(0, 0, top.width, top.height); //can't call undo- this would send the wrong message to the server
-	broadcastWhiteboardClear(); //sends request to server
+		getContext(canvas).clearRect(0, 0, canvas.width, canvas.height); //clears the screen using the built in clearRect() function
+		var top = getTopCanvas();
+		top.getContext('2d').clearRect(0, 0, top.width, top.height); //can't call undo- this would send the wrong message to the server
+		broadcastWhiteboardClear(); //sends request to server
 
-	messageConsole.log("Canvas cleared");
+		messageConsole.log("Canvas cleared");
+	}
 }
 function clearCanvasOnMessage() {
 	shapes = []; //clears all shapes from mem

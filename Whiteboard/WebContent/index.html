@@ -65,11 +65,14 @@
         }
     </script>
 
-    <div id="wb" style="display:none">
+    <div id="wb" style="display:none;">
 
         <div class="navBar">
-            <a href="index.html">Login/Sign Up</a>
+            <!--<a href="index.html">Login/Sign Up</a>!-->
             <a href="test.html">Testing Page</a>
+            <button id="logout">Logout</button>
+            <button id="deleteAccount" onclick="return confirm('Are you sure?')">Delete Account</button>
+
         </div>
 
         <div id="toolBar" ondragstart="return false;" ondrop="return false;">
