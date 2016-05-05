@@ -1,5 +1,7 @@
 var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
 
+var userEmail ="";
+
 webSocket.onerror = function(event) {
 	onError(event)
 };
@@ -8,13 +10,45 @@ webSocket.onopen = function(event) {
 	onOpen(event)
 };
 
+function register() {
+	document.getElementById("reg").setAttribute("style", "display:block;");
+}
+
+function login() {
+	var email = document.getElementById("email").value;
+	userEmail = email;
+	var pw = sha256_digest(document.getElementById("pw").value);
+	document.getElementById("pw").value = "";
+	broadcastLogin(email, pw);
+}
+function createAccount(){
+	var email = document.getElementById("regEmail").value;
+	var pw = sha256_digest(document.getElementById("regPw").value); //the fact that this needs to be here is stupid
+	document.getElementById("regPw").value = "";
+	broadcastCreateAccount(email, pw);
+}
+
+function onLogin() { //call when server responds that login was successful. Displays whiteboard and hides login
+	document.getElementById("login-page").setAttribute("style", "display:none;");
+	document.getElementById("wb").setAttribute("style", "display:block;");
+}
+function logout() {
+	document.getElementById("login-page").setAttribute("style", "display:block;"); //undoes the same shit as before. Does NOT send logout message to server.
+	document.getElementById("wb").setAttribute("style", "display:none;");
+	//broadcastLogout()
+}
+function onRegister() {
+	document.getElementById("reg").setAttribute("style", "display:none;");
+	// document.getElementById("login-page").setAttribute("style", "display:none;");
+	// document.getElementById("wb").setAttribute("style", "display:block;");
+}
+
 webSocket.onmessage = function(event) {
 	onMessage(event.data)
 };
 
 function onOpen(event) {
 	//document.getElementById('messages').innerHTML = 'Now Connection established';
-	
 }
 
 function onError(event) {
@@ -52,11 +86,11 @@ function broadcastLogin(email, pwrdHash) {
 	webSocket.send(message);
 }
 
-function broadcastLogout(email) {
-	var message = "Logout|";
-	message += email + "|";
-	webSocket.send(message);
-}
+//function broadcastLogout() {
+//	var message = "Logout|";
+//	message += userEmail + "|";
+//	webSocket.send(message);
+//}
 
 function broadcastCreateAccount(email, pwrdHash) {
 	var message = "CreateAccount|";
@@ -65,7 +99,14 @@ function broadcastCreateAccount(email, pwrdHash) {
 	webSocket.send(message);
 }
 
-function broadcastCircle(girth, color, x1, y1, x2, y2){
+function broadcastDeleteAccount() {
+	if(confirm('Are you sure?') === true) {
+		var message = "DeleteAccount|";
+		message += userEmail + "|";
+		webSocket.send(message);
+	}
+}
+	function broadcastCircle(girth, color, x1, y1, x2, y2){
 	message = "Update|Circle|" +
 	girth.toString() + "|" +
 	color.toString() + "|" +
@@ -210,8 +251,7 @@ function onMessage(msg) {
 
             for(var i=0; i<pointsList.length-1; i++) {
                 var xy = pointsList[i].split(",");
-                var p = new Point(parseInt(xy[0]), parseInt(xy[1]));
-                outputList[i] = p;
+				outputList[i] = new Point(parseInt(xy[0]), parseInt(xy[1]));
                // debugStr += "(" + p.getX() + "," + p.getY() + ") | ";
             }
 			console.log("First point received was (" + outputList[0].getX() + "," + outputList[0].getY() +")");

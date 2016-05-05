@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css">    <!-- imports CSS file called style -->
     <title>Whiteboard</title>
-    <script type="text/javascript" src="sha256.js"></script> <!-- http://www.bichlmeier.info/sha256.js -->
     <script type="text/javascript" src="websocket.js"></script>
     <script src="model.js"></script>
     <script src="freeFormPen.js"></script>
@@ -33,45 +32,13 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        function register() {
-                document.getElementById("reg").setAttribute("style", "display:block;");
-        }
-        function login() {
-            var email = document.getElementById("email").value;
-            var pw = sha256_digest(document.getElementById("pw").value);
-            document.getElementById("pw").value = "";
-            broadcastLogin(email, pw);
-        }
-        function onLogin() { //call when server responds that login was succcesfull. Displays whiteboard and hides login
-            document.getElementById("login-page").setAttribute("style", "display:none;"); //this some duct tape shit
-            document.getElementById("wb").setAttribute("style", "display:block;");
-        }
-        function onLogout() {
-            document.getElementById("login-page").setAttribute("style", "display:block;"); //undoes the same shit as before. Does NOT send logout message to server.
-            document.getElementById("wb").setAttribute("style", "display:none;");
-            //TODO: SEND LOGOUT MESSAGE TO SERVER. ALSO SEND IT ON PAGE RELOAD?
-        }
-        function onRegister() {
-            document.getElementById("reg").setAttribute("style", "display:none;");
-           // document.getElementById("login-page").setAttribute("style", "display:none;");
-           // document.getElementById("wb").setAttribute("style", "display:block;");
-        }
-        function createAccount(){
-            var email = document.getElementById("regEmail").value;
-            var pw = sha256_digest(document.getElementById("regPw").value);
-            document.getElementById("regPw").value = "";
-            broadcastCreateAccount(email, pw);
-        }
-    </script>
-
     <div id="wb" style="display:none;">
 
         <div class="navBar">
             <!--<a href="index.html">Login/Sign Up</a>!-->
             <a href="test.html">Testing Page</a>
-            <button id="logout">Logout</button>
-            <button id="deleteAccount" onclick="return confirm('Are you sure?')">Delete Account</button>
+            <button id="logout" onclick="logout()">Logout</button>
+            <button id="deleteAccount" onclick="broadcastDeleteAccount()">Delete Account</button>
 
         </div>
 
