@@ -5,7 +5,64 @@ body {
 
 .navBar {
     height: 20px;
-    padding: 8px;
+    padding-bottom: 7px;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    width: auto;
+    height: 19px;
+    float: left;
+    background-color: #4e934e;
+    padding: 4px;
+    border: none;
+    color: white;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+a.button:hover {
+    background-color: #38803c;
+}
+
+#deleteAccount {
+    width: auto;
+    float: left;
+    background-color: #4e934e;
+    padding: 4px;
+    border: none;
+    color: white;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#deleteAccount:hover {
+    background-color: #38803c;
+}
+
+#logout {
+    width: auto;
+    float: left;
+    background-color: #4e934e;
+    padding: 4px;
+    border: none;
+    color: white;
+    text-align: center;
+    display: block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#logout:hover {
+    background-color: #38803c;
 }
 
 #tools {
