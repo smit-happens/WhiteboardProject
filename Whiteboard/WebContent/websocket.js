@@ -105,6 +105,7 @@ function broadcastDeleteAccount() {
 		message += userEmail + "|";
 		console.log(message);
 		webSocket.send(message);
+		logout();
 	}
 }
 function broadcastCircle(girth, color, x1, y1, x2, y2){
