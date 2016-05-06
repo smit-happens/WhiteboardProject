@@ -103,10 +103,11 @@ function broadcastDeleteAccount() {
 	if(confirm('Are you sure?') === true) {
 		var message = "DeleteAccount|";
 		message += userEmail + "|";
+		console.log(message);
 		webSocket.send(message);
 	}
 }
-	function broadcastCircle(girth, color, x1, y1, x2, y2){
+function broadcastCircle(girth, color, x1, y1, x2, y2){
 	message = "Update|Circle|" +
 	girth.toString() + "|" +
 	color.toString() + "|" +
