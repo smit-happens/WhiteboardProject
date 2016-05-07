@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.AccountDO;
@@ -30,68 +31,190 @@ public class DerbyDatabase implements IDatabase {
 
 	public Integer insertAccount(final String email,final String password, final String username ) {
 		return executeTransaction(new Transaction<Integer>() {
-			
+
 			@Override
 			public Integer execute(Connection conn) throws SQLException {
-			PreparedStatement stmt1 = null; // insert new info into accounts table
+				PreparedStatement stmt1 = null; // insert new info into accounts table
 
-			ResultSet resultSet1 = null; // accountKey
+				ResultSet resultSet1 = null; // accountKey
 
 
-			try {
-				stmt1 = conn.prepareStatement(
-						"insert into accounts (email, password, username) " +
-								"  values(?, ?,?) ",
-								Statement.RETURN_GENERATED_KEYS);
-				stmt1.setString(1, email);
-				stmt1.setString(2, password);
-				stmt1.setString(3, username);
+				try {
+					stmt1 = conn.prepareStatement(
+							"insert into accounts (email, password, username) " +
+									"  values(?, ?,?) ",
+									Statement.RETURN_GENERATED_KEYS);
+					stmt1.setString(1, email);
+					stmt1.setString(2, password);
+					stmt1.setString(3, username);
 
-				// execute the query, get the result
-				stmt1.executeUpdate();
-				resultSet1 = stmt1.getGeneratedKeys();
+					// execute the query, get the result
+					stmt1.executeUpdate();
+					resultSet1 = stmt1.getGeneratedKeys();
 
-				resultSet1.next();
-				Integer accountKey = resultSet1.getInt(1);
-				return accountKey;
+					resultSet1.next();
+					Integer accountKey = resultSet1.getInt(1);
+					return accountKey;
 
-			}
+				}
 
-			finally {
-				DBUtil.closeQuietly(resultSet1);
-				DBUtil.closeQuietly(stmt1);				
-			}
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);				
+				}
 
 			}
 		});
 	}
 
-	public AccountDO removeAccount(final AccountDO account) {
-		return null;
-	}	
+	public Integer removeAccount(final String email) { 
+		return executeTransaction(new Transaction<Integer>() {
+			@Override
+			public Integer execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null; // get accountKey using email passed in
+				PreparedStatement stmt2 = null;	// delete accountKey from junction table (wbAccounts)					
+				PreparedStatement stmt3 = null; // delete accountKey from accounts table
 
-	public void login(final String email,final String password, final String username ) {
+				ResultSet resultSet1    = null;
 
-	}
+				int accountKey= 0;
 
+				try {
+					// get accountKey
+					stmt1 = conn.prepareStatement(
+							"select accountKey from accounts " +
+									"  where email = ? "
+							);
 
-	public List<WhiteboardNameDO> ListWhiteboards(final AccountDO account) {
-		return null;
-	}	
+					stmt1.setString(1, email);
+					resultSet1 = stmt1.executeQuery();	
+					
+					while(resultSet1.next()){
+						accountKey= resultSet1.getInt(1);
+					}
 
-	public void shareWhiteboard(final AccountDO account1, final AccountDO account2, final String whiteboardName ) {
+					// first delete entries in wbAccounts junction table
+					// can't delete entries in accounts table while they have foreign keys in junction table
+					stmt2 = conn.prepareStatement(
+							"delete from wbAccounts " +
+									"  where accountKey = ? "
+							);
 
-	}
+					stmt2.setInt(1, accountKey);
+					stmt2.executeUpdate();
 
-	public boolean isVaildAccount(final AccountDO account) {
-		return false;
+					//System.out.println("Deleted junction table entry from DB");									
+
+					stmt3 = conn.prepareStatement(
+							"delete from accounts " +
+									"  where accountKey = ? "
+							);
+
+					stmt3.setInt(1, accountKey);
+					stmt3.executeUpdate();
+
+					//System.out.println("Deleted entry from account from DB");
+					
+					return accountKey;
+					
+				} finally {
+					DBUtil.closeQuietly(resultSet1);
+
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);		
+					DBUtil.closeQuietly(stmt3);
+				}
+			}
+		});
 	}	
 
 	public WhiteboardDO getWhiteboard(String whiteboardName) {
-		PreparedStatement stmt1 = null; // get wb key of whiteboard passed in 
-		PreparedStatement stmt2 = null; // join wbAccounts with Accounts; resultset2 to fill in accounts list
-		PreparedStatement stmt3 = null; // get all shapes associated with the whiteboard passed in; resultset3 to fill shapes list
-		return null;
+
+		return executeTransaction(new Transaction<WhiteboardDO>() {
+			@Override
+			public WhiteboardDO execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null; // get wb key of whiteboard passed in 
+				PreparedStatement stmt2 = null; // join wbAccounts with Accounts; resultset2 to fill in accounts list(all accounts assocaited with whiteboard)
+				PreparedStatement stmt3 = null; // get all shapes associated with the whiteboard passed in; resultset3 to fill shapes list
+
+				ResultSet resultSet1 = null;
+				ResultSet resultSet2 = null;
+				ResultSet resultSet3 = null;
+				Integer wbKey= null;
+				List<ShapeDO> shapeList = new ArrayList<ShapeDO>();
+				WhiteboardDO whiteboardDO= new WhiteboardDO();
+				List<AccountDO> accountList =  new ArrayList<AccountDO>();
+
+				try {
+					stmt1 = conn.prepareStatement(
+							"select wbKey from wbNames" +
+									"  where wbName = ?  "
+							);
+					stmt1.setString(1, whiteboardName);
+
+					// execute the query, get the result
+					resultSet1 = stmt1.executeQuery(); // wbKey
+
+					// if whiteboardName was found then get wbKey					
+					if (resultSet1.next())
+					{
+						wbKey = resultSet1.getInt(1);
+						//System.out.println("whiteboardName " + whiteboardName + " found with key: " + wbKey);						
+					}
+					else
+					{
+						System.out.println("whiteboardName <" + whiteboardName + "> not found");
+						throw new PersistenceException("whiteboardName <" + whiteboardName + "> not found");
+					}
+
+					stmt2 = conn.prepareStatement(
+							"select accounts.accountKey, accounts.email, accounts.password, accounts.username from accounts, wbAccounts" +
+									" where wbAccounts.wbKey= ? and "
+									+ " wbAccounts.accountKey = accounts.accountKey"
+							);
+					stmt2.setInt(1, wbKey);
+					resultSet2 = stmt2.executeQuery();
+					while (resultSet2.next()) {
+						AccountDO accountDO = new AccountDO();
+						accountDO.setAccountKey(resultSet2.getInt(1));
+						accountDO.setEmail(resultSet2.getString(2));
+						accountDO.setPassword(resultSet2.getString(3));
+						accountDO.setUsername(resultSet2.getString(4));
+						accountList.add(accountDO);
+					}
+
+					stmt3 = conn.prepareStatement(
+							"select shapeKey, shape from shapes" +
+									" where wbKey = ?"
+							);
+					stmt3.setInt(1, wbKey);
+
+					resultSet3 = stmt3.executeQuery(); // shapeKey and shape 
+
+					// if shapes are in whiteboard save them all 				
+					while (resultSet3.next()) {
+						ShapeDO shapeDO = new ShapeDO();
+						shapeDO.setShapeKey(resultSet3.getInt(1));
+						shapeDO.setShapeString(resultSet3.getString(2));
+						shapeList.add(shapeDO);
+					}
+
+					whiteboardDO.setShapeList(shapeList);
+					whiteboardDO.setAccountList(accountList);
+					whiteboardDO.setWbKey(wbKey);
+					whiteboardDO.setWbName(whiteboardName);
+					return whiteboardDO;
+				}
+
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);	
+					DBUtil.closeQuietly(stmt3);					
+				}
+			}
+		});	
 	}
 
 
@@ -126,7 +249,7 @@ public class DerbyDatabase implements IDatabase {
 					if (resultSet1.next())
 					{
 						accountKey = resultSet1.getInt(1);
-						System.out.println("account " + (account.getEmail()) + " found with key: " + accountKey);						
+						//System.out.println("account " + (account.getEmail()) + " found with key: " + accountKey);						
 					}
 					else
 					{
@@ -201,11 +324,11 @@ public class DerbyDatabase implements IDatabase {
 					resultSet1 = stmt1.executeQuery();
 
 
-					// if whiteboardName was found then save shape					
+					// if whiteboardName was found then save wbKey					
 					if (resultSet1.next())
 					{
 						wbKey = resultSet1.getInt(1);
-						System.out.println("whiteboardName " + whiteboardName + "found with key: " + wbKey);						
+						//System.out.println("whiteboardName " + whiteboardName + "found with key: " + wbKey);						
 					}
 					else
 					{
@@ -337,7 +460,7 @@ public class DerbyDatabase implements IDatabase {
 									"	accountKey integer primary key " +
 									"		generated always as identity (start with 1, increment by 1), " +									
 									"	email varchar(40)," +
-									"	password varchar(40)," +
+									"	password varchar(500)," +
 									"   username varchar(40)" +
 									")"
 							);	
@@ -420,7 +543,7 @@ public class DerbyDatabase implements IDatabase {
 					insertWhiteboard.executeUpdate();
 					insertWhiteboard.setString(1, whiteboardList.get(2).getWbName());
 					insertWhiteboard.executeUpdate();
-					System.out.println("created wbNames table");
+					//System.out.println("created wbNames table");
 
 					// get the primary keys from the records just inserted into wbNames for use later in wbAccounts join table
 					selectWhiteboards = conn.prepareStatement("select wbKey from wbNames");
@@ -430,16 +553,16 @@ public class DerbyDatabase implements IDatabase {
 					Integer autowbKey2=null;
 					Integer autowbKey3=null;
 					resultSet1 = selectWhiteboards.getResultSet();
-					System.out.println(resultSet1.getFetchSize());
+					//System.out.println(resultSet1.getFetchSize());
 					resultSet1.next();
 					autowbKey1 = resultSet1.getInt(1);
-					System.out.println(autowbKey1);
+					//System.out.println(autowbKey1);
 					resultSet1.next();
 					autowbKey2 = resultSet1.getInt(1);
-					System.out.println(autowbKey2);
+					//System.out.println(autowbKey2);
 					resultSet1.next();
 					autowbKey3 = resultSet1.getInt(1);
-					System.out.println(autowbKey3);
+					//System.out.println(autowbKey3);
 
 					// insert records into shape table
 					insertShape = conn.prepareStatement("insert into shapes (wbKey, shape) values (?, ?)");
@@ -455,7 +578,7 @@ public class DerbyDatabase implements IDatabase {
 					insertShape.addBatch();
 
 					insertShape.executeBatch();
-					System.out.println("created Shape table");
+					//System.out.println("created Shape table");
 
 
 					// insert records into accounts table
@@ -467,7 +590,7 @@ public class DerbyDatabase implements IDatabase {
 						insertAccount.addBatch();
 					}
 					insertAccount.executeBatch();
-					System.out.println("created Accounts table");
+					//System.out.println("created Accounts table");
 
 					// get the primary keys from the records just inserted into accounts for use later in wbAccounts join table
 					selectAccounts = conn.prepareStatement("select accountKey from accounts");
@@ -535,5 +658,138 @@ public class DerbyDatabase implements IDatabase {
 		db.loadInitialData();
 
 		System.out.println("Success!");
+	}
+
+	@Override
+	public WhiteboardDO clearWhiteboard(String whiteboardName) {
+		return executeTransaction(new Transaction<WhiteboardDO>() {
+
+			@Override
+			public WhiteboardDO execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null; // get wbKey from wbName table using whiteboardName
+				PreparedStatement stmt2 = null; // using wbKey from above, delete all shapes with that whiteboard key in wbShapes table
+				PreparedStatement stmt3 = null; // get shapeList
+				PreparedStatement stmt4 = null; // join wbAccounts with Accounts; resultset2 to fill in accounts list(all accounts assocaited with whiteboard)
+
+				ResultSet resultSet1 = null; // accountKey
+				ResultSet resultSet3 = null; 
+				ResultSet resultSet4 = null; 
+				List<ShapeDO> shapeList = new ArrayList<ShapeDO>();
+				List<AccountDO> accountList = new ArrayList<AccountDO>();
+
+				WhiteboardDO wbDO = new WhiteboardDO();
+				int wbKey = 0;
+
+
+				try {
+					stmt1 = conn.prepareStatement(
+							"select wbKey from wbNames" +
+									"  where wbName = ?  "
+							);
+					stmt1.setString(1, whiteboardName);
+
+					// execute the query, get the result
+					resultSet1 = stmt1.executeQuery(); // wbKey
+					while(resultSet1.next()){
+						wbKey = resultSet1.getInt(1);
+					}
+
+					stmt2 = conn.prepareStatement(
+							"delete from shapes" +
+									"  where wbKey = ?  "
+							);
+					stmt2.setInt(1, wbKey);
+
+					stmt2.executeUpdate();
+
+					stmt3 = conn.prepareStatement(
+							"select shapeKey, shape from shapes" +
+									" where wbKey = ? "
+							);
+					stmt3.setInt(1, wbKey);
+
+					stmt3.executeQuery(); 
+					resultSet3 = stmt3.getResultSet(); // shapeKey and shape 
+					
+					while (resultSet3.next()) { // should be empty now
+						ShapeDO shapeDO = new ShapeDO();
+						shapeDO.setShapeKey(resultSet3.getInt(1));
+						shapeDO.setShapeString(resultSet3.getString(2));
+						shapeList.add(shapeDO);
+					}
+
+					stmt4 = conn.prepareStatement(
+							"select accounts.accountKey, accounts.email, accounts.password, accounts.username from accounts,wbAccounts" +
+									" where wbAccounts.wbKey = ? and "
+									+ "wbAccounts.accountKey = accounts.accountKey"
+							);
+					stmt4.setInt(1, wbKey);
+					resultSet4 = stmt4.executeQuery();
+
+					while (resultSet4.next()) {
+						AccountDO accountDO = new AccountDO();
+						accountDO.setAccountKey(resultSet4.getInt(1));
+						accountDO.setEmail(resultSet4.getString(2));
+						accountDO.setPassword(resultSet4.getString(3));
+						accountDO.setUsername(resultSet4.getString(4));
+						accountList.add(accountDO);
+					}
+
+					wbDO.setWbKey(wbKey);
+					wbDO.setShapeList(shapeList);
+					wbDO.setAccountList(accountList);
+					wbDO.setWbName(whiteboardName);
+					return wbDO;
+				}
+
+
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(resultSet3);
+					DBUtil.closeQuietly(resultSet4);
+					DBUtil.closeQuietly(stmt1);	
+					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
+					DBUtil.closeQuietly(stmt4);
+				}
+
+			}
+		});
+	}
+
+	@Override
+	public AccountDO getAccountbyEmail(String email) {
+		return executeTransaction(new Transaction<AccountDO>() {
+
+			@Override
+			public AccountDO execute(Connection conn) throws SQLException {
+				PreparedStatement stmt1 = null; // return everything from accounts using the email passed in
+				AccountDO accountDO = new AccountDO();
+				ResultSet resultSet1 = null; // accountKey
+
+				try {
+					stmt1 = conn.prepareStatement(
+							"select accountKey, email, password, username from accounts" +
+									" where email = ? "
+							);
+					stmt1.setString(1, email);
+					resultSet1 = stmt1.executeQuery();
+
+					if(resultSet1.next()) {
+						accountDO.setAccountKey(resultSet1.getInt(1));
+						accountDO.setEmail(resultSet1.getString(2));
+						accountDO.setPassword(resultSet1.getString(3));
+						accountDO.setUsername(resultSet1.getString(4));
+					}
+					return accountDO;
+				}
+
+				finally {
+					DBUtil.closeQuietly(resultSet1);
+					DBUtil.closeQuietly(stmt1);				
+				}
+
+			}
+		});
 	}
 }

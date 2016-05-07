@@ -1,10 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WhiteboardDO {
 	private String wbName;
 	private int wbKey;
-	private ShapeDO[] shapearr;
-	private AccountDO[] accountarr;
+	private List<ShapeDO> shapeList= new ArrayList<ShapeDO>();
+	private List<AccountDO> accountList =  new ArrayList<AccountDO>();
+	
 	
 	public String getWbName() {
 		return wbName;
@@ -22,23 +26,23 @@ public class WhiteboardDO {
 		this.wbKey = wbKey;
 	}
 
-	public ShapeDO[] getShapearr() {
-		return shapearr;
-	}
-
-	public void setShapearr(ShapeDO[] shapearr) {
-		this.shapearr = shapearr;
-	}
-
-	public AccountDO[] getAccountarr() {
-		return accountarr;
-	}
-
-	public void setAccountarr(AccountDO[] accountarr) {
-		this.accountarr = accountarr;
-	}
-
 	public WhiteboardDO() {
 		
+	}
+
+	public List<ShapeDO> getShapeList() {
+		return shapeList;
+	}
+
+	public void setShapeList(List<ShapeDO> shapeList) {
+		this.shapeList = shapeList;
+	}
+
+	public List<AccountDO> getAccountList() {
+		return accountList;
+	}
+
+	public void setAccountList(List<AccountDO> accountList) {
+		this.accountList = accountList;
 	}
 }

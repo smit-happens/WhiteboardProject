@@ -10,6 +10,7 @@ public class Account {
     private final MessageSender messageSender;
     private String password;
     private String name;
+    private String email;
     private final List<Message> messages = new ArrayList<>();
 
     public List<Message> getMessages() {
@@ -67,6 +68,14 @@ public class Account {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

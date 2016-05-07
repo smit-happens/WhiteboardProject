@@ -5,26 +5,20 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * The class <code>MessageSenderTest</code> contains tests for the class <code>{@link MessageSender}</code>.
+ * The class <code>MessageSenderTest</code> contains tests for the class <code>{@link MockMessageSender}</code>.
  *
- * @generatedBy CodePro at 3/30/16 7:49 PM
  * @author carasperbeck
- * @version $Revision: 1.0 $
  */
 public class MessageSenderTest {
 	/**
 	 * Run the MessageSender(Session) constructor test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testMessageSender_1()
 		throws Exception {
 		Session session = new MockWebsocketSession();
 
-		MessageSender result = new MessageSender(session);
+		MockMessageSender result = new MockMessageSender(session);
 
 		// add additional test code here
 		assertNotNull(result);
@@ -32,15 +26,11 @@ public class MessageSenderTest {
 
 	/**
 	 * Run the String getSessionId() method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testGetSessionId_1()
 		throws Exception {
-		MessageSender fixture = new MessageSender((Session) null);
+		MockMessageSender fixture = new MockMessageSender((Session) null);
 
 		String result = fixture.getSessionId();
 
@@ -53,36 +43,11 @@ public class MessageSenderTest {
 
 	/**
 	 * Run the void sendMessage(Message) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Test
 	public void testSendMessage_1()
 		throws Exception {
-		MessageSender fixture = new MessageSender((Session) null);
-		Message message = new Message("");
-
-		fixture.sendMessage(message);
-
-		// add additional test code here
-		// An unexpected exception was thrown in user code while executing this test:
-		//    java.lang.NullPointerException
-		//       at com.pretech.test.websockets.MessageSender.sendMessage(MessageSender.java:15)
-	}
-
-	/**
-	 * Run the void sendMessage(Message) method test.
-	 *
-	 * @throws Exception
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
-	 */
-	@Test
-	public void testSendMessage_2()
-		throws Exception {
-		MessageSender fixture = new MessageSender((Session) null);
+		MockMessageSender fixture = new MockMessageSender((Session) null);
 		Message message = new Message("");
 
 		fixture.sendMessage(message);
@@ -95,11 +60,6 @@ public class MessageSenderTest {
 
 	/**
 	 * Perform pre-test initialization.
-	 *
-	 * @throws Exception
-	 *         if the initialization fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@Before
 	public void setUp()
@@ -109,11 +69,6 @@ public class MessageSenderTest {
 
 	/**
 	 * Perform post-test clean-up.
-	 *
-	 * @throws Exception
-	 *         if the clean-up fails for some reason
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	@After
 	public void tearDown()
@@ -123,10 +78,6 @@ public class MessageSenderTest {
 
 	/**
 	 * Launch the test.
-	 *
-	 * @param args the command line arguments
-	 *
-	 * @generatedBy CodePro at 3/30/16 7:49 PM
 	 */
 	public static void main(String[] args) {
 		new org.junit.runner.JUnitCore().run(MessageSenderTest.class);
