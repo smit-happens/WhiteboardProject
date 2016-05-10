@@ -40,10 +40,14 @@
         </div>
 
         <div id="toolBar" ondragstart="return false;" ondrop="return false;">
-            <a class="button" href="test.html">Test Page</a>
+            <!--<a class="button" href="test.html">Test Page</a>
             <button id="logout" onclick="logout()">Logout</button>
-            <button id="deleteAccount" onclick="broadcastDeleteAccount()">Delete Account</button>
+            <button id="deleteAccount" onclick="broadcastDeleteAccount()">Delete Account</button> -->
             <table id="tools">
+                <tr>
+                    <td><button id="logout" onclick="logout()">Logout</button></td>
+                    <td><button id="deleteAccount" onclick="broadcastDeleteAccount()">Delete Account</button></td>
+                </tr>
                 <tr>
                     <td><button  class="tool" onclick="clearCanvas();">Clear Board</button></td>
                     <td><button  class="tool" onclick="changeColor();">Random Color</button></td>
