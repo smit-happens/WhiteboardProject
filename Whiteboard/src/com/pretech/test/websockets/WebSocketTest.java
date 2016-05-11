@@ -65,14 +65,14 @@ public class WebSocketTest {
 			System.out.println("email= " + email);
 			System.out.println("password= "+ password);
 			AccountDO accountDO = new AccountDO();
-			accountDO = db.getAccountbyEmail(email); // null if invalid account
+			accountDO = db.getAccountbyEmail(email); 
 			System.out.println("accountDO.getPassword()= "+ accountDO.getPassword());
 			int wbKey=0;
 			Account account = whiteboard.getAccountbySessionID(session.getId());
 			System.out.println("account.getMessageSender().getSessionId() = "+ account.getMessageSender().getSessionId() );
 			WhiteboardDO whiteboardDO= db.getWhiteboard(whiteboard.getName());
 			System.out.println("whiteboardDO.getShapeList().size()= "+ whiteboardDO.getShapeList().size());
-			if(accountDO != null){
+			if(accountDO.getAccountKey() > 0){
 				if(accountDO.getPassword().equals(password)){ 
 					if(account.getMessageSender().getSessionId() != null){ // always check this
 						if(whiteboard.getNumberOfAccounts()==1){ // only get the whiteboard for the first user to log on

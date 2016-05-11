@@ -1,4 +1,4 @@
-var webSocket = new WebSocket('ws://localhost:8080/Whiteboard/websocket');
+var webSocket = new WebSocket('ws://192.168.170.80:8080/Whiteboard/websocket');
 
 var userEmail ="";
 
